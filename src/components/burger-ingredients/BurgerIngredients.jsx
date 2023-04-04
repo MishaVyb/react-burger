@@ -4,10 +4,10 @@ import NavBar from './NavBar'
 import IngredientsList from './IngredientsList'
 import json from '../../utils/data'
 
-const BurgerIngredients = props => {
-  const bunItems = json.filter(v => v.type === 'bun')
-  const sauceItems = json.filter(v => v.type === 'sauce')
-  const mainItems = json.filter(v => v.type === 'main')
+const BurgerIngredients = (props) => {
+  const bunItems = json.filter((v) => v.type === 'bun')
+  const sauceItems = json.filter((v) => v.type === 'sauce')
+  const mainItems = json.filter((v) => v.type === 'main')
 
   return (
     <div
@@ -21,24 +21,23 @@ const BurgerIngredients = props => {
         display: 'flex',
         flexDirection: 'column',
         // overflowY: 'scroll'
-      }}>
-      <NavBar/>
+      }}
+    >
+      <NavBar />
       <div
         className='custom-scroll'
         style={{
-          overflowY: 'scroll'
-        }}>
-        <IngredientsList items={bunItems} title='Булки'/>
-        <IngredientsList items={sauceItems} title='Соусы'/>
-        <IngredientsList items={mainItems} title='Начинки'/>
+          overflowY: 'scroll',
+        }}
+      >
+        <IngredientsList items={bunItems} title='Булки' />
+        <IngredientsList items={sauceItems} title='Соусы' />
+        <IngredientsList items={mainItems} title='Начинки' />
       </div>
-
     </div>
   )
 }
 
-BurgerIngredients.propTypes = {
-
-}
+BurgerIngredients.propTypes = {}
 
 export default BurgerIngredients

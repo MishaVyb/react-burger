@@ -5,25 +5,23 @@ import json from '../../utils/data'
 import BurgerElement from './BurgerElement'
 
 // TODO raname: ConstructorList
-const ElementsList = ({items}) => {
-
+const ElementsList = ({ items }) => {
   return (
     <div
       className='custom-scroll'
       style={{
         display: 'flex',
         flexDirection: 'column',
-        overflowY: 'scroll'
-      }}>
-      {
-        items.map((v, i) => (<BurgerElement key={v._id} item={v} arrangement={null} />))
-      }
+        overflowY: 'scroll',
+      }}
+    >
+      {items.map((v, i) => (
+        <BurgerElement key={v._id} item={v} arrangement={null} />
+      ))}
     </div>
   )
 }
 
-ElementsList.propTypes = {
-
-}
+ElementsList.propTypes = {}
 
 export default ElementsList

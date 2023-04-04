@@ -4,7 +4,7 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import CurrencyView from '../../UI/CurrencyView'
 
 // TODO raname: ConstructorTotal
-const ElementsTotal = props => {
+const ElementsTotal = (props) => {
   const total = 610
 
   return (
@@ -14,18 +14,15 @@ const ElementsTotal = props => {
         display: 'flex',
         flexDirection: 'row-reverse',
         alignItems: 'center',
-        gap: 20
-      }}>
+        gap: 20,
+      }}
+    >
       <Button>Оформить заказ</Button>
-      <CurrencyView number={total} size='medium'/>
-
-
+      <CurrencyView number={total} size='medium' />
     </div>
   )
 }
 
-ElementsTotal.propTypes = {
-
-}
+ElementsTotal.propTypes = {}
 
 export default ElementsTotal

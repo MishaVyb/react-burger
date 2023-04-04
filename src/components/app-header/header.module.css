@@ -1,13 +1,12 @@
-
 .container {
-    display: flex;
-    background: #1C1C21;
-    justify-content: space-around;
-    align-items: center;
-  }
+  display: flex;
+  background: #1c1c21;
+  justify-content: space-around;
+  align-items: center;
+}
 
 /* UNUSED */
 .container_links {
-      display: flex;
-      align-items: center;
-    }
+  display: flex;
+  align-items: center;
+}

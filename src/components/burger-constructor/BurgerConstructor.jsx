@@ -5,7 +5,7 @@ import json from '../../utils/data'
 import BurgerElement from './BurgerElement'
 import ElementsTotal from './ElementsTotal'
 
-const BurgerConstuctor = props => {
+const BurgerConstructor = (props) => {
   const topItem = json.at(0)
   const bottomItem = json.at(-1)
   const middleItems = json.slice(1, -1)
@@ -24,18 +24,16 @@ const BurgerConstuctor = props => {
         flexDirection: 'column',
         // justifyContent: 'center'
         // alignItems: 'center'
-      }}>
-
-      <BurgerElement item={topItem} arrangement='top'/>
-      <ElementsList items={middleItems}/>
-      <BurgerElement item={bottomItem} arrangement='bottom'/>
-      <ElementsTotal/>
+      }}
+    >
+      <BurgerElement item={topItem} arrangement='top' />
+      <ElementsList items={middleItems} />
+      <BurgerElement item={bottomItem} arrangement='bottom' />
+      <ElementsTotal />
     </div>
   )
 }
 
-BurgerConstuctor.propTypes = {
+BurgerConstructor.propTypes = {}
 
-}
-
-export default BurgerConstuctor
+export default BurgerConstructor
