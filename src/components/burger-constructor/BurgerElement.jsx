@@ -21,6 +21,15 @@ const BurgerElement = ({ item, arrangement }) => {
   )
 }
 
-BurgerElement.propTypes = {}
+const BurgerElementType = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  image_mobile: PropTypes.string.isRequired,
+})
 
-export default BurgerElement
+BurgerElement.propTypes = {
+  item: BurgerElementType.isRequired,
+  arrangement: PropTypes.oneOf(['top', 'bottom']),
+}
+
+export { BurgerElement, BurgerElementType }

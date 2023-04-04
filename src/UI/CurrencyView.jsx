@@ -12,7 +12,10 @@ const CurrencyView = ({ number, size }) => {
   )
 }
 
-CurrencyView.propTypes = {}
+CurrencyView.propTypes = {
+  number: PropTypes.number.isRequired,
+  size: PropTypes.oneOf(['default', 'medium', 'large'])
+}
 
 CurrencyView.defaultProps = {
   size: 'default',

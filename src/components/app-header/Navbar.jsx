@@ -6,6 +6,8 @@ const Navbar = (props) => {
   return <nav className={styles.container}>{props.children}</nav>
 }
 
-Navbar.propTypes = {}
+Navbar.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element).isRequired
+}
 
 export default Navbar

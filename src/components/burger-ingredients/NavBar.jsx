@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './styles.module.css'
 
-const NavBar = (props) => {
+const NavBar = () => {
   const [current, setCurrent] = React.useState('one')
   return (
     <>

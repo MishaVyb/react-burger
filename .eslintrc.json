@@ -6,7 +6,7 @@
     "node": true
   },
   "extends": [
-    // "plugin:@typescript-eslint/recommended" // TODO: typescript is not implemented yet
+    // "plugin:@typescript-eslint/recommended" // TODO: typescript is not applied yet
     "react-app",
     "eslint:recommended",
     "plugin:react/recommended",
@@ -20,7 +20,7 @@
   },
   "plugins": ["react"],
   "rules": {
-    "react/prop-types": "off",
+    // "react/prop-types": "on",
     "no-unused-vars": "off",
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],

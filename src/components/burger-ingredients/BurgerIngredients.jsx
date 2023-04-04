@@ -5,7 +5,7 @@ import IngredientsList from './IngredientsList'
 import json from '../../utils/data'
 import styles from './styles.module.css'
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = () => {
   const bunItems = json.filter(v => v.type === 'bun')
   const sauceItems = json.filter(v => v.type === 'sauce')
   const mainItems = json.filter(v => v.type === 'main')

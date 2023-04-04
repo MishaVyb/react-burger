@@ -12,6 +12,9 @@ const NavLink = ({ title, children }) => {
   )
 }
 
-NavLink.propTypes = {}
+NavLink.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.element.isRequired
+}
 
 export default NavLink

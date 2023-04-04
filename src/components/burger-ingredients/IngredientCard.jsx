@@ -15,6 +15,15 @@ const IngredientCard = ({ item, count }) => {
   )
 }
 
-IngredientCard.propTypes = {}
+const BurgerIngredientType = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+})
 
-export default IngredientCard
+IngredientCard.propTypes = {
+  item: BurgerIngredientType.isRequired,
+  count: PropTypes.number
+}
+
+export {IngredientCard, BurgerIngredientType}

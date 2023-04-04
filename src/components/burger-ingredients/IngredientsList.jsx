@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import IngredientCard from './IngredientCard'
+import { IngredientCard, BurgerIngredientType } from './IngredientCard'
 import styles from './styles.module.css'
-
 
 const IngredientsList = ({ items, title }) => {
   return (
@@ -19,6 +18,9 @@ const IngredientsList = ({ items, title }) => {
   )
 }
 
-IngredientsList.propTypes = {}
+IngredientsList.propTypes = {
+  items: PropTypes.arrayOf(BurgerIngredientType).isRequired,
+  title: PropTypes.string,
+}
 
 export default IngredientsList
