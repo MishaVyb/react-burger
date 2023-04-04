@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './styles.module.css'
 
-
 const BurgerElement = ({ item, arrangement }) => {
   return (
     <div className={`mt-2 mb-2 ${styles.element}`}>

@@ -23,7 +23,7 @@ const BurgerIngredientType = PropTypes.shape({
 
 IngredientCard.propTypes = {
   item: BurgerIngredientType.isRequired,
-  count: PropTypes.number
+  count: PropTypes.number,
 }
 
-export {IngredientCard, BurgerIngredientType}
+export { IngredientCard, BurgerIngredientType }

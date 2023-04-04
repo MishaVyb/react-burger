@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { BurgerElement, BurgerElementType } from './BurgerElement'
 import styles from './styles.module.css'
 
-
 const ElementsList = ({ items }) => {
   return (
     <div className={`custom-scroll ${styles.list}`}>

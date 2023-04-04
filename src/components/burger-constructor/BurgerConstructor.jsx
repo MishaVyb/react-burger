@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ElementsList from './ElementsList'
 import json from '../../utils/data'
-import {BurgerElement} from './BurgerElement'
+import { BurgerElement } from './BurgerElement'
 import ElementsTotal from './ElementsTotal'
 import styles from './styles.module.css'
 

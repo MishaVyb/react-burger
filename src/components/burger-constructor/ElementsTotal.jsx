@@ -4,7 +4,6 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import CurrencyView from '../../UI/CurrencyView'
 import styles from './styles.module.css'
 
-
 const ElementsTotal = () => {
   const total = 610
 
