@@ -4,9 +4,3 @@
   justify-content: space-around;
   align-items: center;
 }
-
-/* UNUSED */
-.container_links {
-  display: flex;
-  align-items: center;
-}

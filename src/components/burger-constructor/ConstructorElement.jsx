@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './styles.module.css'
 
 
-const BurgerElement = ({ item, arrangement }) => {
+const ConstructorElement = ({ item, arrangement }) => {
   return (
     <div className={`mt-2 mb-2 ${styles.element}`}>
       {arrangement ? <></> : <DragIcon type='primary' />}
@@ -21,15 +21,15 @@ const BurgerElement = ({ item, arrangement }) => {
   )
 }
 
-const BurgerElementType = PropTypes.shape({
+const ConstructorElementType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   image_mobile: PropTypes.string.isRequired,
 })
 
-BurgerElement.propTypes = {
-  item: BurgerElementType.isRequired,
+ConstructorElement.propTypes = {
+  item: ConstructorElementType.isRequired,
   arrangement: PropTypes.oneOf(['top', 'bottom']),
 }
 
-export { BurgerElement, BurgerElementType }
+export { ConstructorElement, ConstructorElementType }

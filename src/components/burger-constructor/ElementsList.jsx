@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { BurgerElement, BurgerElementType } from './BurgerElement'
 import styles from './styles.module.css'
 
-// TODO rename: ConstructorList
+
 const ElementsList = ({ items }) => {
   return (
     <div className={`custom-scroll ${styles.list}`}>
