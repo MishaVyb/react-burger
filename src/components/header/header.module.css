@@ -1,0 +1,10 @@
+
+.container {
+    display: flex;
+    background: #1C1C21;
+    justify-content: space-around;
+
+
+
+    /* padding: 10px; */
+  }
