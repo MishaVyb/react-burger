@@ -32,7 +32,7 @@ const IngredientCard = ({item, count}) => {
       }
       <img className='ml-2 mr-2' src={item.image}/>
       <CurrencyView number={item.price} />
-      <p style={{textAlign: 'center'}} className="text text_type_main-small mb-4">{item.name}</p>
+      <p style={{textAlign: 'center'}} className="text text_type_main-small mt-1 mb-4">{item.name}</p>
     </div>
   )
 }

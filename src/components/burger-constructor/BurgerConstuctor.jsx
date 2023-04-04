@@ -13,13 +13,13 @@ const BurgerConstuctor = props => {
 
   return (
     <div
-      className='pt-25 pl-4 pr-4 custom-scroll'
+      className='pt-25 pb-10 pl-4 pr-4 custom-scroll'
       style={{
         border: '2px solid #4C4CFF',
         background: '#131316',
         //
         width: 600,
-        
+
         display: 'flex',
         flexDirection: 'column',
         // justifyContent: 'center'

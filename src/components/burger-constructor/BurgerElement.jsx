@@ -11,7 +11,7 @@ const BurgerElement = ({item, arrangement}) => {
       <div className={arrangement ? 'ml-8' : 'ml-2'}>
         <ConstructorElement
           type={arrangement}
-          isLocked={true}
+          isLocked={arrangement}
           text={item.name}
           price={item.price}
           thumbnail={item.image_mobile}

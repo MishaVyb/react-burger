@@ -4,8 +4,7 @@ import json from '../../utils/data'
 import IngredientCard from './IngredientCard'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
-const IngredientsList = ({title}) => {
-  const items = json.slice(0, 3)
+const IngredientsList = ({items, title}) => {
 
   return (
     <div className='mt-5 mb-5'>
