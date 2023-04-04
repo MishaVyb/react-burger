@@ -1,0 +1,22 @@
+.container {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.element {
+  display: flex;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.total {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}

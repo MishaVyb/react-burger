@@ -2,22 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import CurrencyView from '../../UI/CurrencyView'
+import styles from './styles.module.css'
 
-// TODO raname: ConstructorTotal
+// TODO rename: ConstructorTotal
 const ElementsTotal = (props) => {
   const total = 610
 
   return (
-    <div
-      className='mt-10'
-      style={{
-        display: 'flex',
-        flexDirection: 'row-reverse',
-        alignItems: 'center',
-        gap: 20,
-      }}
-    >
-      <Button>Оформить заказ</Button>
+    <div className={`mt-10 ${styles.total}`}>
+      <Button extraClass='ml-10'>Оформить заказ</Button>
       <CurrencyView number={total} size='medium' />
     </div>
   )

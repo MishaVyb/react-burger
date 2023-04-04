@@ -1,22 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import json from '../../utils/data'
 import BurgerElement from './BurgerElement'
+import styles from './styles.module.css'
 
-// TODO raname: ConstructorList
+// TODO rename: ConstructorList
 const ElementsList = ({ items }) => {
   return (
-    <div
-      className='custom-scroll'
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        overflowY: 'scroll',
-      }}
-    >
-      {items.map((v, i) => (
-        <BurgerElement key={v._id} item={v} arrangement={null} />
+    <div className={`custom-scroll ${styles.list}`}>
+      {items.map(v => (
+        <BurgerElement key={v._id} item={v} />
       ))}
     </div>
   )

@@ -4,6 +4,7 @@ import ElementsList from './ElementsList'
 import json from '../../utils/data'
 import BurgerElement from './BurgerElement'
 import ElementsTotal from './ElementsTotal'
+import styles from './styles.module.css'
 
 const BurgerConstructor = (props) => {
   const topItem = json.at(0)
@@ -13,18 +14,7 @@ const BurgerConstructor = (props) => {
 
   return (
     <div
-      className='pt-25 pb-10 pl-4 pr-4 custom-scroll'
-      style={{
-        border: '2px solid #4C4CFF',
-        background: '#131316',
-        //
-        width: 600,
-
-        display: 'flex',
-        flexDirection: 'column',
-        // justifyContent: 'center'
-        // alignItems: 'center'
-      }}
+      className={`pt-25 pb-10 pl-4 pr-4 custom-scroll ${styles.container}`}
     >
       <BurgerElement item={topItem} arrangement='top' />
       <ElementsList items={middleItems} />

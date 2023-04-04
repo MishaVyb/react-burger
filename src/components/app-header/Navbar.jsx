@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import style from './header.module.css'
+import styles from './styles.module.css'
 
 const Navbar = (props) => {
-  return <nav className={style.container}>{props.children}</nav>
+  return <nav className={styles.container}>{props.children}</nav>
 }
 
 Navbar.propTypes = {}

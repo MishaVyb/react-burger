@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import styles from './styles.module.css'
 
-// TODO raname: ConstructorElement
+// TODO rename: ConstructorElement
 const BurgerElement = ({ item, arrangement }) => {
   return (
-    <div className='mt-2 mb-2' style={{ display: 'flex', alignItems: 'center' }}>
+    <div className={`mt-2 mb-2 ${styles.element}`}>
       {arrangement ? <></> : <DragIcon type='primary' />}
       <div className={arrangement ? 'ml-8' : 'ml-2'}>
         <ConstructorElement
