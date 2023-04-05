@@ -10,7 +10,7 @@ const BurgerElement = ({ item, arrangement }) => {
       <ConstructorElement
         type={arrangement}
         isLocked={arrangement}
-        text={item.name}
+        text={item.name + (arrangement ? (arrangement === 'top' ? ' (верх)' : ' (низ)') : '')}
         price={item.price}
         thumbnail={item.image_mobile}
         extraClass={arrangement ? `ml-8 ${styles.element_inner}` : `ml-2 ${styles.element_inner}`}
