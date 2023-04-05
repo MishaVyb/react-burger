@@ -7,15 +7,14 @@ const BurgerElement = ({ item, arrangement }) => {
   return (
     <div className={`mt-2 mb-2 ${styles.element}`}>
       {arrangement ? <></> : <DragIcon type='primary' />}
-      <div className={arrangement ? 'ml-8' : 'ml-2'}>
-        <ConstructorElement
-          type={arrangement}
-          isLocked={arrangement}
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image_mobile}
-        />
-      </div>
+      <ConstructorElement
+        type={arrangement}
+        isLocked={arrangement}
+        text={item.name}
+        price={item.price}
+        thumbnail={item.image_mobile}
+        extraClass={arrangement ? `ml-8 ${styles.element_inner}` : `ml-2 ${styles.element_inner}`}
+      />
     </div>
   )
 }

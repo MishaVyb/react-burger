@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.element_inner {
+  flex-basis: 100%;
+}
+
 .list {
   display: flex;
   flex-direction: column;
