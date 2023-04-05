@@ -6,7 +6,7 @@ import styles from './styles.module.css'
 const Tabs = {
   BUN: 'bun',
   SAUCE: 'sauce',
-  MAIN: 'main'
+  MAIN: 'main',
 }
 
 const NavBar = () => {
