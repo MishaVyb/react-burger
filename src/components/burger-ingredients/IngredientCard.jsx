@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 const IngredientCard = ({ item, count }) => {
   return (
     <div className={`m-3 ${styles.card}`}>
-      {count ? <Counter count={count} size='default' extraClass='m-1' /> : <></>}
+      {count ? <Counter count={count} size='default' extraClass='m-1' /> : null}
       <img className='ml-2 mr-2' src={item.image} alt='' />
       <CurrencyView number={item.price} />
       <p className={`text text_type_main-small mt-1 mb-4 ${styles.align}`}>{item.name}</p>

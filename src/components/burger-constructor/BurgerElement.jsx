@@ -6,7 +6,7 @@ import styles from './styles.module.css'
 const BurgerElement = ({ item, arrangement }) => {
   return (
     <div className={`mt-2 mb-2 ${styles.element}`}>
-      {arrangement ? <></> : <DragIcon type='primary' />}
+      {arrangement ? null : <DragIcon type='primary' />}
       <ConstructorElement
         type={arrangement}
         isLocked={arrangement}

@@ -17,6 +17,4 @@ const ElementsTotal = () => {
   )
 }
 
-ElementsTotal.propTypes = {}
-
 export default ElementsTotal

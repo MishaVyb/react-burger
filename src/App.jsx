@@ -9,8 +9,10 @@ function App() {
   return (
     <main className={style.container}>
       <AppHeader />
+      {/* <main className={style.aaa}> */}
       <BurgerIngredients />
       <BurgerConstructor />
+      {/* </main> */}
     </main>
   )
 }

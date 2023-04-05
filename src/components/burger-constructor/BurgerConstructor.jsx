@@ -21,6 +21,4 @@ const BurgerConstructor = () => {
   )
 }
 
-BurgerConstructor.propTypes = {}
-
 export default BurgerConstructor
