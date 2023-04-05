@@ -7,13 +7,11 @@ import style from './app.module.css'
 
 function App() {
   return (
-    <>
+    <main className={style.container}>
       <AppHeader />
-      <main className={style.container}>
-        <BurgerIngredients />
-        <BurgerConstructor />
-      </main>
-    </>
+      <BurgerIngredients />
+      <BurgerConstructor />
+    </main>
   )
 }
 

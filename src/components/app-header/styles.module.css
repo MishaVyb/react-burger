@@ -1,6 +1,36 @@
 .container {
   display: flex;
   background: #1c1c21;
-  justify-content: space-around;
+  justify-content: center;
+  flex-basis: 100%;
+}
+
+header {
+  display: flex;
   align-items: center;
+  width: 1280px;
+}
+
+.navbar_left {
+  flex-grow: 0;
+
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar_right {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
 }
