@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { IngredientCard, BurgerIngredientType } from './IngredientCard'
+import { IngredientCard, BurgerIngredientType } from './ingredient-card'
 import styles from './styles.module.css'
 
 const IngredientsList = ({ items, title }) => {

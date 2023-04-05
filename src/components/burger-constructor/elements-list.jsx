@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { BurgerElement, BurgerElementType } from './BurgerElement'
+import { BurgerElement, BurgerElementType } from './burger-element'
 import styles from './styles.module.css'
 
 const ElementsList = ({ items }) => {

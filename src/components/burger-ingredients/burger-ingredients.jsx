@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import NavBar from './NavBar'
-import IngredientsList from './IngredientsList'
+import NavBar from './ingredients-navbar'
+import IngredientsList from './ingredients-list'
 import json from '../../utils/data'
 import styles from './styles.module.css'
 

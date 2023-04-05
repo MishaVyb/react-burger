@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ElementsList from './ElementsList'
+import ElementsList from './elements-list'
 import json from '../../utils/data'
-import { BurgerElement } from './BurgerElement'
-import ElementsTotal from './ElementsTotal'
+import { BurgerElement } from './burger-element'
+import ElementsTotal from './elements-total'
 import styles from './styles.module.css'
 
 const BurgerConstructor = () => {
