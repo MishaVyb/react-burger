@@ -4,10 +4,10 @@ import styles from './styles.module.css'
 
 const NavLink = ({ title, children }) => {
   return (
-    <div className={`pl-5 pr-5 ${styles.link}`}>
+    <a className={`pl-5 pr-5 ${styles.link}`} href='/'>
       {children}
       <p className='text text_type_main-default ml-2'>{title}</p>
-    </div>
+    </a>
   )
 }
 
