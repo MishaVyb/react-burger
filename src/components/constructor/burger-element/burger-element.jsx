@@ -5,17 +5,16 @@ import styles from './styles.module.css'
 
 const BurgerElement = ({ item, arrangement }) => {
   return (
-    <div className={`mt-2 mb-2 ${styles.element}`}>
-      {arrangement ? <></> : <DragIcon type='primary' />}
-      <div className={arrangement ? 'ml-8' : 'ml-2'}>
-        <ConstructorElement
-          type={arrangement}
-          isLocked={arrangement}
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image_mobile}
-        />
-      </div>
+    <div className={`mt-2 mb-2 ${styles.container}`}>
+      {arrangement ? null : <DragIcon type='primary' />}
+      <ConstructorElement
+        type={arrangement}
+        isLocked={arrangement}
+        text={item.name + (arrangement ? (arrangement === 'top' ? ' (верх)' : ' (низ)') : '')}
+        price={item.price}
+        thumbnail={item.image_mobile}
+        extraClass={arrangement ? `ml-8 ${styles.item}` : `ml-2 ${styles.item}`}
+      />
     </div>
   )
 }

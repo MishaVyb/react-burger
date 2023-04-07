@@ -1,12 +1,10 @@
 .container {
-  width: 600px;
-  display: flex;
-  flex-direction: column;
-}
-
-.element {
   display: flex;
   align-items: center;
+}
+
+.item {
+  flex-basis: 100%;
 }
 
 .list {

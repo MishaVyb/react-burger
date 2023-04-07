@@ -5,7 +5,7 @@ import styles from './styles.module.css'
 
 const CurrencyView = ({ number, size }) => {
   return (
-    <div className={styles.currency}>
+    <div className={styles.container}>
       <p className={`text text_type_digits-${size} mr-2`}>{number}</p>
       <CurrencyIcon type='primary' />
     </div>

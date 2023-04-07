@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import NavBar from './NavBar'
-import IngredientsList from './IngredientsList'
-import json from '../../utils/data'
+import NavBar from '../navbar/navbar'
+import IngredientsList from '../ingredients-list/ingredients-list'
+import json from '../../../utils/data'
 import styles from './styles.module.css'
 
 const BurgerIngredients = () => {
@@ -21,7 +21,5 @@ const BurgerIngredients = () => {
     </section>
   )
 }
-
-BurgerIngredients.propTypes = {}
 
 export default BurgerIngredients
