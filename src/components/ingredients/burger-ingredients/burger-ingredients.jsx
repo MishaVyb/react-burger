@@ -5,10 +5,15 @@ import IngredientsList from '../ingredients-list/ingredients-list'
 import json from '../../../utils/data'
 import styles from './styles.module.css'
 
-const BurgerIngredients = () => {
-  const bunItems = json.filter((v) => v.type === 'bun')
-  const sauceItems = json.filter((v) => v.type === 'sauce')
-  const mainItems = json.filter((v) => v.type === 'main')
+const BurgerIngredients = ({ ingredients }) => {
+  if (!ingredients.length) {
+    return <></>
+  }
+
+  // TODO useMemo
+  const bunItems = ingredients.filter((v) => v.type === 'bun')
+  const sauceItems = ingredients.filter((v) => v.type === 'sauce')
+  const mainItems = ingredients.filter((v) => v.type === 'main')
 
   return (
     <section className={`pt-10 mr-5 ${styles.container}`}>
@@ -21,5 +26,10 @@ const BurgerIngredients = () => {
     </section>
   )
 }
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.array // TODO arrayOf
+}
+
 
 export default BurgerIngredients
