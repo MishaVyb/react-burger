@@ -1,9 +1,9 @@
 import React from 'react'
 import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import Navbar from './header-navbar'
-import NavLink from './navlink'
+import NavLink from '../navlink/navlink'
 import styles from './styles.module.css'
+import Navbar from '../navbar/navbar'
 
 const AppHeader = () => {
   return (

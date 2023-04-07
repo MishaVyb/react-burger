@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import CurrencyView from '../../UI/currency-view'
+import CurrencyView from '../../../UI/currency-view/currency-view'
 import styles from './styles.module.css'
 
 const ElementsTotal = () => {
   const total = 610
 
   return (
-    <div className={`mt-10 ${styles.total}`}>
+    <div className={`mt-10 ${styles.container}`}>
       <Button extraClass='ml-5' htmlType='button'>
         Оформить заказ
       </Button>

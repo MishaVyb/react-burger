@@ -29,10 +29,3 @@ header {
   display: flex;
   justify-content: flex-end;
 }
-
-.link {
-  display: flex;
-  justify-content: center;
-  text-decoration: none;
-  color: inherit;
-}

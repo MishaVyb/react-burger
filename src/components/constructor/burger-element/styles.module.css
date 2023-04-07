@@ -1,16 +1,9 @@
 .container {
-  width: 600px;
-  height: 75vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.element {
   display: flex;
   align-items: center;
 }
 
-.element_inner {
+.item {
   flex-basis: 100%;
 }
 

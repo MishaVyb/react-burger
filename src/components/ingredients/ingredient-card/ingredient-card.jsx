@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CurrencyView from '../../UI/currency-view'
+import CurrencyView from '../../../UI/currency-view/currency-view'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './styles.module.css'
 
