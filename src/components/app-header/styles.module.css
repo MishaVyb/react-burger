@@ -33,4 +33,6 @@ header {
 .link {
   display: flex;
   justify-content: center;
+  text-decoration: none;
+  color: inherit;
 }
