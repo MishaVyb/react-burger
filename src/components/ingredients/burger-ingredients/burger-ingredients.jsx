@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import NavBar from '../navbar/navbar'
 import IngredientsList from '../ingredients-list/ingredients-list'
@@ -6,14 +6,16 @@ import styles from './styles.module.css'
 import BurgerIngredientType from '../../../utils/types'
 
 const BurgerIngredients = ({ ingredients }) => {
+  const [bunItems, sauceItems, mainItems] = useMemo(() => {
+    const bunItems = ingredients.filter((v) => v.type === 'bun')
+    const sauceItems = ingredients.filter((v) => v.type === 'sauce')
+    const mainItems = ingredients.filter((v) => v.type === 'main')
+    return [bunItems, sauceItems, mainItems]
+  }, [ingredients])
+
   if (!ingredients.length) {
     return <></>
   }
-
-  // TODO useMemo
-  const bunItems = ingredients.filter((v) => v.type === 'bun')
-  const sauceItems = ingredients.filter((v) => v.type === 'sauce')
-  const mainItems = ingredients.filter((v) => v.type === 'main')
 
   return (
     <section className={`pt-10 mr-5 ${styles.container}`}>
@@ -28,8 +30,7 @@ const BurgerIngredients = ({ ingredients }) => {
 }
 
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(BurgerIngredientType)
+  ingredients: PropTypes.arrayOf(BurgerIngredientType),
 }
-
 
 export default BurgerIngredients
