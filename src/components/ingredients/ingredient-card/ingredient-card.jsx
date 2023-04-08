@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import CurrencyView from '../../../UI/currency-view/currency-view'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './styles.module.css'
+import BurgerIngredientType from '../../../utils/types'
 
 const IngredientCard = ({ item, count }) => {
   return (
@@ -15,15 +16,9 @@ const IngredientCard = ({ item, count }) => {
   )
 }
 
-const BurgerIngredientType = PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-})
-
 IngredientCard.propTypes = {
-  item: BurgerIngredientType.isRequired,
+  item: BurgerIngredientType,
   count: PropTypes.number,
 }
 
-export { IngredientCard, BurgerIngredientType }
+export default IngredientCard

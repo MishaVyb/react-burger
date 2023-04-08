@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import NavBar from '../navbar/navbar'
 import IngredientsList from '../ingredients-list/ingredients-list'
-import json from '../../../utils/data'
 import styles from './styles.module.css'
+import BurgerIngredientType from '../../../utils/types'
 
 const BurgerIngredients = ({ ingredients }) => {
   if (!ingredients.length) {
@@ -28,7 +28,7 @@ const BurgerIngredients = ({ ingredients }) => {
 }
 
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.array // TODO arrayOf
+  ingredients: PropTypes.arrayOf(BurgerIngredientType)
 }
 
 

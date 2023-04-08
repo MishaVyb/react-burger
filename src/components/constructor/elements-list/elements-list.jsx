@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { BurgerElement, BurgerElementType } from '../burger-element/burger-element'
+import BurgerElement from '../burger-element/burger-element'
 import styles from './styles.module.css'
+import BurgerIngredientType from '../../../utils/types'
 
 const ElementsList = ({ items }) => {
   return (
@@ -14,7 +15,7 @@ const ElementsList = ({ items }) => {
 }
 
 ElementsList.propTypes = {
-  items: PropTypes.arrayOf(BurgerElementType),
+  items: PropTypes.arrayOf(BurgerIngredientType),
 }
 
 export default ElementsList

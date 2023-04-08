@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ElementsList from '../elements-list/elements-list'
-import json from '../../../utils/data'
-import { BurgerElement } from '../burger-element/burger-element'
+import BurgerElement from '../burger-element/burger-element'
 import ElementsTotal from '../elements-total/elements-total'
 import styles from './styles.module.css'
+import BurgerIngredientType from '../../../utils/types'
 
 const BurgerConstructor = ({ ingredients }) => {
   if (!ingredients.length) {
@@ -26,7 +26,7 @@ const BurgerConstructor = ({ ingredients }) => {
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.array // TODO arrayOf
+  ingredients: PropTypes.arrayOf(BurgerIngredientType)
 }
 
 

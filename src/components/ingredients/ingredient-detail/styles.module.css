@@ -12,3 +12,7 @@
 .ingredient_composition {
   display: flex;
 }
+
+.ingredient_composition_item {
+  text-align: center;
+}

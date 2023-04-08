@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { IngredientCard, BurgerIngredientType } from '../ingredient-card/ingredient-card'
+import IngredientCard from '../ingredient-card/ingredient-card'
 
 import Modal from '../../../UI/modal/modal'
 import IngredientDetail from '../ingredient-detail/ingredient-detail'
 import styles from './styles.module.css'
+import BurgerIngredientType from '../../../utils/types'
 
 const IngredientsList = ({ items, title }) => {
   return (

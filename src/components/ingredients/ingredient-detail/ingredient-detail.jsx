@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { BurgerIngredientType } from '../ingredient-card/ingredient-card'
 import styles from './styles.module.css'
+import BurgerIngredientType from '../../../utils/types'
 
 const INGREDIENT_UNITS_MAPPING = {
   calories: 'Калории, ккал',
   proteins: 'Белки, г',
-  fat: 'Жири, г',
+  fat: 'Жиры, г',
   carbohydrates: 'Углеводы, г',
 }
 
@@ -20,10 +20,10 @@ const IngredientDetail = ({ item }) => {
         {Object.entries(INGREDIENT_UNITS_MAPPING).map(([k, v], i) => {
           return (
             <div className='m-3' key={k}>
-              <p className={`text text_type_main-small text_color_inactive ${styles.aaa}`}>
+              <p className={`text text_type_main-small text_color_inactive ${styles.ingredient_composition_item}`}>
                 {v}
               </p>
-              <p className={`text text_type_main-small text_color_inactive ${styles.aaa}`}>
+              <p className={`text text_type_main-small text_color_inactive ${styles.ingredient_composition_item}`}>
                 {item[k]}
               </p>
             </div>

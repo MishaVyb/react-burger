@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button, CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { createPortal } from 'react-dom'
+
+import ModalOverlay from '../modal-overlay/modal-overlay'
 import styles from './styles.module.css'
 
-/* eslint react/prop-types: 0 */
 const Modal = ({ triggerElement, children }) => {
   const [show, setShow] = useState(false)
 
@@ -20,7 +21,7 @@ const Modal = ({ triggerElement, children }) => {
 
   const modalWrapper = (
     <>
-      <div className={styles.overlay}></div>
+      <ModalOverlay />
       <div className={styles.wrapper} onClick={close}>
         <section className={`p-10 pb-15 ${styles.modal}`} onClick={(e) => e.stopPropagation()}>
           <div className={`m-10 ${styles.close}`}>
@@ -31,18 +32,21 @@ const Modal = ({ triggerElement, children }) => {
       </div>
     </>
   )
-  const modalWrapperPortal = createPortal(modalWrapper, document.getElementById('react-modals'))
 
+  const modalWrapperPortal = createPortal(modalWrapper, document.getElementById('react-modals'))
   const triggerElementControl = <div onClick={open}>{triggerElement}</div>
 
-  return show ? (
+  return (
     <>
-      {modalWrapperPortal}
+      {show && modalWrapperPortal}
       {triggerElementControl}
     </>
-  ) : (
-    triggerElementControl
   )
+}
+
+Modal.propTypes = {
+  triggerElement: PropTypes.element,
+  children: PropTypes.node,
 }
 
 export default Modal
