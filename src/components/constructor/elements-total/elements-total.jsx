@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import CurrencyView from '../../../UI/currency-view/currency-view'
+import Modal from '../../../UI/modal/modal'
 import styles from './styles.module.css'
 
 const ElementsTotal = () => {
@@ -9,9 +10,16 @@ const ElementsTotal = () => {
 
   return (
     <div className={`mt-10 ${styles.container}`}>
-      <Button extraClass='ml-5' htmlType='button'>
-        Оформить заказ
-      </Button>
+      <Modal
+        triggerElement={
+          <Button extraClass='ml-5' htmlType='button'>
+            Оформить заказ
+          </Button>
+        }
+      >
+        <h1>modal-content</h1>
+      </Modal>
+
       <CurrencyView number={total} size='medium' />
     </div>
   )

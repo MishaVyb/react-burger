@@ -1,0 +1,48 @@
+.wrapper {
+  /* modal wrapper take place over whole space */
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  /* modal card placing */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  /* modal overlay take place over whole space */
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  background-color: black;
+  opacity: 60%;
+}
+
+.modal {
+  /* modal card with round corners */
+  height: 720px;
+  width: 720px;
+  background: #1c1c21;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  border-radius: 40px;
+
+  /* for close buddon */
+  position: relative;
+
+  /* for modal card internal content */
+  display: flex;
+  justify-content: center;
+}
+
+.close {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+}
+
