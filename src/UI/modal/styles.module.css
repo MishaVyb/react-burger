@@ -26,23 +26,17 @@
 
 .modal {
   /* modal card with round corners */
-  height: 720px;
-  width: 720px;
+  width: 640px;
   background: #1c1c21;
-  border: 1px solid rgba(76, 76, 255, 0.2);
   border-radius: 40px;
 
   /* for close buddon */
   position: relative;
-
-  /* for modal card internal content */
-  display: flex;
-  justify-content: center;
 }
 
 .close {
   position: absolute;
-  top: 60px;
-  right: 40px;
+  top: 0px;
+  right: 0px;
 }
 

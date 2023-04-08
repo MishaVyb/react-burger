@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { IngredientCard, BurgerIngredientType } from '../ingredient-card/ingredient-card'
+
+import Modal from '../../../UI/modal/modal'
+import IngredientDetail from '../ingredient-detail/ingredient-detail'
 import styles from './styles.module.css'
 
 const IngredientsList = ({ items, title }) => {
@@ -10,7 +13,9 @@ const IngredientsList = ({ items, title }) => {
       <div className={`mt-2 mb-2 ${styles.container}`}>
         {items.map((v, i) => (
           <div key={v._id} className={styles.item}>
-            <IngredientCard item={v} count={i} />
+            <Modal  triggerElement={<IngredientCard item={v} count={i} />}>
+              <IngredientDetail item={v} />
+            </Modal>
           </div>
         ))}
       </div>

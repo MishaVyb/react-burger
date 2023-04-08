@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button, CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import CurrencyView from '../../../UI/currency-view/currency-view'
 import Modal from '../../../UI/modal/modal'
 import styles from './styles.module.css'
+import OrderDetail from '../order-detail/order-detail'
 
 const ElementsTotal = () => {
   const total = 610
@@ -17,7 +18,7 @@ const ElementsTotal = () => {
           </Button>
         }
       >
-        <h1>modal-content</h1>
+        <OrderDetail />
       </Modal>
 
       <CurrencyView number={total} size='medium' />

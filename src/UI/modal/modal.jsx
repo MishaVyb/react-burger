@@ -22,8 +22,8 @@ const Modal = ({ triggerElement, children }) => {
     <>
       <div className={styles.overlay}></div>
       <div className={styles.wrapper} onClick={close}>
-        <section className={`p-10 ${styles.modal}`} onClick={(e) => e.stopPropagation()}>
-          <div className={styles.close}>
+        <section className={`p-10 pb-15 ${styles.modal}`} onClick={(e) => e.stopPropagation()}>
+          <div className={`m-10 ${styles.close}`}>
             <CloseIcon type='primary' onClick={close} />
           </div>
           {children}
@@ -35,7 +35,14 @@ const Modal = ({ triggerElement, children }) => {
 
   const triggerElementControl = <div onClick={open}>{triggerElement}</div>
 
-  return show ? modalWrapperPortal : triggerElementControl
+  return show ? (
+    <>
+      {modalWrapperPortal}
+      {triggerElementControl}
+    </>
+  ) : (
+    triggerElementControl
+  )
 }
 
 export default Modal
