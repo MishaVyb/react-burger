@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useRef } from 'react'
 import PropTypes from 'prop-types'
 import NavBar from '../navbar/navbar'
 import IngredientsList from '../ingredients-list/ingredients-list'
 import styles from './styles.module.css'
 import BurgerIngredientType from '../../../utils/types'
+import useRefScroll from '../../../hooks/use-ref-scroll'
 
 const BurgerIngredients = ({ ingredients }) => {
   const [bunItems, sauceItems, mainItems] = useMemo(() => {
@@ -13,17 +14,21 @@ const BurgerIngredients = ({ ingredients }) => {
     return [bunItems, sauceItems, mainItems]
   }, [ingredients])
 
+  const [bunRef, bun] = useRefScroll()
+  const [sauceRef, sauce] = useRefScroll()
+  const [mainRef, main] = useRefScroll()
+
   if (!ingredients.length) {
     return <></>
   }
 
   return (
     <section className={`pt-10 mr-5 ${styles.container}`}>
-      <NavBar />
+      <NavBar onNavigationCalls={{ bun, sauce, main }} />
       <section className={`custom-scroll ${styles.scroll}`}>
-        <IngredientsList items={bunItems} title='Булки' />
-        <IngredientsList items={sauceItems} title='Соусы' />
-        <IngredientsList items={mainItems} title='Начинки' />
+        <IngredientsList ref={bunRef} items={bunItems} title='Булки' />
+        <IngredientsList ref={sauceRef} items={sauceItems} title='Соусы' />
+        <IngredientsList ref={mainRef} items={mainItems} title='Начинки' />
       </section>
     </section>
   )
