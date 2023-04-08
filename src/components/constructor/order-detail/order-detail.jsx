@@ -15,7 +15,9 @@ const OrderDetail = (props) => {
         <CheckMarkIcon />
       </div>
       <p className='text text_type_main-small'>Ваш заказ начали готовить</p>
-      <p className='mt-2 mb-20 text text_type_main-small text_color_inactive'>Дождитесь готовности на орбитальной станции</p>
+      <p className='mt-2 mb-20 text text_type_main-small text_color_inactive'>
+        Дождитесь готовности на орбитальной станции
+      </p>
     </section>
   )
 }

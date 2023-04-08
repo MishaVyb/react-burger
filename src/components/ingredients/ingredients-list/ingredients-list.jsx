@@ -14,7 +14,7 @@ const IngredientsList = ({ items, title }) => {
       <div className={`mt-2 mb-2 ${styles.container}`}>
         {items.map((v, i) => (
           <div key={v._id} className={styles.item}>
-            <Modal  triggerElement={<IngredientCard item={v} count={i} />}>
+            <Modal triggerElement={<IngredientCard item={v} count={i} />}>
               <IngredientDetail item={v} />
             </Modal>
           </div>

@@ -8,7 +8,9 @@ const ErrorAllert = ({ detail }) => {
   return (
     <div className={`m-10 p-10 ${styles.container}`}>
       <p className='m-2 text text_type_main-medium'>Упс :(</p>
-      <p className='m-2 text text_type_main-small text_color_inactive'>Все сломалось. Попробуйте перезагрузить страницу. </p>
+      <p className='m-2 text text_type_main-small text_color_inactive'>
+        Все сломалось. Попробуйте перезагрузить страницу.{' '}
+      </p>
     </div>
   )
 }
