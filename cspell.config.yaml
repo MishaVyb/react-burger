@@ -1,0 +1,19 @@
+version: '0.2'
+ignorePaths:
+  - .gitignore
+allowCompoundWords: true
+dictionaries:
+  - typescript
+words:
+  - misha
+  - praktikum
+  - vybornyy
+  - верх
+ignoreWords: []
+import: []
+enableFiletypes:
+  - dockercompose
+  - ini
+  - makefile
+  - markdown
+  - toml

@@ -1,8 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import BurgerIngredientType from '../../../utils/types'
 import BurgerElement from '../burger-element/burger-element'
 import styles from './styles.module.css'
-import BurgerIngredientType from '../../../utils/types'
 
 const ElementsList = ({ items }) => {
   return (

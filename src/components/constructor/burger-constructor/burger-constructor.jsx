@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import ElementsList from '../elements-list/elements-list'
 import BurgerElement from '../burger-element/burger-element'
