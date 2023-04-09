@@ -29,7 +29,7 @@ const IngredientsList = forwardRef(({ items, title }, ref) => {
 IngredientsList.displayName = 'IngredientsList'
 
 IngredientsList.propTypes = {
-  items: PropTypes.arrayOf(BurgerIngredientType).isRequired,
+  items: PropTypes.arrayOf(BurgerIngredientType.isRequired).isRequired,
   title: PropTypes.string,
 }
 

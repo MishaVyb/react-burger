@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styles from './styles.module.css'
 
 const ErrorAllert = ({ detail }) => {
-  console.log('Unexpected error received: ', detail)
+  console.error('Unexpected error received: ', detail)
   return (
     <div className={`m-10 p-10 ${styles.container}`}>
       <p className='m-2 text text_type_main-medium'>Упс :(</p>

@@ -6,7 +6,7 @@ const Navbar = ({ extraClass, children }) => {
 
 Navbar.propTypes = {
   extraClass: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element.isRequired), PropTypes.element]).isRequired,
 }
 
 Navbar.propsDefault = {

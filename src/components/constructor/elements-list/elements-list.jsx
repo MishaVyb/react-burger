@@ -15,7 +15,7 @@ const ElementsList = ({ items }) => {
 }
 
 ElementsList.propTypes = {
-  items: PropTypes.arrayOf(BurgerIngredientType),
+  items: PropTypes.arrayOf(BurgerIngredientType.isRequired).isRequired,
 }
 
 export default ElementsList
