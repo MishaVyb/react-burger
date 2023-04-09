@@ -22,7 +22,11 @@ const Modal = ({ triggerElement, children }) => {
   }, [show])
 
   if (!show) {
-    return <div onClick={open}>{triggerElement}</div>
+    return (
+      <div className={styles.trigger} onClick={open}>
+        {triggerElement}
+      </div>
+    )
   }
 
   const modalWrapper = (

@@ -22,8 +22,13 @@
   position: relative;
 }
 
+.trigger {
+  cursor: pointer;
+}
+
 .close {
   position: absolute;
   top: 0px;
   right: 0px;
+  cursor: pointer;
 }
