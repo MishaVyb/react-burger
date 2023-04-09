@@ -1,7 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styles from './styles.module.css'
 import BurgerIngredientType from '../../../utils/types'
+import styles from './styles.module.css'
 
 const INGREDIENT_UNITS_MAPPING = {
   calories: 'Калории, ккал',

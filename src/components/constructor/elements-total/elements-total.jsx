@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
+
 import CurrencyView from '../../../UI/currency-view/currency-view'
 import Modal from '../../../UI/modal/modal'
 import OrderDetail from '../order-detail/order-detail'

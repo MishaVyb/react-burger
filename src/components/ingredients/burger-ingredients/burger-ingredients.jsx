@@ -1,10 +1,11 @@
-import React, { useMemo, useRef } from 'react'
 import PropTypes from 'prop-types'
-import NavBar from '../navbar/navbar'
-import IngredientsList from '../ingredients-list/ingredients-list'
-import styles from './styles.module.css'
-import BurgerIngredientType from '../../../utils/types'
+import { useMemo } from 'react'
+
 import useRefScroll from '../../../hooks/use-ref-scroll'
+import BurgerIngredientType from '../../../utils/types'
+import IngredientsList from '../ingredients-list/ingredients-list'
+import NavBar from '../navbar/navbar'
+import styles from './styles.module.css'
 
 const BurgerIngredients = ({ ingredients }) => {
   const [bunItems, sauceItems, mainItems] = useMemo(() => {

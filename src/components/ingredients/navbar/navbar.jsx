@@ -1,6 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import styles from './styles.module.css'
 
 const Tabs = {

@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import PropTypes from 'prop-types'
+
 import styles from './styles.module.css'
 
 const CurrencyView = ({ number, size }) => {

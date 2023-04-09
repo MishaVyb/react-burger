@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
-import ElementsList from '../elements-list/elements-list'
+
+import BurgerIngredientType from '../../../utils/types'
 import BurgerElement from '../burger-element/burger-element'
+import ElementsList from '../elements-list/elements-list'
 import ElementsTotal from '../elements-total/elements-total'
 import styles from './styles.module.css'
-import BurgerIngredientType from '../../../utils/types'
 
 const BurgerConstructor = ({ ingredients }) => {
   if (!ingredients.length) {

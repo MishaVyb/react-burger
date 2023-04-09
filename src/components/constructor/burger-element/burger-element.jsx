@@ -1,5 +1,6 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
+
 import BurgerIngredientType from '../../../utils/types'
 import styles from './styles.module.css'
 

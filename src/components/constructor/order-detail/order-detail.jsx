@@ -1,7 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+
 import styles from './styles.module.css'
 
 const OrderDetail = (props) => {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-import AppHeader from './components/header/app-header/app-header'
-import BurgerConstructor from './components/constructor/burger-constructor/burger-constructor'
-import BurgerIngredients from './components/ingredients/burger-ingredients/burger-ingredients'
 import style from './app.module.css'
+import BurgerConstructor from './components/constructor/burger-constructor/burger-constructor'
 import ErrorAllert from './components/error-allert/error-allert'
+import AppHeader from './components/header/app-header/app-header'
+import BurgerIngredients from './components/ingredients/burger-ingredients/burger-ingredients'
 
 const ROOT_ENDPOINT = 'https://norma.nomoreparties.space/api/ingredients'
 
