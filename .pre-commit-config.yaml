@@ -3,3 +3,6 @@ repos:
     rev: ''
     hooks:
       - id: prettier
+        additional_dependencies:
+          - prettier@2.8.7
+          - '@trivago/prettier-plugin-sort-imports'
