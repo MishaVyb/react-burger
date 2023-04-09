@@ -12,7 +12,7 @@ const IngredientDetail = ({ item }) => {
   return (
     <div className={styles.container}>
       <p className={`text text_type_main-large ${styles.title}`}>Детали ингредиента</p>
-      <img className='' src={item.image_large} alt='' />
+      <img src={item.image_large} alt='' />
       <p className={`text text_type_main-medium m-4 ${styles.aaa}`}>{item.name}</p>
       <section className={styles.ingredient_composition}>
         {Object.entries(INGREDIENT_UNITS_MAPPING).map(([k, v], i) => {

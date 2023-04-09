@@ -13,11 +13,17 @@ const Modal = ({ triggerElement, children }) => {
   const close = () => setShow(false)
 
   useEffect(() => {
-    const closeByEscape = (e) => (e.key === 'Escape' ? close() : null)
+    if (show) {
+      const closeByEscape = (e) => (e.key === 'Escape' ? close() : null)
 
-    document.addEventListener('keydown', closeByEscape)
-    return () => document.removeEventListener('keypress', closeByEscape)
-  }, [])
+      document.addEventListener('keydown', closeByEscape)
+      return () => document.removeEventListener('keypress', closeByEscape)
+    }
+  }, [show])
+
+  if (!show) {
+    return <div onClick={open}>{triggerElement}</div>
+  }
 
   const modalWrapper = (
     <>
@@ -32,21 +38,18 @@ const Modal = ({ triggerElement, children }) => {
       </div>
     </>
   )
-
   const modalWrapperPortal = createPortal(modalWrapper, document.getElementById('react-modals'))
-  const triggerElementControl = <div onClick={open}>{triggerElement}</div>
-
   return (
     <>
-      {show && modalWrapperPortal}
-      {triggerElementControl}
+      {modalWrapperPortal}
+      {triggerElement}
     </>
   )
 }
 
 Modal.propTypes = {
-  triggerElement: PropTypes.element,
-  children: PropTypes.node,
+  triggerElement: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 export default Modal
