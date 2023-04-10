@@ -1,0 +1,34 @@
+.wrapper {
+  /* modal wrapper take place over whole space */
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  /* modal card placing */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  /* modal card with round corners */
+  width: 640px;
+  background: #1c1c21;
+  border-radius: 40px;
+
+  /* for close buddon */
+  position: relative;
+}
+
+.trigger {
+  cursor: pointer;
+}
+
+.close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+}
