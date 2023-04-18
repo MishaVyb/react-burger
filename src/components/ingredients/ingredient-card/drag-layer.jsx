@@ -3,15 +3,10 @@ import { useDragLayer } from 'react-dnd'
 import IngredientCard from './ingredient-card'
 import styles from './styles.module.css'
 
-const layerStyles = {
-  position: 'absolute',
-  pointerEvents: 'none',
-  zIndex: 100,
-  left: 0,
-  top: 0,
-}
-
-export const CustomDragLayer = (props) => {
+export const CustomDragLayer = () => {
+  // Stylized drag layer.
+  // Docs: https://react-dnd.github.io/react-dnd/docs/api/use-drag-layer
+  //
   const { itemType, item, currentOffset } = useDragLayer((monitor) => ({
     item: monitor.getItem(),
     itemType: monitor.getItemType(),
@@ -20,9 +15,11 @@ export const CustomDragLayer = (props) => {
   if (!currentOffset) {
     return null
   }
+  const translate = `translate(${currentOffset.x}px, ${currentOffset.y}px)`
 
   const getElementByType = () => {
     switch (itemType) {
+      case 'bun':
       case 'ingredient':
         return (
           <div className={styles.dragging}>
@@ -34,17 +31,9 @@ export const CustomDragLayer = (props) => {
     }
   }
 
-  let { x, y } = currentOffset
   return (
-    <div style={layerStyles}>
-      <div
-        style={{
-          transform: `translate(${x}px, ${y}px)`,
-          WebkitTransform: `translate(${x}px, ${y}px)`,
-        }}
-      >
-        {getElementByType()}
-      </div>
+    <div className={styles.dragging_wrapper} style={{ transform: translate, WebkitTransform: translate }}>
+      {getElementByType()}
     </div>
   )
 }

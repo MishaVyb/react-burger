@@ -1,49 +1,53 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
+import { useDrop } from 'react-dnd'
+import { useDispatch } from 'react-redux'
 
+import { addConstructorItem } from '../../../services/constructor/actions'
 import BurgerIngredientType from '../../../utils/types'
+import BlankConstructorElement from '../blank-constructor-element.jsx/blank-constructor-element'
 import styles from './styles.module.css'
 
-const BurgerElement = ({ item, arrangement }) => {
+const BurgerElement = ({ item, index, arrangement }) => {
+  const dispatch = useDispatch()
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: arrangement ? 'bun' : 'ingredient',
+    drop(item) {
+      dispatch(addConstructorItem(item, index))
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  })
   const extraClass = arrangement ? `ml-8 ${styles.item}` : `ml-2 ${styles.item}`
-  const extraClassBlankPosition = arrangement
-    ? arrangement === 'top'
-      ? styles.blank_pos_top
-      : styles.blank_pos_bottom
-    : ''
-
-  // Blank element:
-  if (!item) {
-    return (
-      <div className={`mt-2 mb-2 ${styles.container}`}>
-        {arrangement ? null : <DragIcon type='primary' />}
-        <section className={`${styles.blank} ${extraClassBlankPosition} ${extraClass}`}>
-          <p className='text text_type_main-default text_color_inactive'>
-            {arrangement ? 'Выберите булку' : 'Выберите начинку'}
-          </p>
-        </section>
-      </div>
-    )
-  }
 
   return (
-    <div className={`mt-2 mb-2 ${styles.container}`}>
+    <div className={`mt-2 mb-2 ${styles.container}`} ref={dropTarget}>
       {arrangement ? null : <DragIcon type='primary' />}
-      <ConstructorElement
-        type={arrangement}
-        isLocked={arrangement}
-        text={item.name + (arrangement ? (arrangement === 'top' ? ' (верх)' : ' (низ)') : '')}
-        price={item.price}
-        thumbnail={item.image_mobile}
-        extraClass={extraClass}
-      />
+      {item ? (
+        <ConstructorElement
+          type={arrangement}
+          isLocked={arrangement}
+          text={item.name + (arrangement ? (arrangement === 'top' ? ' (верх)' : ' (низ)') : '')}
+          price={item.price}
+          thumbnail={item.image_mobile}
+          extraClass={extraClass}
+        />
+      ) : (
+        <BlankConstructorElement arrangement={arrangement} extraClass={extraClass} />
+      )}
     </div>
   )
 }
 
 BurgerElement.propTypes = {
   item: BurgerIngredientType.isRequired,
-  arrangement: PropTypes.oneOf(['top', 'bottom']),
+  index: PropTypes.number,
+  arrangement: PropTypes.oneOf(['top', 'bottom']).isRequired,
+}
+
+BurgerElement.defaultProps = {
+  index: 0,
 }
 
 export default BurgerElement

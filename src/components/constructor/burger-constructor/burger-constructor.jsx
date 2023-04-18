@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { selectConstructorBuns, selectConstructorItems } from '../../../services/constructor/selectors'
 import BurgerIngredientType from '../../../utils/types'
@@ -9,12 +9,6 @@ import ElementsTotal from '../elements-total/elements-total'
 import styles from './styles.module.css'
 
 const BurgerConstructor = () => {
-  const ingredients = [] // TODO
-
-  // if (!ingredients.length) {
-  //   return <></>
-  // }
-
   // TODO to selectors
   const bun = useSelector(selectConstructorBuns)
   const items = useSelector(selectConstructorItems)

@@ -11,7 +11,7 @@ import styles from './styles.module.css'
 // eslint-disable-next-line react/prop-types
 const IngredientCard = ({ item, count }) => {
   const [{ opacity, isDragging }, dragRef, preview] = useDrag({
-    type: 'ingredient', // TODO enum class
+    type: item.type === 'bun' ? 'bun' : 'ingredient', // TODO enum class
     item: { ...item },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
@@ -20,7 +20,7 @@ const IngredientCard = ({ item, count }) => {
   })
 
   useEffect(() => {
-    preview(getEmptyImage(), { captureDraggingState: true })
+    preview(getEmptyImage())
   }, [preview])
 
   return (

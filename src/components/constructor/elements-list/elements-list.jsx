@@ -7,7 +7,11 @@ import styles from './styles.module.css'
 const ElementsList = ({ items }) => {
   return (
     <div className={`custom-scroll ${styles.container}`}>
-      {items.length ? items.map((v) => <BurgerElement key={v._id} item={v} />) : <BurgerElement item={null} />}
+      {items.length ? (
+        items.map((v, i) => <BurgerElement key={v._id} item={v} index={i} />)
+      ) : (
+        <BurgerElement item={null} />
+      )}
     </div>
   )
 }
