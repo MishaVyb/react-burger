@@ -1,4 +1,4 @@
-import { ADD_CONSTRUCTOR_ITEM, MOVE_CONSTRUCTOR_ITEM, SET_HOVERED_ITEM_INDEX } from './actions'
+import { ADD_CONSTRUCTOR_ITEM, MOVE_CONSTRUCTOR_ITEM, REMOVE_CONSTRUCTOR_ITEM, SET_HOVERED_ITEM_INDEX } from './actions'
 
 const initialStore = {
   bun: null,
@@ -18,6 +18,14 @@ export const reducer = (store = initialStore, action) => {
       return {
         ...store,
         items: store.items.toSpliced(action.payload.index + 1, 0, action.payload.item),
+      }
+    case REMOVE_CONSTRUCTOR_ITEM:
+      if (action.payload.item.type === 'bun') {
+        throw Error('Not Allowed')
+      }
+      return {
+        ...store,
+        items: store.items.toSpliced(action.payload.index, 1),
       }
     case MOVE_CONSTRUCTOR_ITEM:
       return {
