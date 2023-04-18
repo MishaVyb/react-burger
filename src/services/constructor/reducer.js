@@ -1,4 +1,4 @@
-import { ADD_CONSTRUCTOR_ITEM, SET_HOVERED_ITEM_INDEX } from './actions'
+import { ADD_CONSTRUCTOR_ITEM, MOVE_CONSTRUCTOR_ITEM, SET_HOVERED_ITEM_INDEX } from './actions'
 
 const initialStore = {
   bun: null,
@@ -18,6 +18,13 @@ export const reducer = (store = initialStore, action) => {
       return {
         ...store,
         items: store.items.toSpliced(action.payload.index + 1, 0, action.payload.item),
+      }
+    case MOVE_CONSTRUCTOR_ITEM:
+      return {
+        ...store,
+        items: store.items
+          .toSpliced(action.payload.dragIndex, 1) // removing what we are dragging
+          .toSpliced(action.payload.hoverIndex, 0, store.items[action.payload.dragIndex]), // inserting it into hoverIndex
       }
     case SET_HOVERED_ITEM_INDEX:
       return {
