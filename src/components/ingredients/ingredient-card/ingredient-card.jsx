@@ -1,13 +1,30 @@
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
+import { useDrag } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
 import BurgerIngredientType from '../../../utils/types'
 import styles from './styles.module.css'
 
+// eslint-disable-next-line react/prop-types
 const IngredientCard = ({ item, count }) => {
+  const [{ opacity, isDragging }, dragRef, preview] = useDrag({
+    type: 'ingredient', // TODO enum class
+    item: { ...item },
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+      isDragging: monitor.isDragging(),
+    }),
+  })
+
+  useEffect(() => {
+    preview(getEmptyImage(), { captureDraggingState: true })
+  }, [preview])
+
   return (
-    <div className={`m-3 ${styles.card}`}>
+    <div className={`m-3 ${styles.card}`} ref={dragRef} style={{ opacity }}>
       {count ? <Counter count={count} size='default' extraClass='m-1' /> : null}
       <img className='ml-2 mr-2' src={item.image} alt='' />
       <CurrencyView number={item.price} />

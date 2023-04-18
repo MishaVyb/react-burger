@@ -5,6 +5,27 @@ import BurgerIngredientType from '../../../utils/types'
 import styles from './styles.module.css'
 
 const BurgerElement = ({ item, arrangement }) => {
+  const extraClass = arrangement ? `ml-8 ${styles.item}` : `ml-2 ${styles.item}`
+  const extraClassBlankPosition = arrangement
+    ? arrangement === 'top'
+      ? styles.blank_pos_top
+      : styles.blank_pos_bottom
+    : ''
+
+  // Blank element:
+  if (!item) {
+    return (
+      <div className={`mt-2 mb-2 ${styles.container}`}>
+        {arrangement ? null : <DragIcon type='primary' />}
+        <section className={`${styles.blank} ${extraClassBlankPosition} ${extraClass}`}>
+          <p className='text text_type_main-default text_color_inactive'>
+            {arrangement ? 'Выберите булку' : 'Выберите начинку'}
+          </p>
+        </section>
+      </div>
+    )
+  }
+
   return (
     <div className={`mt-2 mb-2 ${styles.container}`}>
       {arrangement ? null : <DragIcon type='primary' />}
@@ -14,7 +35,7 @@ const BurgerElement = ({ item, arrangement }) => {
         text={item.name + (arrangement ? (arrangement === 'top' ? ' (верх)' : ' (низ)') : '')}
         price={item.price}
         thumbnail={item.image_mobile}
-        extraClass={arrangement ? `ml-8 ${styles.item}` : `ml-2 ${styles.item}`}
+        extraClass={extraClass}
       />
     </div>
   )

@@ -1,7 +1,15 @@
 .card {
+  /* border: 1px dashed royalblue; */
+  /* margin-right: auto; */
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+.dragging {
+  border: 1px dashed royalblue;
+  border-radius: var(--common-border-radius-s);
 }
