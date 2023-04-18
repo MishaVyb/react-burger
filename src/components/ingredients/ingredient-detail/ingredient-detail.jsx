@@ -1,4 +1,4 @@
-import BurgerIngredientType from '../../../utils/types'
+import { BurgerIngredientType } from '../../../utils/types'
 import styles from './styles.module.css'
 
 const INGREDIENT_UNITS_MAPPING = {

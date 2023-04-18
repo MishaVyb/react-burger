@@ -1,5 +1,3 @@
-export const selectConstructorBuns = (store) => {
-  console.log(store)
-  return store.burgerConstructor.bun
-}
+export const selectConstructorBuns = (store) => store.burgerConstructor.bun // TODO rename selectConstructorBun
 export const selectConstructorItems = (store) => store.burgerConstructor.items
+export const selectConstructorHoveredItemIndex = (store) => store.burgerConstructor.hoveredItemIndex

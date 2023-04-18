@@ -7,14 +7,6 @@
   flex-basis: 100%;
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-}
-
-.total {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
+.drop_target {
+  border: 3px dashed royalblue;
 }

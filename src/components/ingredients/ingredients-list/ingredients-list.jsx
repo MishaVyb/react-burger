@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { forwardRef } from 'react'
 
 import Modal from '../../../UI/modal/modal'
-import BurgerIngredientType from '../../../utils/types'
+import { BurgerIngredientType } from '../../../utils/types'
 import IngredientCard from '../ingredient-card/ingredient-card'
 import IngredientDetail from '../ingredient-detail/ingredient-detail'
 import styles from './styles.module.css'

@@ -5,13 +5,13 @@ import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
-import BurgerIngredientType from '../../../utils/types'
+import { BurgerIngredientType, DragTypes } from '../../../utils/types'
 import styles from './styles.module.css'
 
 // eslint-disable-next-line react/prop-types
 const IngredientCard = ({ item, count }) => {
   const [{ opacity, isDragging }, dragRef, preview] = useDrag({
-    type: item.type === 'bun' ? 'bun' : 'ingredient', // TODO enum class
+    type: DragTypes.forItem(item),
     item: { ...item },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,

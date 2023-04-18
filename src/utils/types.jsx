@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const BurgerIngredientType = PropTypes.shape({
+export const BurgerIngredientType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['main', 'bun', 'sauce']).isRequired,
@@ -14,4 +14,14 @@ const BurgerIngredientType = PropTypes.shape({
   image_large: PropTypes.string.isRequired,
 })
 
-export default BurgerIngredientType
+export const DragTypes = {
+  BUN: 'BUN',
+  FILLINGS: 'FILLINGS', // includes `sauce` and `main` ingredients (начинки)
+
+  forItem(item) {
+    return item.type === 'bun' ? DragTypes.BUN : DragTypes.FILLINGS
+  },
+  forArrangement(arrangement) {
+    return arrangement === 'top' || arrangement === 'bottom' ? DragTypes.BUN : DragTypes.FILLINGS
+  },
+}

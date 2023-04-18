@@ -1,10 +1,11 @@
 import { useDragLayer } from 'react-dnd'
 
+import { DragTypes } from '../../../utils/types'
 import IngredientCard from './ingredient-card'
 import styles from './styles.module.css'
 
 export const CustomDragLayer = () => {
-  // Stylized drag layer.
+  // Stylized drag layer. Add custom border to dragged layer.
   // Docs: https://react-dnd.github.io/react-dnd/docs/api/use-drag-layer
   //
   const { itemType, item, currentOffset } = useDragLayer((monitor) => ({
@@ -19,8 +20,8 @@ export const CustomDragLayer = () => {
 
   const getElementByType = () => {
     switch (itemType) {
-      case 'bun':
-      case 'ingredient':
+      case DragTypes.BUN:
+      case DragTypes.FILLINGS:
         return (
           <div className={styles.dragging}>
             <IngredientCard item={item} />
