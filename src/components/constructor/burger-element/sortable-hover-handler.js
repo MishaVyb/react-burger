@@ -5,7 +5,6 @@ export const sortableHoverHandler = (ref, dispatch, hoverIndex, itemsArrayLength
     return
   }
   const dragIndex = dragItem.index
-  //console.log({hoverIndex, dragIndex})
 
   // Don't replace items with themselves
   if (dragIndex === hoverIndex) {

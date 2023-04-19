@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { selectConstructorHoveredItemIndex } from '../../../services/constructor/selectors'
@@ -8,13 +9,14 @@ import styles from './styles.module.css'
 
 const ElementsList = ({ items }) => {
   const hoveredItemIndex = useSelector(selectConstructorHoveredItemIndex)
+  const [isHighlight, setContainerHighlight] = useState(false)
 
   return (
-    <div className={`custom-scroll ${styles.container}`}>
+    <div className={`custom-scroll ${styles.container} ${isHighlight ? styles.highlight : ''}`}>
       {items.length ? (
         items.map((v, i) => (
           <>
-            <BurgerElement key={v._id} item={v} index={i} />
+            <BurgerElement key={v._id} item={v} index={i} setContainerHighlight={setContainerHighlight} />
             {
               // NOTE: render Blank Element under Burger Element if it is hovered
               hoveredItemIndex === i ? <BurgerElement /> : null

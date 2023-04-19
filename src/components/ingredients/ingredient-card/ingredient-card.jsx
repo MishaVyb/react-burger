@@ -12,6 +12,8 @@ import styles from './styles.module.css'
 const IngredientCard = ({ item, count }) => {
   const [{ opacity, isDragging }, dragRef, preview] = useDrag({
     type: DragTypes.forItem(item),
+
+    // NOTE: full item object here to implement custom drag layer redering
     item: { ...item },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,

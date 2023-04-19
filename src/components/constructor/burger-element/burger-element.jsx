@@ -1,6 +1,6 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -16,49 +16,59 @@ import BlankConstructorElement from '../blank-constructor-element.jsx/blank-cons
 import { sortableHoverHandler } from './sortable-hover-handler'
 import styles from './styles.module.css'
 
-const BurgerElement = ({ item, index, arrangement }) => {
+const BurgerElement = ({ item, index, arrangement, setContainerHighlight }) => {
   const ref = useRef(null)
   const dispatch = useDispatch()
   const movingIndex = useSelector(selectConstructorMovingItemIndex)
   const items = useSelector(selectConstructorItems)
+  const [isItemHighlight, setItemHighlight] = useState(false)
 
   const isBlank = !item
   const isEmptyBlank = !arrangement && movingIndex === index
 
   // [1] useDrop for ingredients from left bar:
-  const [{ isOver, canDrop }, dropTarget] = useDrop({
+  const [{ canDrop, isOver }, dropTarget] = useDrop({
     accept: DragTypes.forArrangement(arrangement),
-    drop(item) {
-      dispatch(addConstructorItem(item, index))
+    hover: (dragItem, monitor) => {
+      // [1.1]
+      // For the first hover call item is not in a target array and index is undefined.
+      // So add Burger Constructor Item at this moment.
+      if (dragItem.index === undefined) {
+        dispatch(addConstructorItem(dragItem, index))
+
+        // If item is not a bun, it may be dragged inside container (it's sortable).
+        // For better performance, we want to show Empty Blank Item (dashed border container) under current drag layer.
+        // So setMovingItemIndex is called here:
+        if (dragItem.type !== 'bun') {
+          dispatch(setMovingItemIndex(index))
+          dragItem.index = index
+        }
+      } else {
+        // [1.2]
+        // Item already in the target array and we just supporting he same sorting, as below.
+        sortableHoverHandler(ref, dispatch, index, items.length, dragItem, monitor)
+      }
     },
+    drop: () => dispatch(setMovingItemIndex(null)),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     }),
   })
 
-  // [1.1] Set hover index. It allow to render Blank Element after current while is's hovered.
-  useEffect(() => {
-    if (isOver) {
-      dispatch(setHoveredItemIndex(index))
-      return () => {
-        dispatch(setHoveredItemIndex(null))
-      }
-    }
-  }, [isOver, dispatch, index])
-
   // [2] useDrag & useDrop for internal items sorting:
   const [, drag] = useDrag({
     type: DragTypes.FILLINGS_CONSTRUCTOR,
     item: () => ({ index }),
+    canDrag: () => item.type !== 'bun',
   })
   const [{ handlerId }, drop] = useDrop({
     accept: DragTypes.FILLINGS_CONSTRUCTOR,
     collect: (monitor) => ({
       handlerId: monitor.getHandlerId(),
     }),
-    hover: (item, monitor) => {
-      sortableHoverHandler(ref, dispatch, index, items.length, item, monitor)
+    hover: (dragItem, monitor) => {
+      sortableHoverHandler(ref, dispatch, index, items.length, dragItem, monitor)
     },
     drop: () => dispatch(setMovingItemIndex(null)),
   })
@@ -66,10 +76,19 @@ const BurgerElement = ({ item, index, arrangement }) => {
   // [3] Combine all refs toogether:
   drag(drop(dropTarget(ref)))
 
-  // [4] Styles:
+  // [4] Stylization:
   let extraClass = styles.item
   extraClass += arrangement ? ' ml-8' : ' ml-2'
-  extraClass += canDrop ? ` ${styles.drop_target}` : ''
+  extraClass += isItemHighlight ? ` ${styles.highlight}` : ''
+
+  useEffect(() => {
+    if (typeof setContainerHighlight === 'function') {
+      setContainerHighlight(canDrop && !isOver)
+    } else {
+      console.log({ canDrop })
+      setItemHighlight(canDrop)
+    }
+  }, [canDrop, isOver, setContainerHighlight])
 
   return (
     <div className={`pt-2 pb-2 ${styles.container}`} ref={ref} style={{}} data-handler-id={handlerId}>
@@ -95,10 +114,11 @@ BurgerElement.propTypes = {
   item: BurgerIngredientType,
   index: PropTypes.number,
   arrangement: PropTypes.oneOf(['top', 'bottom']),
+  setContainerHighlight: PropTypes.func,
 }
 
 BurgerElement.defaultProps = {
-  index: 0,
+  index: 0, // UNUSED
 }
 
 export default BurgerElement

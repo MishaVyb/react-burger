@@ -7,6 +7,6 @@
   flex-basis: 100%;
 }
 
-.drop_target {
-  border: 3px dashed royalblue;
+.highlight {
+  border: 1px dashed royalblue;
 }

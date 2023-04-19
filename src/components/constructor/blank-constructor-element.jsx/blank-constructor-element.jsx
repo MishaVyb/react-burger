@@ -7,7 +7,6 @@ const BlankConstructorElement = ({ arrangement, extraClass, empty }) => {
   //
   extraClass += arrangement ? (arrangement === 'top' ? ` ${styles.pos_top}` : ` ${styles.pos_bottom}`) : ''
   extraClass += empty ? ` ${styles.empty}` : ''
-  console.log(empty)
 
   return (
     <section className={`${styles.container} ${extraClass}`}>
