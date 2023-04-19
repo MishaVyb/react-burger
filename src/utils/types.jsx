@@ -17,7 +17,7 @@ export const BurgerIngredientType = PropTypes.shape({
 export const DragTypes = {
   BUN: 'BUN',
   FILLINGS: 'FILLINGS', // includes `sauce` and `main` ingredients (начинки)
-  FILLINGS_CO: 'FILLINGS_CO',
+  FILLINGS_CONSTRUCTOR: 'FILLINGS_CONSTRUCTOR', // sortable fillings
 
   forItem(item) {
     return item.type === 'bun' ? DragTypes.BUN : DragTypes.FILLINGS

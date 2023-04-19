@@ -15,6 +15,11 @@
   box-sizing: border-box;
 }
 
+.empty {
+  background: none;
+  border: 2px dashed royalblue;
+}
+
 .pos_top {
   border-radius: var(--top-constructor-item-border-radius);
 }

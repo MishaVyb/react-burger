@@ -1,10 +1,12 @@
-import { moveConstructorItem } from '../../../services/constructor/actions'
+import { moveConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
 
 export const sortableHoverHandler = (ref, dispatch, hoverIndex, itemsArrayLength, dragItem, monitor) => {
   if (!ref.current) {
     return
   }
   const dragIndex = dragItem.index
+  //console.log({hoverIndex, dragIndex})
+
   // Don't replace items with themselves
   if (dragIndex === hoverIndex) {
     return
@@ -37,6 +39,7 @@ export const sortableHoverHandler = (ref, dispatch, hoverIndex, itemsArrayLength
 
   // Time to actually perform the action
   dispatch(moveConstructorItem(dragIndex, hoverIndex))
+  dispatch(setMovingItemIndex(hoverIndex))
 
   // Note: we're mutating the monitor dragItem here!
   // Generally it's better to avoid mutations,

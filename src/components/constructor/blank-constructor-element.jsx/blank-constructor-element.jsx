@@ -2,13 +2,17 @@ import PropTypes from 'prop-types'
 
 import styles from './styles.module.css'
 
-const BlankConstructorElement = ({ arrangement, extraClass }) => {
-  const extraClassBlankPosition = arrangement ? (arrangement === 'top' ? styles.pos_top : styles.pos_bottom) : ''
+const BlankConstructorElement = ({ arrangement, extraClass, empty }) => {
+  // Render Blank Element (container with help text) or Empty Blank Element (only dashed border)
+  //
+  extraClass += arrangement ? (arrangement === 'top' ? ` ${styles.pos_top}` : ` ${styles.pos_bottom}`) : ''
+  extraClass += empty ? ` ${styles.empty}` : ''
+  console.log(empty)
 
   return (
-    <section className={`${styles.container} ${extraClassBlankPosition} ${extraClass}`}>
+    <section className={`${styles.container} ${extraClass}`}>
       <p className='text text_type_main-default text_color_inactive'>
-        {arrangement ? 'Выберите булку' : 'Выберите начинку'}
+        {!empty ? (arrangement ? 'Выберите булку' : 'Выберите начинку') : ''}
       </p>
     </section>
   )
@@ -17,6 +21,7 @@ const BlankConstructorElement = ({ arrangement, extraClass }) => {
 BlankConstructorElement.propTypes = {
   arrangement: PropTypes.oneOf(['top', 'bottom']),
   extraClass: PropTypes.string,
+  empty: PropTypes.bool,
 }
 
 export default BlankConstructorElement
