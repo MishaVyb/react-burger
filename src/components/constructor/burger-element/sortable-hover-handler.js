@@ -40,7 +40,7 @@ export const sortableHoverHandler = (ref, dispatch, hoverIndex, itemsArrayLength
   dispatch(moveConstructorItem(dragIndex, hoverIndex))
   dispatch(setMovingItemIndex(hoverIndex))
 
-  // Note: we're mutating the monitor dragItem here!
+  // NOTE: we're mutating the monitor dragItem here!
   // Generally it's better to avoid mutations,
   // but it's good here for the sake of performance
   // to avoid expensive index searches.

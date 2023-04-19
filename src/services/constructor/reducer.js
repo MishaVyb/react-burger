@@ -1,15 +1,8 @@
-import {
-  ADD_CONSTRUCTOR_ITEM,
-  MOVE_CONSTRUCTOR_ITEM,
-  REMOVE_CONSTRUCTOR_ITEM,
-  SET_HOVERED_ITEM_INDEX,
-  SET_MOVING_ITEM_INDEX,
-} from './actions'
+import { ADD_CONSTRUCTOR_ITEM, MOVE_CONSTRUCTOR_ITEM, REMOVE_CONSTRUCTOR_ITEM, SET_MOVING_ITEM_INDEX } from './actions'
 
 const initialStore = {
   bun: null,
   items: [],
-  hoveredItemIndex: null, // index for element hovered by dragged ingredient from left bar to right bar
   movingItemIndex: null, // index for element which is moving (dragging) inside burger-constructor
 }
 
@@ -17,6 +10,9 @@ export const reducer = (store = initialStore, action) => {
   switch (action.type) {
     case ADD_CONSTRUCTOR_ITEM:
       if (action.payload.item.type === 'bun') {
+        if (action.payload.index) {
+          throw Error('Index insert for Bun is not allowed. ')
+        }
         return {
           ...store,
           bun: action.payload.item,
@@ -45,12 +41,6 @@ export const reducer = (store = initialStore, action) => {
       return {
         ...store,
         movingItemIndex: action.payload.index,
-      }
-
-    case SET_HOVERED_ITEM_INDEX:
-      return {
-        ...store,
-        hoveredItemIndex: action.payload.index,
       }
 
     default:

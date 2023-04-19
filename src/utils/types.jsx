@@ -12,12 +12,19 @@ export const BurgerIngredientType = PropTypes.shape({
   image: PropTypes.string.isRequired,
   image_mobile: PropTypes.string.isRequired,
   image_large: PropTypes.string.isRequired,
+
+  // Custom fields:
+  counter: PropTypes.number,
 })
 
 export const DragTypes = {
   BUN: 'BUN',
-  FILLINGS: 'FILLINGS', // includes `sauce` and `main` ingredients (начинки)
-  FILLINGS_CONSTRUCTOR: 'FILLINGS_CONSTRUCTOR', // sortable fillings
+
+  // Filling: начинки. Includes `sauce` and `main` ingredients.
+  FILLINGS: 'FILLINGS',
+
+  // Sortable Fillings.
+  FILLINGS_CONSTRUCTOR: 'FILLINGS_CONSTRUCTOR',
 
   forItem(item) {
     return item.type === 'bun' ? DragTypes.BUN : DragTypes.FILLINGS

@@ -9,7 +9,7 @@ import { BurgerIngredientType, DragTypes } from '../../../utils/types'
 import styles from './styles.module.css'
 
 // eslint-disable-next-line react/prop-types
-const IngredientCard = ({ item, count }) => {
+const IngredientCard = ({ item }) => {
   const [{ opacity, isDragging }, dragRef, preview] = useDrag({
     type: DragTypes.forItem(item),
 
@@ -27,7 +27,7 @@ const IngredientCard = ({ item, count }) => {
 
   return (
     <div className={`m-3 ${styles.card}`} ref={dragRef} style={{ opacity }}>
-      {count ? <Counter count={count} size='default' extraClass='m-1' /> : null}
+      {item.counter ? <Counter count={item.counter} size='default' extraClass='m-1' /> : null}
       <img className='ml-2 mr-2' src={item.image} alt='' />
       <CurrencyView number={item.price} />
       <p className={`text text_type_main-small mt-1 mb-4 ${styles.align}`}>{item.name}</p>
@@ -37,7 +37,6 @@ const IngredientCard = ({ item, count }) => {
 
 IngredientCard.propTypes = {
   item: BurgerIngredientType,
-  count: PropTypes.number,
 }
 
 export default IngredientCard

@@ -4,12 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 
-import {
-  addConstructorItem,
-  removeConstructorItem,
-  setHoveredItemIndex,
-  setMovingItemIndex,
-} from '../../../services/constructor/actions'
+import { addConstructorItem, removeConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
 import { selectConstructorItems, selectConstructorMovingItemIndex } from '../../../services/constructor/selectors'
 import { BurgerIngredientType, DragTypes } from '../../../utils/types'
 import BlankConstructorElement from '../blank-constructor-element.jsx/blank-constructor-element'
@@ -31,20 +26,29 @@ const BurgerElement = ({ item, index, arrangement, setContainerHighlight }) => {
     accept: DragTypes.forArrangement(arrangement),
     hover: (dragItem, monitor) => {
       // [1.1]
+      // Buns do not have index and movingItemIndex accordingly. And Buns are not sortable.
+      // So here is an extra case handling:
+      if (dragItem.type === 'bun') {
+        if (!dragItem.isBunApplied) {
+          dragItem.isBunApplied = true
+          dispatch(addConstructorItem(dragItem, undefined))
+        }
+        return
+      }
+
+      // [1.2]
       // For the first hover call item is not in a target array and index is undefined.
       // So add Burger Constructor Item at this moment.
       if (dragItem.index === undefined) {
         dispatch(addConstructorItem(dragItem, index))
 
-        // If item is not a bun, it may be dragged inside container (it's sortable).
+        // Also item may be dragged inside container (it's sortable).
         // For better performance, we want to show Empty Blank Item (dashed border container) under current drag layer.
         // So setMovingItemIndex is called here:
-        if (dragItem.type !== 'bun') {
-          dispatch(setMovingItemIndex(index))
-          dragItem.index = index
-        }
+        dispatch(setMovingItemIndex(index))
+        dragItem.index = index // NOTE: the same item index mutating as in `sortableHoverHandler(..)`
       } else {
-        // [1.2]
+        // [1.3]
         // Item already in the target array and we just supporting he same sorting, as below.
         sortableHoverHandler(ref, dispatch, index, items.length, dragItem, monitor)
       }
