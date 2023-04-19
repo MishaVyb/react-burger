@@ -11,13 +11,9 @@ const ElementsList = ({ items }) => {
   return (
     <div className={`custom-scroll ${styles.container} ${isHighlight ? styles.highlight : ''}`}>
       {items.length ? (
-        items.map((v, i) =>
-          v ? (
-            <BurgerElement key={v._id} item={v} index={i} setContainerHighlight={setContainerHighlight} />
-          ) : (
-            <h2 key={i}>(no el)</h2>
-          )
-        )
+        items.map((v, i) => (
+          <BurgerElement key={v._key} item={v} index={i} setContainerHighlight={setContainerHighlight} />
+        ))
       ) : (
         // NOTE: render Blank Element for empty array
         <BurgerElement />
