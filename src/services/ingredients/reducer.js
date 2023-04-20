@@ -16,8 +16,7 @@ export const reducer = (store = initialStore, action) => {
       }
     case LOAD_INGREDIENTS_ERROR:
       return {
-        ...store,
-        pendingRequest: false,
+        ...initialStore,
         error: action.payload,
       }
     case LOAD_INGREDIENTS_SUCCESS:

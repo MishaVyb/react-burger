@@ -1,25 +1,24 @@
-import PropTypes from 'prop-types'
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import useRefScroll from '../../../hooks/use-ref-scroll'
 import { loadIngredients } from '../../../services/ingredients/actions'
-import { selectIngredients } from '../../../services/ingredients/selectors'
-import { BurgerIngredientType, IngredientTypes as Tabs } from '../../../utils/types'
+import { selectIngredientsItems } from '../../../services/ingredients/selectors'
+import { IngredientTypes as Tabs } from '../../../utils/types'
 import IngredientsList from '../ingredients-list/ingredients-list'
 import { NavBar } from '../navbar/navbar'
 import styles from './styles.module.css'
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch()
-  const ingredients = useSelector(selectIngredients)
+  const ingredients = useSelector(selectIngredientsItems)
   const [currentTab, setCurrentTab] = useState(Tabs.BUN)
 
   useEffect(() => {
     dispatch(loadIngredients())
   }, [dispatch])
 
-  // TODO move to selector
+  // TODO move to selector?
   const [bunItems, sauceItems, mainItems] = useMemo(() => {
     const bunItems = ingredients.filter((v) => v.type === 'bun')
     const sauceItems = ingredients.filter((v) => v.type === 'sauce')
@@ -45,10 +44,6 @@ const BurgerIngredients = () => {
       </section>
     </section>
   )
-}
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(BurgerIngredientType.isRequired).isRequired,
 }
 
 export default BurgerIngredients

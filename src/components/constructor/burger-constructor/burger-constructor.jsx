@@ -1,16 +1,13 @@
-import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
-import { selectConstructorBuns, selectConstructorItems } from '../../../services/constructor/selectors'
-import { BurgerIngredientType } from '../../../utils/types'
+import { selectConstructorBun, selectConstructorItems } from '../../../services/constructor/selectors'
 import BurgerElement from '../burger-element/burger-element'
 import ElementsList from '../elements-list/elements-list'
 import ElementsTotal from '../elements-total/elements-total'
 import styles from './styles.module.css'
 
 const BurgerConstructor = () => {
-  // TODO to selectors
-  const bun = useSelector(selectConstructorBuns)
+  const bun = useSelector(selectConstructorBun)
   const items = useSelector(selectConstructorItems)
 
   return (
@@ -21,10 +18,6 @@ const BurgerConstructor = () => {
       <ElementsTotal />
     </div>
   )
-}
-
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(BurgerIngredientType.isRequired).isRequired,
 }
 
 export default BurgerConstructor

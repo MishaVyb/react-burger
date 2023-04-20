@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import CurrencyView from '../../../UI/currency-view/currency-view'
 import Modal from '../../../UI/modal/modal'
 import {
-  selectConstructorBuns,
+  selectConstructorBun,
   selectConstructorItems,
   selectConstructorTotal,
 } from '../../../services/constructor/selectors'
@@ -14,7 +14,7 @@ import styles from './styles.module.css'
 const ElementsTotal = () => {
   const total = useSelector(selectConstructorTotal)
   const items = useSelector(selectConstructorItems)
-  const bun = useSelector(selectConstructorBuns)
+  const bun = useSelector(selectConstructorBun)
 
   return (
     <div className={`mt-10 ${styles.container}`}>

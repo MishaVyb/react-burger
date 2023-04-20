@@ -10,7 +10,6 @@ export const loadOrder = (ingredients, bun) => (dispatch) => {
   })
 
   const body = { ingredients: [...ingredients.map((v) => v._id), bun._id] }
-  console.log('BODY ', body)
   fetchOrder(body)
     .then((json) =>
       dispatch({

@@ -2,14 +2,14 @@ import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-component
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { selectConstructorBuns, selectConstructorItems } from '../../../services/constructor/selectors'
+import { selectConstructorBun, selectConstructorItems } from '../../../services/constructor/selectors'
 import { loadOrder } from '../../../services/order/actions'
 import { selectOrder } from '../../../services/order/selectors'
 import styles from './styles.module.css'
 
 const OrderDetail = () => {
   const items = useSelector(selectConstructorItems)
-  const bun = useSelector(selectConstructorBuns)
+  const bun = useSelector(selectConstructorBun)
   const order = useSelector(selectOrder)
   const dispatch = useDispatch()
 

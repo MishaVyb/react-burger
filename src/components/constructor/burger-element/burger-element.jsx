@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { addConstructorItem, removeConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
 import { selectConstructorItems, selectConstructorMovingItemIndex } from '../../../services/constructor/selectors'
-import { BurgerIngredientType, DragTypes } from '../../../utils/types'
+import { BurgerIngredientType, DragTypes, IngredientTypes } from '../../../utils/types'
 import BlankConstructorElement from '../blank-constructor-element.jsx/blank-constructor-element'
 import { sortableHoverHandler } from './sortable-hover-handler'
 import styles from './styles.module.css'
@@ -64,7 +64,7 @@ const BurgerElement = ({ item, index, arrangement, setContainerHighlight }) => {
   const [, drag] = useDrag({
     type: DragTypes.FILLINGS_CONSTRUCTOR,
     item: () => ({ index }),
-    canDrag: () => item.type !== 'bun',
+    canDrag: () => item?.type === IngredientTypes.SAUCE || item?.type === IngredientTypes.MAIN,
   })
   const [{ handlerId }, drop] = useDrop({
     accept: DragTypes.FILLINGS_CONSTRUCTOR,
@@ -121,7 +121,7 @@ BurgerElement.propTypes = {
 }
 
 BurgerElement.defaultProps = {
-  index: 0, // UNUSED
+  index: 0, // NOTE: necessary default for the first dragged item
 }
 
 export default BurgerElement
