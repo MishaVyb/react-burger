@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import useRefScroll from '../../../hooks/use-ref-scroll'
 import { loadIngredients } from '../../../services/ingredients/actions'
 import { selectIngredients } from '../../../services/ingredients/selectors'
-import { BurgerIngredientType } from '../../../utils/types'
+import { BurgerIngredientType, IngredientTypes as Tabs } from '../../../utils/types'
 import IngredientsList from '../ingredients-list/ingredients-list'
-import NavBar from '../navbar/navbar'
+import { NavBar } from '../navbar/navbar'
 import styles from './styles.module.css'
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch()
   const ingredients = useSelector(selectIngredients)
+  const [currentTab, setCurrentTab] = useState(Tabs.BUN)
 
   useEffect(() => {
     dispatch(loadIngredients())
@@ -36,11 +37,11 @@ const BurgerIngredients = () => {
 
   return (
     <section className={`pt-10 mr-5 ${styles.container}`}>
-      <NavBar onNavigationCalls={{ bun, sauce, main }} />
+      <NavBar current={currentTab} setCurrent={setCurrentTab} onNavigationCalls={{ bun, sauce, main }} />
       <section className={`custom-scroll ${styles.scroll}`}>
-        <IngredientsList ref={bunRef} items={bunItems} title='Булки' />
-        <IngredientsList ref={sauceRef} items={sauceItems} title='Соусы' />
-        <IngredientsList ref={mainRef} items={mainItems} title='Начинки' />
+        <IngredientsList onView={() => setCurrentTab(Tabs.BUN)} ref={bunRef} items={bunItems} title='Булки' />
+        <IngredientsList onView={() => setCurrentTab(Tabs.SAUCE)} ref={sauceRef} items={sauceItems} title='Соусы' />
+        <IngredientsList onView={() => setCurrentTab(Tabs.MAIN)} ref={mainRef} items={mainItems} title='Начинки' />
       </section>
     </section>
   )

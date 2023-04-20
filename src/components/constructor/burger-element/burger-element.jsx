@@ -89,7 +89,6 @@ const BurgerElement = ({ item, index, arrangement, setContainerHighlight }) => {
     if (typeof setContainerHighlight === 'function') {
       setContainerHighlight(canDrop && !isOver)
     } else {
-      console.log({ canDrop })
       setItemHighlight(canDrop)
     }
   }, [canDrop, isOver, setContainerHighlight])

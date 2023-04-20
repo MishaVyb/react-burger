@@ -1,15 +1,21 @@
 const ROOT_ENDPOINT = 'https://norma.nomoreparties.space/api'
 
 const checkResponse = (res) => {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(`Response is not OK. Reason: ${err}`))
+  return res.ok
+    ? res.json()
+    : res.json().then((err) => Promise.reject(`Response is not OK. Reason: ${JSON.stringify(err)}`))
 }
 
-const fetchIngredients = () => {
-  return fetch(`${ROOT_ENDPOINT}/ingredients`)
-    .then(checkResponse)
-    .then((json) => json.data)
-  //.then((result) => ({ data: result.data, loading: false, error: null }))
-  //.catch((err) => ({ data: [], loading: false, hasError: true, errorDetail: err }))
+export const fetchIngredients = () => {
+  return fetch(`${ROOT_ENDPOINT}/ingredients`).then(checkResponse)
 }
 
-export default fetchIngredients
+export const fetchOrder = (body) => {
+  return fetch(`${ROOT_ENDPOINT}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  }).then(checkResponse)
+}

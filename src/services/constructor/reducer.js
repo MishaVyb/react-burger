@@ -24,7 +24,7 @@ export const reducer = (store = initialStore, action) => {
       }
     case REMOVE_CONSTRUCTOR_ITEM:
       if (action.payload.item.type === 'bun') {
-        throw Error('Not Allowed')
+        throw Error('Removing Bun is not allowed. ')
       }
       return {
         ...store,

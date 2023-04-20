@@ -17,6 +17,12 @@ export const BurgerIngredientType = PropTypes.shape({
   counter: PropTypes.number,
 })
 
+export const IngredientTypes = {
+  BUN: 'bun',
+  SAUCE: 'sauce',
+  MAIN: 'main',
+}
+
 export const DragTypes = {
   BUN: 'BUN',
 
@@ -27,7 +33,7 @@ export const DragTypes = {
   FILLINGS_CONSTRUCTOR: 'FILLINGS_CONSTRUCTOR',
 
   forItem(item) {
-    return item.type === 'bun' ? DragTypes.BUN : DragTypes.FILLINGS
+    return item.type === IngredientTypes.BUN ? DragTypes.BUN : DragTypes.FILLINGS
   },
   forArrangement(arrangement) {
     return arrangement === 'top' || arrangement === 'bottom' ? DragTypes.BUN : DragTypes.FILLINGS

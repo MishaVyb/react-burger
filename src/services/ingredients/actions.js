@@ -1,4 +1,4 @@
-import fetchIngredients from '../../utils/burger-api'
+import { fetchIngredients } from '../../utils/burger-api'
 
 export const LOAD_INGREDIENTS_REQUEST = 'LOAD_INGREDIENTS_REQUEST'
 export const LOAD_INGREDIENTS_ERROR = 'LOAD_INGREDIENTS_ERROR'
@@ -12,10 +12,10 @@ export const loadIngredients = () => (dispatch) => {
   })
 
   fetchIngredients()
-    .then((response) =>
+    .then((json) =>
       dispatch({
         type: LOAD_INGREDIENTS_SUCCESS,
-        payload: response,
+        payload: json.data,
       })
     )
     .catch((err) =>
