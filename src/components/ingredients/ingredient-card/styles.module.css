@@ -1,7 +1,4 @@
 .card {
-  /* border: 1px dashed royalblue; */
-  /* margin-right: auto; */
-
   display: flex;
   flex-direction: column;
   justify-content: center;

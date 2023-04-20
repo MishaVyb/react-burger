@@ -13,7 +13,7 @@ const IngredientCard = ({ item }) => {
   const [{ opacity, isDragging }, dragRef, preview] = useDrag({
     type: DragTypes.forItem(item),
 
-    // NOTE: full item object here to implement custom drag layer redering
+    // NOTE: full item object here to implement custom drag layer render
     item: { ...item },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,

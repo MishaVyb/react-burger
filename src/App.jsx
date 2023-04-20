@@ -11,17 +11,11 @@ function App() {
   return (
     <main className={style.container}>
       <AppHeader />
-      {/* {state.loading ? (
-        <p className='m-20 text text_type_main-large text_color_inactive'>loading...</p>
-      ) : ( */}
-      <>
-        {/* {state.hasError && <ErrorAllert detail={state.errorDetail} />} */}
-        <DndProvider backend={HTML5Backend}>
-          <CustomDragLayer />
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </>
+      <DndProvider backend={HTML5Backend}>
+        <CustomDragLayer />
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </DndProvider>
     </main>
   )
 }
