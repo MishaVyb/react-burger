@@ -6,11 +6,17 @@ import { createPortal } from 'react-dom'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import styles from './styles.module.css'
 
-const Modal = ({ triggerElement, disable, children }) => {
+const Modal = ({ triggerElement, onOpen, onClose, disable, children }) => {
   const [show, setShow] = useState(false)
 
-  const open = () => setShow(disable ? false : true)
-  const close = () => setShow(false)
+  const open = () => {
+    onOpen()
+    setShow(disable ? false : true)
+  }
+  const close = () => {
+    onClose()
+    setShow(false)
+  }
 
   useEffect(() => {
     if (show) {
@@ -53,8 +59,15 @@ const Modal = ({ triggerElement, disable, children }) => {
 
 Modal.propTypes = {
   triggerElement: PropTypes.element.isRequired,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
   disable: PropTypes.bool,
   children: PropTypes.node.isRequired,
+}
+
+Modal.defaultProps = {
+  onOpen: () => {},
+  onClose: () => {},
 }
 
 export default Modal

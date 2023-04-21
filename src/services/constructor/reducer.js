@@ -20,7 +20,7 @@ export const reducer = (store = initialStore, action) => {
       }
       return {
         ...store,
-        items: store.items.toSpliced(action.payload.index, 0, { ...action.payload.item, _key: crypto.randomUUID() }),
+        items: store.items.toSpliced(action.payload.index, 0, { ...action.payload.item, _key: action.payload.key }),
       }
     case REMOVE_CONSTRUCTOR_ITEM:
       if (action.payload.item.type === 'bun') {

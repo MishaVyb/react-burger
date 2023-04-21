@@ -1,9 +1,7 @@
 const ROOT_ENDPOINT = 'https://norma.nomoreparties.space/api'
 
 const checkResponse = (res) => {
-  return res.ok
-    ? res.json()
-    : res.json().then((err) => Promise.reject(`Response is not OK. Reason: ${JSON.stringify(err)}`))
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
 }
 
 export const fetchIngredients = () => {

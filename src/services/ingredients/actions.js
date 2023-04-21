@@ -26,16 +26,12 @@ export const loadIngredients = () => (dispatch) => {
     )
 }
 
-export const increaseIngredientCounter = (item) => (dispatch) => {
-  dispatch({
-    type: INCREASE_INGREDIENT_COUNTER,
-    payload: { item },
-  })
-}
+export const increaseIngredientCounter = (item) => ({
+  type: INCREASE_INGREDIENT_COUNTER,
+  payload: { item },
+})
 
-export const decreaseIngredientCounter = (item) => (dispatch) => {
-  dispatch({
-    type: DECREASE_INGREDIENT_COUNTER,
-    payload: { item },
-  })
-}
+export const decreaseIngredientCounter = (item) => (dispatch) => ({
+  type: DECREASE_INGREDIENT_COUNTER,
+  payload: { item },
+})

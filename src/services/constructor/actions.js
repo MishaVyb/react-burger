@@ -5,7 +5,7 @@ export const SET_MOVING_ITEM_INDEX = 'SET_MOVING_ITEM_INDEX'
 
 export const addConstructorItem = (item, index) => ({
   type: ADD_CONSTRUCTOR_ITEM,
-  payload: { item, index },
+  payload: { item, index, key: crypto.randomUUID() },
 })
 
 export const moveConstructorItem = (dragIndex, hoverIndex) => ({
