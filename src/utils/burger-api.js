@@ -1,4 +1,4 @@
-const ROOT_ENDPOINT = 'https://norma.nomoreparties.space/api'
+const ROOT_ENDPOINT = 'https://norma.nomoreparties.space/api___________INVALID_URL_____________' // FIXME
 
 const checkResponse = (res) => {
   return res.ok
