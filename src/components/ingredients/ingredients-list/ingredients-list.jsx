@@ -14,26 +14,26 @@ const IngredientsList = forwardRef(({ onView, items, title }, ref) => {
   const dispatch = useDispatch()
 
   return (
-    <InView as='div' onChange={(inView, entry) => (inView ? onView() : null)}>
-      <div className='mt-5 mb-5'>
+    <div className='mt-5 mb-5'>
+      <InView as='div' onChange={(inView) => onView(inView)}>
         <p className='text text_type_main-medium' ref={ref}>
           {title}
         </p>
-        <div className={`mt-2 mb-2 ${styles.container}`}>
-          {items.map((v, i) => (
-            <div key={v._id} className={styles.item}>
-              <Modal
-                onOpen={() => dispatch(setCurrentIngredientDetail(v))}
-                onClose={() => dispatch(unsetCurrentIngredientDetail())}
-                triggerElement={<IngredientCard item={v} />}
-              >
-                <IngredientDetail />
-              </Modal>
-            </div>
-          ))}
-        </div>
+      </InView>
+      <div className={`mt-2 mb-2 ${styles.container}`}>
+        {items.map((v, i) => (
+          <div key={v._id} className={styles.item}>
+            <Modal
+              onOpen={() => dispatch(setCurrentIngredientDetail(v))}
+              onClose={() => dispatch(unsetCurrentIngredientDetail())}
+              triggerElement={<IngredientCard item={v} />}
+            >
+              <IngredientDetail />
+            </Modal>
+          </div>
+        ))}
       </div>
-    </InView>
+    </div>
   )
 })
 

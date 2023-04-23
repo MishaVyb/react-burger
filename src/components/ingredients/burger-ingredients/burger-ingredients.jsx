@@ -12,11 +12,51 @@ import styles from './styles.module.css'
 const BurgerIngredients = () => {
   const dispatch = useDispatch()
   const ingredients = useSelector(selectIngredientsItems)
-  const [currentTab, setCurrentTab] = useState(Tabs.BUN)
+  const [activeTabs, setActviveTabs] = useState({
+    [Tabs.BUN]: true,
+    [Tabs.SAUCE]: false,
+    [Tabs.MAIN]: false,
+  })
+
+  var currentActiveTab
+  for (const key of [Tabs.BUN, Tabs.SAUCE, Tabs.MAIN]) {
+    if (activeTabs[key]) {
+      currentActiveTab = key
+      break
+    }
+  }
 
   useEffect(() => {
     dispatch(loadIngredients())
   }, [dispatch])
+
+  const handleTabViewChange = (inView, type) => {
+    const newState = {}
+    if (!inView) {
+      for (const key of [Tabs.BUN, Tabs.SAUCE, Tabs.MAIN]) {
+        if (key === type) {
+          newState[key] = false
+        }
+      }
+      switch (type) {
+        case Tabs.BUN:
+          newState[Tabs.SAUCE] = true
+          break
+        case Tabs.SAUCE:
+          newState[Tabs.MAIN] = true
+          break
+        case Tabs.MAIN:
+          newState[Tabs.MAIN] = true
+          break
+        default:
+          return
+      }
+    } else {
+      newState[type] = true
+    }
+
+    setActviveTabs((current) => ({ ...current, ...newState }))
+  }
 
   // TODO move to selector?
   const [bunItems, sauceItems, mainItems] = useMemo(() => {
@@ -36,11 +76,30 @@ const BurgerIngredients = () => {
 
   return (
     <section className={`pt-10 mr-5 ${styles.container}`}>
-      <NavBar current={currentTab} setCurrent={setCurrentTab} onNavigationCalls={{ bun, sauce, main }} />
+      <NavBar
+        current={currentActiveTab}
+        setCurrent={(type) => handleTabViewChange(true, type)}
+        onNavigationCalls={{ bun, sauce, main }}
+      />
       <section className={`custom-scroll ${styles.scroll}`}>
-        <IngredientsList onView={() => setCurrentTab(Tabs.BUN)} ref={bunRef} items={bunItems} title='Булки' />
-        <IngredientsList onView={() => setCurrentTab(Tabs.SAUCE)} ref={sauceRef} items={sauceItems} title='Соусы' />
-        <IngredientsList onView={() => setCurrentTab(Tabs.MAIN)} ref={mainRef} items={mainItems} title='Начинки' />
+        <IngredientsList
+          onView={(inView) => handleTabViewChange(inView, Tabs.BUN)}
+          ref={bunRef}
+          items={bunItems}
+          title='Булки'
+        />
+        <IngredientsList
+          onView={(inView) => handleTabViewChange(inView, Tabs.SAUCE)}
+          ref={sauceRef}
+          items={sauceItems}
+          title='Соусы'
+        />
+        <IngredientsList
+          onView={(inView) => handleTabViewChange(inView, Tabs.MAIN)}
+          ref={mainRef}
+          items={mainItems}
+          title='Начинки'
+        />
       </section>
     </section>
   )
