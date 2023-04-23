@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import useRefScroll from '../../../hooks/use-ref-scroll'
@@ -13,6 +13,7 @@ const BurgerIngredients = () => {
   const dispatch = useDispatch()
   const ingredients = useSelector(selectIngredientsItems)
   const [currentTab, setCurrentTab] = useState(Tabs.BUN)
+  const viewRootRef = useRef()
 
   useEffect(() => {
     dispatch(loadIngredients())
@@ -37,10 +38,31 @@ const BurgerIngredients = () => {
   return (
     <section className={`pt-10 mr-5 ${styles.container}`}>
       <NavBar current={currentTab} setCurrent={setCurrentTab} onNavigationCalls={{ bun, sauce, main }} />
+      <div className={styles.view_root} ref={viewRootRef}>
+        VIEPORT FOR Itersaction Observer Api
+      </div>
       <section className={`custom-scroll ${styles.scroll}`}>
-        <IngredientsList onView={() => setCurrentTab(Tabs.BUN)} ref={bunRef} items={bunItems} title='Булки' />
-        <IngredientsList onView={() => setCurrentTab(Tabs.SAUCE)} ref={sauceRef} items={sauceItems} title='Соусы' />
-        <IngredientsList onView={() => setCurrentTab(Tabs.MAIN)} ref={mainRef} items={mainItems} title='Начинки' />
+        <IngredientsList
+          viewRootRef={viewRootRef}
+          onView={(v) => (v ? setCurrentTab(currentTab && Tabs.BUN) : setCurrentTab(undefined))}
+          ref={bunRef}
+          items={bunItems}
+          title='Булки'
+        />
+        <IngredientsList
+          viewRootRef={viewRootRef}
+          onView={(v) => (v ? setCurrentTab(currentTab && Tabs.SAUCE) : setCurrentTab(undefined))}
+          ref={sauceRef}
+          items={sauceItems}
+          title='Соусы'
+        />
+        <IngredientsList
+          viewRootRef={viewRootRef}
+          onView={(v) => (v ? setCurrentTab(currentTab && Tabs.MAIN) : setCurrentTab(undefined))}
+          ref={mainRef}
+          items={mainItems}
+          title='Начинки'
+        />
       </section>
     </section>
   )

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types'
 import { forwardRef } from 'react'
 import { InView } from 'react-intersection-observer'
@@ -10,30 +11,39 @@ import IngredientCard from '../ingredient-card/ingredient-card'
 import IngredientDetail from '../ingredient-detail/ingredient-detail'
 import styles from './styles.module.css'
 
-const IngredientsList = forwardRef(({ onView, items, title }, ref) => {
+const IngredientsList = forwardRef(({ viewRootRef, onView, items, title }, ref) => {
   const dispatch = useDispatch()
+  console.log(viewRootRef.current)
 
   return (
-    <InView as='div' onChange={(inView, entry) => (inView ? onView() : null)}>
-      <div className='mt-5 mb-5'>
+    <div className='mt-5 mb-5'>
+      <InView
+        root={viewRootRef.current}
+        rootMargin='500px'
+        as='div'
+        onChange={(inView, entry) => {
+          console.log(inView, title)
+          return onView(inView)
+        }}
+      >
         <p className='text text_type_main-medium' ref={ref}>
           {title}
         </p>
-        <div className={`mt-2 mb-2 ${styles.container}`}>
-          {items.map((v, i) => (
-            <div key={v._id} className={styles.item}>
-              <Modal
-                onOpen={() => dispatch(setCurrentIngredientDetail(v))}
-                onClose={() => dispatch(unsetCurrentIngredientDetail())}
-                triggerElement={<IngredientCard item={v} />}
-              >
-                <IngredientDetail />
-              </Modal>
-            </div>
-          ))}
-        </div>
+      </InView>
+      <div className={`mt-2 mb-2 ${styles.container}`}>
+        {items.map((v, i) => (
+          <div key={v._id} className={styles.item}>
+            <Modal
+              onOpen={() => dispatch(setCurrentIngredientDetail(v))}
+              onClose={() => dispatch(unsetCurrentIngredientDetail())}
+              triggerElement={<IngredientCard item={v} />}
+            >
+              <IngredientDetail />
+            </Modal>
+          </div>
+        ))}
       </div>
-    </InView>
+    </div>
   )
 })
 
