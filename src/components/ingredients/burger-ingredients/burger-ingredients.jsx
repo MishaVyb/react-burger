@@ -17,14 +17,7 @@ const BurgerIngredients = () => {
     [Tabs.SAUCE]: false,
     [Tabs.MAIN]: false,
   })
-
-  var currentActiveTab
-  for (const key of [Tabs.BUN, Tabs.SAUCE, Tabs.MAIN]) {
-    if (activeTabs[key]) {
-      currentActiveTab = key
-      break
-    }
-  }
+  const currentActiveTab = [Tabs.BUN, Tabs.SAUCE, Tabs.MAIN].find((type) => activeTabs[type])
 
   useEffect(() => {
     dispatch(loadIngredients())
@@ -33,16 +26,13 @@ const BurgerIngredients = () => {
   const handleTabViewChange = (inView, type) => {
     const newState = {}
     if (!inView) {
-      for (const key of [Tabs.BUN, Tabs.SAUCE, Tabs.MAIN]) {
-        if (key === type) {
-          newState[key] = false
-        }
-      }
       switch (type) {
         case Tabs.BUN:
+          newState[Tabs.BUN] = false
           newState[Tabs.SAUCE] = true
           break
         case Tabs.SAUCE:
+          newState[Tabs.SAUCE] = false
           newState[Tabs.MAIN] = true
           break
         case Tabs.MAIN:
