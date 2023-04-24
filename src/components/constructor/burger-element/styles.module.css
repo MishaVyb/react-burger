@@ -7,14 +7,10 @@
   flex-basis: 100%;
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
+.highlight {
+  border: 1px dashed royalblue;
 }
 
-.total {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
+.drag_cursor {
+  cursor: grabbing;
 }

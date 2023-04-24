@@ -1,16 +1,22 @@
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import styles from './styles.module.css'
 
-const Modal = ({ triggerElement, children }) => {
+const Modal = ({ triggerElement, onOpen, onClose, disable, children }) => {
   const [show, setShow] = useState(false)
 
-  const open = () => setShow(true)
-  const close = () => setShow(false)
+  const open = () => {
+    onOpen()
+    setShow(disable ? false : true)
+  }
+  const close = useCallback(() => {
+    onClose()
+    setShow(false)
+  }, [onClose])
 
   useEffect(() => {
     if (show) {
@@ -19,7 +25,7 @@ const Modal = ({ triggerElement, children }) => {
       document.addEventListener('keydown', closeByEscape)
       return () => document.removeEventListener('keypress', closeByEscape)
     }
-  }, [show])
+  }, [show, close])
 
   if (!show) {
     return (
@@ -53,7 +59,15 @@ const Modal = ({ triggerElement, children }) => {
 
 Modal.propTypes = {
   triggerElement: PropTypes.element.isRequired,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
+  disable: PropTypes.bool,
   children: PropTypes.node.isRequired,
+}
+
+Modal.defaultProps = {
+  onOpen: () => {},
+  onClose: () => {},
 }
 
 export default Modal

@@ -1,4 +1,7 @@
-import BurgerIngredientType from '../../../utils/types'
+import { useSelector } from 'react-redux'
+
+import { selectIngredientDetail } from '../../../services/ingredientDetail/selectors'
+import { BurgerIngredientType } from '../../../utils/types'
 import styles from './styles.module.css'
 
 const INGREDIENT_UNITS_MAPPING = {
@@ -8,7 +11,8 @@ const INGREDIENT_UNITS_MAPPING = {
   carbohydrates: 'Углеводы, г',
 }
 
-const IngredientDetail = ({ item }) => {
+const IngredientDetail = () => {
+  const item = useSelector(selectIngredientDetail)
   return (
     <div className={styles.container}>
       <p className={`text text_type_main-large ${styles.title}`}>Детали ингредиента</p>
@@ -30,10 +34,6 @@ const IngredientDetail = ({ item }) => {
       </section>
     </div>
   )
-}
-
-IngredientDetail.propTypes = {
-  item: BurgerIngredientType.isRequired,
 }
 
 export default IngredientDetail

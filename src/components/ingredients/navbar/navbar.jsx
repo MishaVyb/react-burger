@@ -2,17 +2,10 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import { IngredientTypes as Tabs } from '../../../utils/types'
 import styles from './styles.module.css'
 
-const Tabs = {
-  BUN: 'bun',
-  SAUCE: 'sauce',
-  MAIN: 'main',
-}
-
-const NavBar = ({ onNavigationCalls }) => {
-  const [current, setCurrent] = React.useState(Tabs.BUN)
-
+export const NavBar = ({ current, setCurrent, onNavigationCalls }) => {
   const onClick = (e) => {
     setCurrent(e)
     if (typeof onNavigationCalls[e] === 'function') {
@@ -39,11 +32,11 @@ const NavBar = ({ onNavigationCalls }) => {
 }
 
 NavBar.propTypes = {
+  current: PropTypes.oneOf([Tabs.BUN, Tabs.SAUCE, Tabs.MAIN]),
+  setCurrent: PropTypes.func.isRequired,
   onNavigationCalls: PropTypes.shape({
     bun: PropTypes.func.isRequired,
     sauce: PropTypes.func.isRequired,
     main: PropTypes.func.isRequired,
   }).isRequired,
 }
-
-export default NavBar

@@ -1,14 +1,32 @@
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
-import PropTypes from 'prop-types'
+import { useEffect } from 'react'
+import { useDrag } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
-import BurgerIngredientType from '../../../utils/types'
+import { BurgerIngredientType, DragTypes } from '../../../utils/types'
 import styles from './styles.module.css'
 
-const IngredientCard = ({ item, count }) => {
+// eslint-disable-next-line react/prop-types
+const IngredientCard = ({ item }) => {
+  const [{ opacity, isDragging }, dragRef, preview] = useDrag({
+    type: DragTypes.forItem(item),
+
+    // NOTE: full item object here to implement custom drag layer render
+    item: { ...item },
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+      isDragging: monitor.isDragging(),
+    }),
+  })
+
+  useEffect(() => {
+    preview(getEmptyImage())
+  }, [preview])
+
   return (
-    <div className={`m-3 ${styles.card}`}>
-      {count ? <Counter count={count} size='default' extraClass='m-1' /> : null}
+    <div className={`m-3 ${styles.card}`} ref={dragRef} style={{ opacity }}>
+      {item.counter ? <Counter count={item.counter} size='default' extraClass='m-1' /> : null}
       <img className='ml-2 mr-2' src={item.image} alt='' />
       <CurrencyView number={item.price} />
       <p className={`text text_type_main-small mt-1 mb-4 ${styles.align}`}>{item.name}</p>
@@ -18,7 +36,6 @@ const IngredientCard = ({ item, count }) => {
 
 IngredientCard.propTypes = {
   item: BurgerIngredientType,
-  count: PropTypes.number,
 }
 
 export default IngredientCard

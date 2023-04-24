@@ -5,3 +5,16 @@
   align-items: center;
   position: relative;
 }
+
+.dragging_wrapper {
+  position: absolute;
+  pointer-events: none;
+  z-index: 100;
+  left: 0;
+  top: 0;
+}
+
+.dragging {
+  border: 1px dashed royalblue;
+  border-radius: var(--common-border-radius-s);
+}
