@@ -2,22 +2,32 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useEffect } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
+import { useDispatch, useSelector } from 'react-redux'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
+import { removeConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
+import { selectConstructorMovingItemIndex } from '../../../services/constructor/selectors'
 import { BurgerIngredientType, DragTypes } from '../../../utils/types'
 import styles from './styles.module.css'
 
 // eslint-disable-next-line react/prop-types
 const IngredientCard = ({ item }) => {
-  const [{ opacity, isDragging }, dragRef, preview] = useDrag({
+  const dispatch = useDispatch()
+  const constructorMovingItemIndex = useSelector(selectConstructorMovingItemIndex)
+  const [{ opacity }, dragRef, preview] = useDrag({
     type: DragTypes.forItem(item),
 
     // NOTE: full item object here to implement custom drag layer render
     item: { ...item },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
-      isDragging: monitor.isDragging(),
     }),
+    end: (item, monitor) => {
+      dispatch(setMovingItemIndex(null))
+      if (!monitor.didDrop()) {
+        dispatch(removeConstructorItem(item, constructorMovingItemIndex))
+      }
+    },
   })
 
   useEffect(() => {

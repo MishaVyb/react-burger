@@ -53,7 +53,6 @@ const BurgerElement = ({ item, index, arrangement, setContainerHighlight }) => {
         sortableHoverHandler(ref, dispatch, index, items.length, dragItem, monitor)
       }
     },
-    drop: () => dispatch(setMovingItemIndex(null)),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
