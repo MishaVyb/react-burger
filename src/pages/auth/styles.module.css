@@ -1,0 +1,17 @@
+.container {
+  border: 2px dashed red;
+
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.guideline {
+  border: 2px dashed red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+}

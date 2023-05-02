@@ -6,6 +6,7 @@
 }
 
 header {
+  border: 1px solid palegreen;
   display: flex;
   align-items: center;
   width: 1280px;

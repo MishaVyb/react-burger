@@ -2,3 +2,21 @@
   /* DEBUG FRAMES */
   /* border: 2px solid #a61946; */
 }
+
+body {
+  height: 100vh;
+  border: 2px solid #a61946;
+}
+
+a {
+  text-decoration: none;
+  color: #4c4cff;
+}
+
+.navlink {
+  color: #8585ad;
+}
+
+.navlink.active {
+  color: #f2f2f3;
+}
