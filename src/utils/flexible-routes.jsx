@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { Navigate, Routes } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { selectIsAuthenticated } from '../services/auth/selectors'
 

@@ -88,12 +88,12 @@ export const loadLogin = (data) => (dispatch) => {
   })
 
   fetchLogin(data)
-    .then((json) =>
+    .then((json) => {
       dispatch({
         type: LOAD_LOGIN_SUCCESS,
         payload: json,
       })
-    )
+    })
     .catch((err) =>
       dispatch({
         type: LOAD_LOGIN_ERROR,

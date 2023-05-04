@@ -1,9 +1,7 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 
-import Loader from '../../../UI/loader/loader'
 import { loadUser, resetRequestStatus, updateUser } from '../../../services/auth/actions'
 import { selectAuthRequestStatus, selectUser } from '../../../services/auth/selectors'
 import styles from './styles.module.css'
@@ -25,8 +23,11 @@ const UpdateProfile = () => {
   const onFormSubmit = (e) => {
     e.preventDefault()
     dispatch(updateUser(form))
-    setFormUpdates(initialUpdatesState)
     dispatch(resetRequestStatus())
+    setFormUpdates(initialUpdatesState)
+
+    // NOTE: we do not hold password value after form submit: reset from value
+    setForm((state) => ({ ...state, password: '' }))
   }
 
   const onIconClick = (key) => () => {
