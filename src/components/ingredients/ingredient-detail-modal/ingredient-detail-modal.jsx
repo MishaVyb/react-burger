@@ -15,10 +15,10 @@ const IngredientDetailModal = ({ backgroundPath, backgroundElement }) => {
   const ingredient = useSelector(selectIngredientsItem(id))
   const dispatch = useDispatch()
 
-  // load (update) ingredients
+  // load (update) ingredients:
   useEffect(() => dispatch(loadIngredients()), [dispatch])
 
-  // set current ingredient as modal content
+  // set current ingredient as modal content:
   useEffect(() => {
     if (ingredient) dispatch(setCurrentIngredientDetail(ingredient))
     return () => dispatch(unsetCurrentIngredientDetail())
