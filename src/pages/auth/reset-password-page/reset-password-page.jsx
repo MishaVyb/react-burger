@@ -1,43 +1,67 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
+import { loadResetPassword, resetRequestStatus } from '../../../services/auth/actions'
+import { selectAuthRequestStatus } from '../../../services/auth/selectors'
 import styles from '../styles.module.css'
 
 const ResetPasswordPage = () => {
-  const [value, setValue] = useState('')
-  const inputRef = useRef(null)
+  const [form, setForm] = useState({ password: '', token: '' })
   const [showPassword, setShowPassword] = useState(false)
+  const inputRef = useRef()
+  const [isSubmit, setIsSubmit] = useState(false)
+  const dispatch = useDispatch()
+  const [loading, error] = useSelector(selectAuthRequestStatus)
+  const navigate = useNavigate()
 
-  const showPasswordHandle = () => {
+  useEffect(() => () => dispatch(resetRequestStatus()), [dispatch])
+  useEffect(() => {
+    if (isSubmit && !loading && !error) navigate('/login')
+  }, [navigate, isSubmit, loading, error])
+
+  const onPasswordShowIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0)
     setShowPassword(!showPassword)
   }
 
+  const onFormChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+  const onFormSubmit = (e) => {
+    e.preventDefault()
+    dispatch(loadResetPassword(form))
+    setIsSubmit(true)
+  }
+
   return (
-    <section className={styles.container}>
+    <form className={styles.container} onSubmit={onFormSubmit}>
       <p className='m-3 text text_type_main-medium'>Восстановление пароля</p>
       <Input
         type={showPassword ? 'text' : 'password'}
         placeholder='Введите новый пароль'
-        onChange={(e) => setValue(e.target.value)}
         icon={showPassword ? 'ShowIcon' : 'HideIcon'}
-        value={value}
+        onChange={onFormChange}
+        value={form.password}
         name='password'
         ref={inputRef}
-        onIconClick={showPasswordHandle}
+        error={!!error}
+        onIconClick={onPasswordShowIconClick}
         extraClass='m-3'
+        required
       />
       <Input
         type='text'
         placeholder='Введите код из письма'
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        name='username'
+        onChange={onFormChange}
+        value={form.token}
+        name='token'
+        error={!!error}
+        errorText={error}
         extraClass='m-3'
+        required
       />
-      <Button htmlType='button' type='primary' size='medium' extraClass='m-3'>
-        Сохранить
+      <Button htmlType='submit' type='primary' size='medium' extraClass='m-3'>
+        {loading ? 'Загрузка...' : 'Сохранить'}
       </Button>
       <div className={styles.guideline}>
         <p className='mt-20 text text_type_main-default text_color_inactive'>Вспомнили пароль?</p>
@@ -45,7 +69,7 @@ const ResetPasswordPage = () => {
           Войти
         </Link>
       </div>
-    </section>
+    </form>
   )
 }
 export default ResetPasswordPage

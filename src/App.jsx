@@ -11,6 +11,7 @@ import RegisterPage from './pages/auth/register-page/register-page'
 import ResetPasswordPage from './pages/auth/reset-password-page/reset-password-page'
 import NotFoundPage from './pages/errors/not-found/not-found'
 import HomePage from './pages/home-page/home-page'
+import RouteDispatch from './utils/flexible-routes'
 
 function App() {
   return (
@@ -20,17 +21,73 @@ function App() {
           <AppHeader />
           <Routes>
             <Route path='*' element={<NotFoundPage />} />
-            <Route path='/' element={<HomePage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegisterPage />} />
-            <Route path='/forgot-password' element={<ForgotPasswordPage />} />
-            <Route path='/reset-password' element={<ResetPasswordPage />} />
-            <Route path='/profile' element={<ProfilePage />} />
+            <Route
+              path='/'
+              element={
+                <RouteDispatch loginRequired>
+                  <HomePage />
+                </RouteDispatch>
+              }
+            />
+            <Route
+              path='/login'
+              element={
+                <RouteDispatch>
+                  <LoginPage />
+                </RouteDispatch>
+              }
+            />
+            <Route
+              path='/register'
+              element={
+                <RouteDispatch>
+                  <RegisterPage />
+                </RouteDispatch>
+              }
+            />
+            <Route
+              path='/forgot-password'
+              element={
+                <RouteDispatch>
+                  <ForgotPasswordPage />
+                </RouteDispatch>
+              }
+            />
+            <Route
+              path='/reset-password'
+              element={
+                <RouteDispatch>
+                  <ResetPasswordPage />
+                </RouteDispatch>
+              }
+            />
+            <Route
+              path='/profile'
+              element={
+                <RouteDispatch loginRequired>
+                  <ProfilePage />
+                </RouteDispatch>
+              }
+            />
             {/* <Route path='/ingredients/:id' element={<RegisterPage />} /> */}
 
             {/* TODO Next sprint. */}
-            <Route path='/profile/orders' element={<NotFoundPage />} />
-            <Route path='/logout' element={<NotFoundPage />} />
+            <Route
+              path='/profile/orders'
+              element={
+                <RouteDispatch loginRequired>
+                  <NotFoundPage />
+                </RouteDispatch>
+              }
+            />
+            <Route
+              path='/logout'
+              element={
+                <RouteDispatch loginRequired>
+                  <NotFoundPage />
+                </RouteDispatch>
+              }
+            />
           </Routes>
         </Router>
       </DndProvider>

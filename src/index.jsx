@@ -5,9 +5,14 @@ import { Provider } from 'react-redux'
 import App from './App'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
+import { selectAuth } from './services/auth/selectors'
 import { initStore } from './services/store'
+import { loadFromLocalStorage } from './utils/persistence'
 
-const store = initStore()
+const preloadedState = {
+  auth: loadFromLocalStorage('auth'),
+}
+const store = initStore(preloadedState)
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
