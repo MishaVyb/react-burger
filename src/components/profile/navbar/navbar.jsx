@@ -28,7 +28,7 @@ const Navbar = () => {
       <NavLink to='/profile/orders' className={navLinkClassName}>
         История заказов
       </NavLink>
-      <a href='/logout' to='/profile/logout' className={navLinkClassName} onClick={onLogout}>
+      <a href='.' className={navLinkClassName} onClick={onLogout}>
         {loading ? 'Загрузка...' : 'Выход'}
       </a>
       <p className='mt-20 text text_type_main-default text_color_inactive'>

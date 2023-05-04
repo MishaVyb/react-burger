@@ -4,6 +4,7 @@ import {
   fetchLogout,
   fetchRegister,
   fetchResetPassword,
+  fetchUpdateUser,
   fetchUser,
 } from '../../utils/burger-api'
 import { selectAuth, selectRefreshToken } from './selectors'
@@ -11,6 +12,10 @@ import { selectAuth, selectRefreshToken } from './selectors'
 export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST'
 export const LOAD_USER_ERROR = 'LOAD_USER_ERROR'
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS'
+
+export const LOAD_USER_UPDATE_REQUEST = 'LOAD_USER_UPDATE_REQUEST'
+export const LOAD_USER_UPDATE_ERROR = 'LOAD_USER_UPDATE_ERROR'
+export const LOAD_USER_UPDATE_SUCCESS = 'LOAD_USER_UPDATE_SUCCESS'
 
 export const LOAD_LOGIN_REQUEST = 'LOAD_LOGIN_REQUEST'
 export const LOAD_LOGIN_ERROR = 'LOAD_LOGIN_ERROR'
@@ -46,12 +51,32 @@ export const loadUser = () => (dispatch, getState) => {
     .then((json) => {
       dispatch({
         type: LOAD_USER_SUCCESS,
-        payload: json.data,
+        payload: json,
       })
     })
     .catch((err) => {
       dispatch({
         type: LOAD_USER_ERROR,
+        payload: err,
+      })
+    })
+}
+
+export const updateUser = (data) => (dispatch, getState) => {
+  dispatch({
+    type: LOAD_USER_UPDATE_REQUEST,
+  })
+
+  fetchUpdateUser(data, selectAuth(getState()), (newTokens) => dispatch({ type: UPDATE_TOKENS, payload: newTokens }))
+    .then((json) => {
+      dispatch({
+        type: LOAD_USER_UPDATE_SUCCESS,
+        payload: json,
+      })
+    })
+    .catch((err) => {
+      dispatch({
+        type: LOAD_USER_UPDATE_ERROR,
         payload: err,
       })
     })

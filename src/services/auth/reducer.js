@@ -18,6 +18,9 @@ import {
   LOAD_USER_ERROR,
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
+  LOAD_USER_UPDATE_ERROR,
+  LOAD_USER_UPDATE_REQUEST,
+  LOAD_USER_UPDATE_SUCCESS,
   RESET_REQUEST_STATUS,
   UPDATE_TOKENS,
 } from './actions'
@@ -37,6 +40,7 @@ const initialStore = {
 export const reducer = (store = initialStore, action) => {
   switch (action.type) {
     case LOAD_USER_REQUEST:
+    case LOAD_USER_UPDATE_REQUEST:
     case LOAD_LOGIN_REQUEST:
     case LOAD_REGISTER_REQUEST:
     case LOAD_FORGOT_PASSWORD_REQUEST:
@@ -59,10 +63,19 @@ export const reducer = (store = initialStore, action) => {
         error: action.payload?.message || JSON.stringify(action.payload),
       }
 
+    case LOAD_USER_UPDATE_ERROR:
+      return {
+        ...store,
+        pendingRequest: false,
+        error: action.payload?.message || JSON.stringify(action.payload),
+      }
+
     case LOAD_USER_SUCCESS:
+    case LOAD_USER_UPDATE_SUCCESS:
     case LOAD_LOGIN_SUCCESS:
     case LOAD_REGISTER_SUCCESS:
     case UPDATE_TOKENS:
+      console.log(action.payload)
       return saveToLocalStorage('auth', {
         ...store,
         ...action.payload,

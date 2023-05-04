@@ -30,24 +30,48 @@ export const fetchUser = (auth, onTokenUpdates) => {
           onTokenUpdates(json)
           return fetch(`${ROOT_ENDPOINT}/auth/user`, {
             method: 'GET',
-            headers: { Authorization: `${json.accessToken}` },
+            headers: { Authorization: json.accessToken },
           }).then(checkResponse)
         })
         .catch((e) => {
           //
           // RETRY NOT OK
-          console.error('Retry. Handling error failed. ', e)
+          console.log('Retry. Handling error failed. ', e)
           return Promise.reject(e)
         })
     })
 }
 
-export const fetchUserUpdate = (body) => {
+export const fetchUpdateUser = (body, auth, onTokenUpdates) => {
   return fetch(`${ROOT_ENDPOINT}/auth/user`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Authorization: auth.accessToken },
     body: JSON.stringify(body),
-  }).then(checkResponse)
+  })
+    .then(checkResponse)
+    .catch((e) => {
+      //
+      // RETRY
+      console.log('Retry. Handling error. ', e)
+      return fetchTokenUpdate(auth)
+        .then((json) => {
+          //
+          // RETRY OK
+          console.log('Retry. Handle error successfully. ', json)
+          onTokenUpdates(json)
+          return fetch(`${ROOT_ENDPOINT}/auth/user`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', Authorization: json.accessToken },
+            body: JSON.stringify(body),
+          }).then(checkResponse)
+        })
+        .catch((e) => {
+          //
+          // RETRY NOT OK
+          console.log('Retry. Handling error failed. ', e)
+          return Promise.reject(e)
+        })
+    })
 }
 
 export const fetchIngredients = () => {
