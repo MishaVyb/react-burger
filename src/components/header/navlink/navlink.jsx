@@ -6,7 +6,7 @@ import styles from './styles.module.css'
 
 const IconNavLink = ({ icon, to, title }) => {
   return (
-    <NavLink to={to} end className={`pl-5 pr-5 ${styles.link}`}>
+    <NavLink to={to} className={`pl-5 pr-5 ${styles.link}`}>
       {({ isActive, isPending }) => (
         <>
           {icon({ type: isActive ? 'primary' : 'secondary' })}

@@ -10,7 +10,7 @@ const AppHeader = () => {
       <header>
         <Navbar extraClass={styles.navbar_left}>
           <IconNavLink icon={BurgerIcon} to='/' title='Конструктор' />
-          <IconNavLink icon={ListIcon} to='profile/orders' title='Лента заказов' />
+          <IconNavLink icon={ListIcon} to='orders' title='Лента заказов' />
         </Navbar>
 
         <div className={styles.logo}>
