@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
 import style from './app.module.css'
 import AppHeader from './components/header/app-header/app-header'
+import IngredientDetailModal from './components/ingredients/ingredient-detail-modal/ingredient-detail-modal'
 import ForgotPasswordPage from './pages/auth/forgot-password-page/forgot-password-page'
 import LoginPage from './pages/auth/login-page/login-page'
 import ProfilePage from './pages/auth/profile-page/profile-page'
@@ -69,7 +70,14 @@ function App() {
                 </RouteDispatch>
               }
             />
-            {/* <Route path='/ingredients/:id' element={<RegisterPage />} /> */}
+            <Route
+              path='/ingredients/:id'
+              element={
+                <RouteDispatch loginRequired>
+                  <IngredientDetailModal backgroundPath='/' backgroundElement={<HomePage />} />
+                </RouteDispatch>
+              }
+            />
 
             {/* TODO Next sprint. */}
             <Route

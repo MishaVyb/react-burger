@@ -3,11 +3,8 @@ import { forwardRef } from 'react'
 import { InView } from 'react-intersection-observer'
 import { useDispatch } from 'react-redux'
 
-import Modal from '../../../UI/modal/modal'
-import { setCurrentIngredientDetail, unsetCurrentIngredientDetail } from '../../../services/ingredientDetail/actions'
 import { BurgerIngredientType } from '../../../utils/types'
 import IngredientCard from '../ingredient-card/ingredient-card'
-import IngredientDetail from '../ingredient-detail/ingredient-detail'
 import styles from './styles.module.css'
 
 const IngredientsList = forwardRef(({ onView, items, title }, ref) => {
@@ -23,13 +20,7 @@ const IngredientsList = forwardRef(({ onView, items, title }, ref) => {
       <div className={`mt-2 mb-2 ${styles.container}`}>
         {items.map((v, i) => (
           <div key={v._id} className={styles.item}>
-            <Modal
-              onOpen={() => dispatch(setCurrentIngredientDetail(v))}
-              onClose={() => dispatch(unsetCurrentIngredientDetail())}
-              triggerElement={<IngredientCard item={v} />}
-            >
-              <IngredientDetail />
-            </Modal>
+            <IngredientCard item={v} />
           </div>
         ))}
       </div>

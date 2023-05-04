@@ -6,8 +6,8 @@ import { createPortal } from 'react-dom'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import styles from './styles.module.css'
 
-const Modal = ({ triggerElement, onOpen, onClose, disable, children }) => {
-  const [show, setShow] = useState(false)
+const Modal = ({ initialShow, backgroundElement, triggerElement, onOpen, onClose, disable, children }) => {
+  const [show, setShow] = useState(initialShow)
 
   const open = () => {
     onOpen()
@@ -27,7 +27,7 @@ const Modal = ({ triggerElement, onOpen, onClose, disable, children }) => {
     }
   }, [show, close])
 
-  if (!show) {
+  if (!show && triggerElement) {
     return (
       <div className={styles.trigger} onClick={open}>
         {triggerElement}
@@ -51,6 +51,7 @@ const Modal = ({ triggerElement, onOpen, onClose, disable, children }) => {
   const modalWrapperPortal = createPortal(modalWrapper, document.getElementById('react-modals'))
   return (
     <>
+      {backgroundElement}
       {modalWrapperPortal}
       {triggerElement}
     </>
@@ -58,7 +59,9 @@ const Modal = ({ triggerElement, onOpen, onClose, disable, children }) => {
 }
 
 Modal.propTypes = {
-  triggerElement: PropTypes.element.isRequired,
+  initialShow: PropTypes.bool,
+  backgroundElement: PropTypes.element,
+  triggerElement: PropTypes.element,
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
   disable: PropTypes.bool,

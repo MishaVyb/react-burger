@@ -13,6 +13,8 @@ const INGREDIENT_UNITS_MAPPING = {
 
 const IngredientDetail = () => {
   const item = useSelector(selectIngredientDetail)
+  if (!item) return null
+
   return (
     <div className={styles.container}>
       <p className={`text text_type_main-large ${styles.title}`}>Детали ингредиента</p>
