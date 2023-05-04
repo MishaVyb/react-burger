@@ -5,6 +5,7 @@
   align-items: center;
   position: relative;
   cursor: pointer;
+  color: inherit;
 }
 
 .dragging_wrapper {

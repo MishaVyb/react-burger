@@ -42,7 +42,7 @@ const RegisterPage = () => {
         required
       />
       <Input
-        type='text' // type='email' // XXX
+        type='email'
         placeholder='E-mail'
         onChange={onFormChange}
         value={form.email}
@@ -52,7 +52,7 @@ const RegisterPage = () => {
         required
       />
       <Input
-        type='text' // type={showPassword ? 'text' : 'password'} // !!!
+        type={showPassword ? 'text' : 'password'}
         placeholder='Пароль'
         icon={showPassword ? 'ShowIcon' : 'HideIcon'}
         onChange={onFormChange}

@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
 import { selectIsAuthenticated } from '../services/auth/selectors'
 
-// eslint-disable-next-line react/prop-types
 const RouteDispatch = ({ loginRequired, children }) => {
   const isAuth = useSelector(selectIsAuthenticated)
 
@@ -14,6 +14,11 @@ const RouteDispatch = ({ loginRequired, children }) => {
 
   if (isAuth) return <Navigate to='/' />
   return children
+}
+
+RouteDispatch.propTypes = {
+  loginRequired: PropTypes.bool,
+  children: PropTypes.element.isRequired,
 }
 
 export default RouteDispatch

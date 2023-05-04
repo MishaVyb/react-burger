@@ -74,11 +74,7 @@ function App() {
             />
             <Route
               path='/ingredients/:id'
-              element={
-                <RouteDispatch>
-                  <IngredientDetailModal backgroundPath='/' backgroundElement={<HomePage />} />
-                </RouteDispatch>
-              }
+              element={<IngredientDetailModal backgroundPath='/' backgroundElement={<HomePage />} />}
             />
           </Routes>
         </Router>

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
 import { removeConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
@@ -11,9 +11,7 @@ import { selectConstructorMovingItemIndex } from '../../../services/constructor/
 import { BurgerIngredientType, DragTypes } from '../../../utils/types'
 import styles from './styles.module.css'
 
-// eslint-disable-next-line react/prop-types
 const IngredientCard = ({ item }) => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const constructorMovingItemIndex = useSelector(selectConstructorMovingItemIndex)
   const [{ opacity }, dragRef, preview] = useDrag({
@@ -36,18 +34,13 @@ const IngredientCard = ({ item }) => {
     preview(getEmptyImage())
   }, [preview])
 
-  // TODO переделать на <Link ...>
-  const onClick = () => {
-    navigate(`/ingredients/${item._id}`)
-  }
-
   return (
-    <div className={`m-3 ${styles.card}`} ref={dragRef} style={{ opacity }} onClick={onClick}>
+    <Link to={`/ingredients/${item._id}`} className={`m-3 ${styles.card}`} ref={dragRef} style={{ opacity }}>
       {item.counter ? <Counter count={item.counter} size='default' extraClass='m-1' /> : null}
       <img className='ml-2 mr-2' src={item.image} alt='' />
       <CurrencyView number={item.price} />
       <p className={`text text_type_main-small mt-1 mb-4 ${styles.align}`}>{item.name}</p>
-    </div>
+    </Link>
   )
 }
 
