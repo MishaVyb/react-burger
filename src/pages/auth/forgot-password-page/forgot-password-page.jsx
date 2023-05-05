@@ -1,7 +1,7 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { loadForgotPassword, resetRequestStatus } from '../../../services/auth/actions'
 import { selectAuthRequestStatus } from '../../../services/auth/selectors'
@@ -14,11 +14,12 @@ const ForgotPasswordPage = () => {
   const dispatch = useDispatch()
   const [loading, error] = useSelector(selectAuthRequestStatus)
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => () => dispatch(resetRequestStatus()), [dispatch])
   useEffect(() => {
-    if (isSubmit && !loading && !error) navigate('/reset-password')
-  }, [navigate, isSubmit, loading, error])
+    if (isSubmit && !loading && !error) navigate('/reset-password', { state: { from: location.pathname } })
+  }, [navigate, isSubmit, loading, error, location.pathname])
 
   const onFormChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
   const onFormSubmit = (e) => {

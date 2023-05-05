@@ -1,7 +1,7 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { loadResetPassword, resetRequestStatus } from '../../../services/auth/actions'
 import { selectAuthRequestStatus } from '../../../services/auth/selectors'
@@ -15,7 +15,12 @@ const ResetPasswordPage = () => {
   const dispatch = useDispatch()
   const [loading, error] = useSelector(selectAuthRequestStatus)
   const navigate = useNavigate()
+  const location = useLocation()
+  console.log(location)
 
+  useEffect(() => {
+    if (location?.state?.from !== '/forgot-password') navigate('/forgot-password')
+  })
   useEffect(() => () => dispatch(resetRequestStatus()), [dispatch])
   useEffect(() => {
     if (isSubmit && !loading && !error) navigate('/login')
