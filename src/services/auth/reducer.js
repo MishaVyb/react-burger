@@ -75,7 +75,6 @@ export const reducer = (store = initialStore, action) => {
     case LOAD_LOGIN_SUCCESS:
     case LOAD_REGISTER_SUCCESS:
     case UPDATE_TOKENS:
-      console.log(action.payload)
       return saveToLocalStorage('auth', {
         ...store,
         ...action.payload,

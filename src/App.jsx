@@ -13,7 +13,7 @@ import NotFoundPage from './pages/errors/not-found/not-found'
 import HomePage from './pages/home-page/home-page'
 import ProfileOrdersPage from './pages/profile/orders-page/orders-page'
 import ProfilePage from './pages/profile/profile-page/profile-page'
-import RouteDispatch from './utils/flexible-routes'
+import RouteDispatch from './utils/route-dispatch'
 
 function App() {
   return (
