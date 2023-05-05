@@ -3,7 +3,7 @@ const ROOT_ENDPOINT = 'https://norma.nomoreparties.space/api'
 const checkResponse = (res) => (res.ok ? res.json() : res.json().then((err) => Promise.reject(err)))
 
 const fetchTokenUpdate = (auth) => {
-  console.log('--> fetchTokenUpdate')
+  if (!auth.refreshToken) throw Error('No refresh token. Please, login again. ')
 
   return fetch(`${ROOT_ENDPOINT}/auth/token`, {
     method: 'POST',
@@ -13,6 +13,8 @@ const fetchTokenUpdate = (auth) => {
 }
 
 export const fetchUser = (auth, onTokenUpdates) => {
+  if (!auth.accessToken) throw Error('No access token. Please, login again. ')
+
   return fetch(`${ROOT_ENDPOINT}/auth/user`, {
     method: 'GET',
     headers: { Authorization: auth.accessToken },
