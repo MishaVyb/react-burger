@@ -5,7 +5,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { loadForgotPassword, resetRequestStatus } from '../../../services/auth/actions'
 import { selectAuthRequestStatus } from '../../../services/auth/selectors'
-import { fetchForgotPassword } from '../../../utils/burger-api'
 import styles from '../styles.module.css'
 
 const ForgotPasswordPage = () => {
