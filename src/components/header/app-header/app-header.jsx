@@ -1,7 +1,7 @@
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import Navbar from '../navbar/navbar'
-import NavLink from '../navlink/navlink'
+import IconNavLink from '../navlink/navlink'
 import styles from './styles.module.css'
 
 const AppHeader = () => {
@@ -9,12 +9,8 @@ const AppHeader = () => {
     <div className={`p-4 ${styles.container}`}>
       <header>
         <Navbar extraClass={styles.navbar_left}>
-          <NavLink title='Конструктор'>
-            <BurgerIcon />
-          </NavLink>
-          <NavLink title='Лента заказов'>
-            <ListIcon />
-          </NavLink>
+          <IconNavLink icon={BurgerIcon} to='/' title='Конструктор' />
+          <IconNavLink icon={ListIcon} to='orders' title='Лента заказов' />
         </Navbar>
 
         <div className={styles.logo}>
@@ -22,9 +18,7 @@ const AppHeader = () => {
         </div>
 
         <Navbar extraClass={styles.navbar_right}>
-          <NavLink title='Личный кабинет'>
-            <ProfileIcon />
-          </NavLink>
+          <IconNavLink icon={ProfileIcon} to='profile' title='Личный кабинет' />
         </Navbar>
       </header>
     </div>
