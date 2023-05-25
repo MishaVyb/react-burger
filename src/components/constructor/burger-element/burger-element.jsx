@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addConstructorItem, removeConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
 import { selectConstructorItems, selectConstructorMovingItemIndex } from '../../../services/constructor/selectors'
 import { BurgerIngredientType, DragTypes, IngredientTypes } from '../../../utils/types'
-import BlankConstructorElement from '../blank-constructor-element.jsx/blank-constructor-element'
+import BlankConstructorElement from '../blank-constructor-element/blank-constructor-element'
 import { sortableHoverHandler } from './sortable-hover-handler'
 import styles from './styles.module.css'
 
