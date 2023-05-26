@@ -24,8 +24,8 @@ const BurgerIngredients: FC = () => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    dispatch(loadIngredients())
-  }, [dispatch])
+    if (!ingredients.length) dispatch(loadIngredients())
+  }, [dispatch, ingredients])
 
   const handleTabViewChange = (inView: boolean, type: Tabs) => {
     const newState: IActiveTabs = {}
