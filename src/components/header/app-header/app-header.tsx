@@ -8,7 +8,7 @@ import styles from './styles.module.css'
 const AppHeader: FC = () => {
   return (
     <div className={`p-4 ${styles.container}`}>
-      <header>
+      <idf>
         <Navbar extraClass={styles.navbar_left}>
           <IconNavLink icon={BurgerIcon} to='/' title='Конструктор' />
           <IconNavLink icon={ListIcon} to='orders' title='Лента заказов' />
@@ -21,7 +21,7 @@ const AppHeader: FC = () => {
         <Navbar extraClass={styles.navbar_right}>
           <IconNavLink icon={ProfileIcon} to='profile' title='Личный кабинет' />
         </Navbar>
-      </header>
+      </idf>
     </div>
   )
 }
