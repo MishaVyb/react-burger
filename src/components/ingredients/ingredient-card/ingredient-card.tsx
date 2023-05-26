@@ -2,19 +2,17 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FC, useEffect } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
-import { removeConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
-import { selectConstructorMovingItemIndex } from '../../../services/constructor/selectors'
-import { IngredientTypes, TBurgerIngredient, getDragGroup } from '../../../utils/types'
+import { setMovingItemIndex } from '../../../services/constructor/actions'
+import { TBurgerIngredient, getDragGroup } from '../../../utils/types'
 import styles from './styles.module.css'
 
 const IngredientCard: FC<{ item: TBurgerIngredient }> = ({ item }) => {
   const location = useLocation()
   const dispatch = useDispatch()
-  const constructorMovingItemIndex: number | null = useSelector(selectConstructorMovingItemIndex)
   const [{ opacity }, dragRef, preview] = useDrag<TBurgerIngredient, void, { opacity: number }>({
     type: getDragGroup(item),
 
@@ -23,15 +21,7 @@ const IngredientCard: FC<{ item: TBurgerIngredient }> = ({ item }) => {
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
     }),
-    end: (item, monitor) => {
-      dispatch(setMovingItemIndex(null))
-      if (
-        !monitor.didDrop() &&
-        item.type !== IngredientTypes.bun // Bun can not be removed
-      ) {
-        dispatch(removeConstructorItem(item, constructorMovingItemIndex))
-      }
-    },
+    end: () => dispatch(setMovingItemIndex(null)),
   })
 
   useEffect(() => {

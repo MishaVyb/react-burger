@@ -79,10 +79,11 @@ const BurgerElement: FC<IBurgerElementProps> = ({ item, index, arrangement, setC
     type: DragGroups.FILLINGS_CONSTRUCTOR,
 
     // NOTE:
-    // Casting index as number here because, DragGroup FILLINGS_CONSTRUCTOR is only for Filling,
+    // Casting index as number here because, DragGroup FILLINGS_CONSTRUCTOR is only for Fillings,
     // therefore it is always has index (as it is array item).
     item: () => ({ index: index as number }),
     canDrag: () => isFilling(item),
+    end: () => dispatch(setMovingItemIndex(null)),
   })
   const [{ handlerId }, drop] = useDrop<IDragItem, void, { handlerId: Identifier | null }>({
     accept: DragGroups.FILLINGS_CONSTRUCTOR,
