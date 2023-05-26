@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
 import { removeConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
@@ -12,6 +12,7 @@ import { IngredientTypes, TBurgerIngredient, getDragGroup } from '../../../utils
 import styles from './styles.module.css'
 
 const IngredientCard: FC<{ item: TBurgerIngredient }> = ({ item }) => {
+  const location = useLocation()
   const dispatch = useDispatch()
   const constructorMovingItemIndex: number | null = useSelector(selectConstructorMovingItemIndex)
   const [{ opacity }, dragRef, preview] = useDrag<TBurgerIngredient, void, { opacity: number }>({
@@ -38,7 +39,15 @@ const IngredientCard: FC<{ item: TBurgerIngredient }> = ({ item }) => {
   }, [preview])
 
   return (
-    <Link to={`/ingredients/${item._id}`} className={`m-3 ${styles.card}`} ref={dragRef} style={{ opacity }}>
+    <Link
+      to={`/ingredients/${item._id}`}
+      // Set the `backgroundLocation` in location state
+      // so that when we open the modal we still see the current page in the background.
+      state={{ backgroundLocation: location }}
+      className={`m-3 ${styles.card}`}
+      ref={dragRef}
+      style={{ opacity }}
+    >
       {item.counter ? <Counter count={item.counter} size='default' extraClass='m-1' /> : null}
       <img className='ml-2 mr-2' src={item.image} alt='' />
       <CurrencyView number={item.price} />

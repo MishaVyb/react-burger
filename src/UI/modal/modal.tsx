@@ -7,7 +7,6 @@ import styles from './styles.module.css'
 
 interface IModalProps {
   initialShow?: boolean
-  backgroundElement?: ReactNode
   triggerElement?: ReactNode
   onOpen?: () => void
   onClose?: () => void
@@ -15,15 +14,7 @@ interface IModalProps {
   children: ReactNode
 }
 
-const Modal: FC<IModalProps> = ({
-  initialShow,
-  backgroundElement,
-  triggerElement,
-  onOpen,
-  onClose,
-  disable,
-  children,
-}) => {
+const Modal: FC<IModalProps> = ({ initialShow, triggerElement, onOpen, onClose, disable, children }) => {
   const [show, setShow] = useState(initialShow)
 
   const open = () => {
@@ -68,7 +59,6 @@ const Modal: FC<IModalProps> = ({
   const modalWrapperPortal = createPortal(modalWrapper, document.getElementById('react-modals') as HTMLElement)
   return (
     <>
-      {backgroundElement}
       {modalWrapperPortal}
       {triggerElement}
     </>

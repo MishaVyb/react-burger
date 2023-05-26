@@ -1,7 +1,10 @@
-import { FC } from 'react'
-import { useSelector } from 'react-redux'
+import { FC, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import { selectIngredientDetail } from '../../../services/ingredientDetail/selectors'
+import { setCurrentIngredientDetail, unsetCurrentIngredientDetail } from '../../../services/ingredientDetail/actions'
+import { loadIngredients } from '../../../services/ingredients/actions'
+import { selectIngredientsItem } from '../../../services/ingredients/selectors'
 import { TBurgerIngredient } from '../../../utils/types'
 import styles from './styles.module.css'
 
@@ -17,14 +20,29 @@ const INGREDIENT_UNITS_MAPPING: TUnitsMapping = {
 }
 
 const IngredientDetail: FC = () => {
-  const item: TBurgerIngredient = useSelector(selectIngredientDetail)
-  if (!item) return null
+  const { id } = useParams()
+  const ingredient: TBurgerIngredient | null = useSelector(selectIngredientsItem(id))
+  const dispatch = useDispatch()
+
+  // Set current ingredient as modal content and load ingredient if it are opened by external link
+  useEffect(() => {
+    if (ingredient) dispatch(setCurrentIngredientDetail(ingredient))
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    else dispatch(loadIngredients())
+    return () => {
+      dispatch(unsetCurrentIngredientDetail())
+    }
+  }, [dispatch, ingredient])
+
+  const item = ingredient
+  if (!item) return <p className='text text_type_main-large'>Ингредиент не найден :(</p>
 
   return (
     <div className={styles.container}>
       <p className={`text text_type_main-large ${styles.title}`}>Детали ингредиента</p>
       <img src={item.image_large} alt='' />
-      <p className={`text text_type_main-medium m-4 ${styles.aaa}`}>{item.name}</p>
+      <p className='text text_type_main-medium m-4'>{item.name}</p>
       <section className={styles.ingredient_composition}>
         {Object.entries(INGREDIENT_UNITS_MAPPING).map(([k, v], i) => {
           return (
