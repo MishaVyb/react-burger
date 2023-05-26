@@ -11,14 +11,14 @@ import NotFoundPage from '../../pages/errors/not-found/not-found'
 import HomePage from '../../pages/home-page/home-page'
 import ProfileOrdersPage from '../../pages/profile/orders-page/orders-page'
 import ProfilePage from '../../pages/profile/profile-page/profile-page'
-import RouteDispatch from '../../utils/route-dispatch'
 import AppHeader from '../header/app-header/app-header'
 import IngredientDetailModal from '../ingredients/ingredient-detail-modal/ingredient-detail-modal'
+import RouteDispatch from '../routes-dispatch/route-dispatch'
 import style from './style.module.css'
 
 const App: FC = () => {
   return (
-    <main className={style.container}>
+    <div className={style.container}>
       <DndProvider backend={HTML5Backend}>
         <Router>
           <AppHeader />
@@ -80,7 +80,7 @@ const App: FC = () => {
           </Routes>
         </Router>
       </DndProvider>
-    </main>
+    </div>
   )
 }
 

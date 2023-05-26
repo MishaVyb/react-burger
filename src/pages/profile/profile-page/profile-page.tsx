@@ -7,10 +7,10 @@ import styles from '../styles.module.css'
 
 const ProfilePage: FC = () => {
   return (
-    <main className={cn(styles.container, 'mt-20')}>
+    <div className={cn(styles.container, 'mt-20')}>
       <Navbar />
       <UpdateProfile />
-    </main>
+    </div>
   )
 }
 

@@ -6,9 +6,9 @@ import styles from '../styles.module.css'
 
 const ProfileOrdersPage: FC = () => {
   return (
-    <main className={cn(styles.container, 'mt-20')}>
+    <div className={cn(styles.container, 'mt-20')}>
       <Navbar />
-    </main>
+    </div>
   )
 }
 
