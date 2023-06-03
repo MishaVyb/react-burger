@@ -5,3 +5,5 @@ export const selectConstructorTotal = (store) => {
   const { items, bun } = store.burgerConstructor
   return items.reduce((acc, item) => acc + item.price, 0) + (bun?.price || 0) * 2
 }
+export const selectConstructorIsComplete = (store) =>
+  store.burgerConstructor.items.length && store.burgerConstructor.bun

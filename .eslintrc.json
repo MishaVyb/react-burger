@@ -6,13 +6,16 @@
     "node": true
   },
   "extends": [
-    // "plugin:@typescript-eslint/recommended" // TODO: typescript is not applied yet
+    "plugin:@typescript-eslint/recommended",
     "react-app",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "prettier"
   ],
+  "globals": {
+    "JSX": "readonly"
+  },
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -20,9 +23,14 @@
   },
   "plugins": ["react"],
   "rules": {
-    // "react/prop-types": "on",
     "no-unused-vars": "off",
-    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "never"]
