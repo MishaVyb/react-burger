@@ -1,27 +1,24 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FC, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { useDispatch, useSelector } from '../../../hooks/redux'
 import { selectIsAuthenticated } from '../../../services/auth/selectors'
-import { selectConstructorBun, selectConstructorItems } from '../../../services/constructor/selectors'
+import { selectConstructorBun, selectConstructorItems } from '../../../services/constructor/reducer'
 import { loadOrder } from '../../../services/order/actions'
-import { selectOrder } from '../../../services/order/selectors'
-import { TBurgerIngredient } from '../../../utils/types'
+import { selectOrder } from '../../../services/order/reducer'
 import styles from './styles.module.css'
 
 const OrderDetail: FC = () => {
-  const items: TBurgerIngredient[] = useSelector(selectConstructorItems)
-  const bun: TBurgerIngredient = useSelector(selectConstructorBun)
-  const order: { name: string; number: number } = useSelector(selectOrder)
+  const items = useSelector(selectConstructorItems)
+  const bun = useSelector(selectConstructorBun)
+  const order = useSelector(selectOrder)
   const isAuth: boolean = useSelector(selectIsAuthenticated)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    isAuth ? dispatch(loadOrder(items, bun)) : navigate('/login')
+    isAuth ? dispatch(loadOrder({ items, bun })) : navigate('/login')
   }, [dispatch, items, bun, navigate, isAuth])
 
   return (

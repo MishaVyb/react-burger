@@ -1,28 +1,25 @@
 import cn from 'classnames'
 import { FC, MouseEvent, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-import { loadLogout, resetRequestStatus } from '../../../services/auth/actions'
+import { useDispatch, useSelector } from '../../../hooks/redux'
+import { loadLogout, resetRequestStatusAction } from '../../../services/auth/actions'
 import { selectAuthRequestStatus } from '../../../services/auth/selectors'
 import styles from './styles.module.css'
 
 const Navbar: FC = () => {
   const dispatch = useDispatch()
-  const [loading]: boolean[] = useSelector(selectAuthRequestStatus)
+  const [loading] = useSelector(selectAuthRequestStatus)
 
   useEffect(
     () => () => {
-      dispatch(resetRequestStatus())
+      dispatch(resetRequestStatusAction())
     },
     [dispatch]
   )
 
   const onLogout = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(loadLogout())
   }
 

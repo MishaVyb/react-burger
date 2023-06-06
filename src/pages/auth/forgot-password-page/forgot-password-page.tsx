@@ -1,9 +1,9 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-import { loadForgotPassword, resetRequestStatus } from '../../../services/auth/actions'
+import { useDispatch, useSelector } from '../../../hooks/redux'
+import { loadForgotPassword, resetRequestStatusAction } from '../../../services/auth/actions'
 import { selectAuthRequestStatus } from '../../../services/auth/selectors'
 import styles from '../styles.module.css'
 
@@ -17,7 +17,7 @@ const ForgotPasswordPage: FC = () => {
 
   useEffect(
     () => () => {
-      dispatch(resetRequestStatus())
+      dispatch(resetRequestStatusAction())
     },
     [dispatch]
   )
@@ -28,9 +28,6 @@ const ForgotPasswordPage: FC = () => {
   const onFormChange = (e: ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value })
   const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(loadForgotPassword(form))
     setIsSubmit(true)
   }

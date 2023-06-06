@@ -1,139 +1,180 @@
-import {
-  ILoginPayload,
-  IMakeLoginPayload,
-  IResetPasswordPayload,
-  ITokens,
-  IUserPayload,
-} from '../services/auth/actions'
+import { ILoginPayload, IMakeLoginPayload, IResetPasswordPayload, IUserPayload } from '../services/auth/actions'
+import { ITokens, IUser } from '../services/auth/reducer'
+import { TBurgerIngredient } from './types'
 
 const ROOT_ENDPOINT = 'https://norma.nomoreparties.space/api'
 
 type TOnTokenUpdatesCallback = (newTokens: ITokens) => void
 
-const checkResponse = (res: Response) => (res.ok ? res.json() : res.json().then((err) => Promise.reject(err)))
+interface ISuccessResponse {
+  success: true
+}
 
-const fetchTokenUpdate = (auth: ITokens) => {
+interface IDataResponse<T> extends ISuccessResponse {
+  data: T
+}
+
+interface IUserResponse extends ISuccessResponse {
+  user: IUser
+}
+interface ILoginResponse extends IUserResponse, ITokens {}
+interface ITokenUpdateResponse extends ISuccessResponse, ITokens {}
+
+interface IOrderResponse {
+  name: string
+  order: { number: number }
+}
+
+const checkResponse = async <T = ISuccessResponse>(res: Response): Promise<T> => {
+  if (res.ok) return await res.json()
+
+  let requestFailsReason: string | object = ''
+  try {
+    const json = await res.json()
+    requestFailsReason = json.message || json
+  } catch (e) {
+    // reason is not a json, reject with plain text
+    requestFailsReason = await res.text()
+  }
+  console.log({ requestFailsReason })
+  return Promise.reject(requestFailsReason)
+}
+
+const fetchTokenUpdate = async (auth: ITokens) => {
   if (!auth.refreshToken) throw Error('No refresh token. Please, login again. ')
 
-  return fetch(`${ROOT_ENDPOINT}/auth/token`, {
+  const res = await fetch(`${ROOT_ENDPOINT}/auth/token`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ token: auth.refreshToken }),
-  }).then(checkResponse)
+  })
+  return checkResponse<ITokenUpdateResponse>(res)
 }
 
-export const fetchUser = (auth: ITokens, onTokenUpdates: TOnTokenUpdatesCallback) => {
+export const fetchUser = async (auth: ITokens, onTokenUpdates: TOnTokenUpdatesCallback) => {
   if (!auth.accessToken) throw Error('No access token. Please, login again. ')
 
-  return fetch(`${ROOT_ENDPOINT}/auth/user`, {
-    method: 'GET',
-    headers: { Authorization: auth.accessToken },
-  })
-    .then(checkResponse)
-    .catch((e) => {
-      //
-      // RETRY
-      console.log('Retry. Handling error. ', e)
-      return fetchTokenUpdate(auth)
-        .then((json) => {
-          //
-          // RETRY OK
-          console.log('Retry. Handle error successfully. ', json)
-          onTokenUpdates(json)
-          return fetch(`${ROOT_ENDPOINT}/auth/user`, {
-            method: 'GET',
-            headers: { Authorization: json.accessToken },
-          }).then(checkResponse)
-        })
-        .catch((e) => {
-          //
-          // RETRY NOT OK
-          console.log('Retry. Handling error failed. ', e)
-          return Promise.reject(e)
-        })
+  try {
+    const res = await fetch(`${ROOT_ENDPOINT}/auth/user`, {
+      method: 'GET',
+      headers: { Authorization: auth.accessToken + '_______' }, // XXX test error handling for debugging
     })
+    return await checkResponse<IUserResponse>(res)
+  } catch (e) {
+    //
+    // RETRY
+    console.log('Retry. Handling error. ', e)
+    try {
+      const newTokens = await fetchTokenUpdate(auth)
+      //
+      // RETRY OK
+      console.log('Retry. Handle error successfully. ', { newTokens })
+      onTokenUpdates(newTokens)
+      const res = await fetch(`${ROOT_ENDPOINT}/auth/user`, {
+        method: 'GET',
+        headers: { Authorization: newTokens.accessToken },
+      })
+      return await checkResponse<IUserResponse>(res)
+    } catch (e_1) {
+      //
+      // RETRY NOT OK
+      console.log('Retry. Handling error failed. ', e_1)
+      throw e_1
+    }
+  }
 }
 
-export const fetchUpdateUser = (body: IUserPayload, auth: ITokens, onTokenUpdates: TOnTokenUpdatesCallback) => {
-  return fetch(`${ROOT_ENDPOINT}/auth/user`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', Authorization: auth.accessToken },
+export const fetchUpdateUser = async (body: IUserPayload, auth: ITokens, onTokenUpdates: TOnTokenUpdatesCallback) => {
+  try {
+    const res = await fetch(`${ROOT_ENDPOINT}/auth/user`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Authorization: auth.accessToken },
+      body: JSON.stringify(body),
+    })
+    return await checkResponse<IUserResponse>(res)
+  } catch (e) {
+    //
+    // RETRY
+    console.log('Retry. Handling error. ', e)
+    try {
+      const newTokens = await fetchTokenUpdate(auth)
+      //
+      // RETRY OK
+      console.log('Retry. Handle error successfully. ', { newTokens })
+      onTokenUpdates(newTokens)
+      const res = await fetch(`${ROOT_ENDPOINT}/auth/user`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: newTokens.accessToken },
+        body: JSON.stringify(body),
+      })
+      return await checkResponse<IUserResponse>(res)
+    } catch (e) {
+      //
+      // RETRY NOT OK
+      console.log('Retry. Handling error failed. ', e)
+      throw e
+    }
+  }
+}
+
+export const fetchIngredients = async () => {
+  const res = await fetch(`${ROOT_ENDPOINT}/ingredients`)
+  const payload = await checkResponse<IDataResponse<TBurgerIngredient[]>>(res)
+  return payload.data
+}
+
+export const fetchOrder = async (body: { ingredients: string[] }) => {
+  const res = await fetch(`${ROOT_ENDPOINT}/orders`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   })
-    .then(checkResponse)
-    .catch((e) => {
-      //
-      // RETRY
-      console.log('Retry. Handling error. ', e)
-      return fetchTokenUpdate(auth)
-        .then((json) => {
-          //
-          // RETRY OK
-          console.log('Retry. Handle error successfully. ', json)
-          onTokenUpdates(json)
-          return fetch(`${ROOT_ENDPOINT}/auth/user`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json', Authorization: json.accessToken },
-            body: JSON.stringify(body),
-          }).then(checkResponse)
-        })
-        .catch((e) => {
-          //
-          // RETRY NOT OK
-          console.log('Retry. Handling error failed. ', e)
-          return Promise.reject(e)
-        })
-    })
+  const data = await checkResponse<IOrderResponse>(res)
+  return { name: data.name, number: data.order.number }
 }
 
-export const fetchIngredients = () => {
-  return fetch(`${ROOT_ENDPOINT}/ingredients`).then(checkResponse)
-}
-
-export const fetchOrder = (body: { ingredients: string[] }) => {
-  return fetch(`${ROOT_ENDPOINT}/orders`, {
+export const fetchLogin = async (body: IMakeLoginPayload) => {
+  const res = await fetch(`${ROOT_ENDPOINT}/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  }).then(checkResponse)
+  })
+  return checkResponse<ILoginResponse>(res)
 }
 
-export const fetchLogin = (body: IMakeLoginPayload) => {
-  return fetch(`${ROOT_ENDPOINT}/auth/login`, {
+export const fetchRegister = async (body: IUserPayload) => {
+  const res = await fetch(`${ROOT_ENDPOINT}/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  }).then(checkResponse)
+  })
+  return checkResponse<IUserResponse>(res)
 }
 
-export const fetchRegister = (body: IUserPayload) => {
-  return fetch(`${ROOT_ENDPOINT}/auth/register`, {
+export const fetchForgotPassword = async (body: ILoginPayload) => {
+  const res = await fetch(`${ROOT_ENDPOINT}/password-reset`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  }).then(checkResponse)
+  })
+  return checkResponse(res)
 }
 
-export const fetchForgotPassword = (body: ILoginPayload) => {
-  return fetch(`${ROOT_ENDPOINT}/password-reset`, {
+export const fetchResetPassword = async (body: IResetPasswordPayload) => {
+  const res = await fetch(`${ROOT_ENDPOINT}/password-reset/reset`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  }).then(checkResponse)
+  })
+  return checkResponse(res)
 }
 
-export const fetchResetPassword = (body: IResetPasswordPayload) => {
-  return fetch(`${ROOT_ENDPOINT}/password-reset/reset`, {
+export const fetchLogout = async (body: { token: string }) => {
+  console.log({ body })
+  const res = await fetch(`${ROOT_ENDPOINT}/auth/logout`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  }).then(checkResponse)
-}
-
-export const fetchLogout = (body: { token: string }) => {
-  return fetch(`${ROOT_ENDPOINT}/auth/logout`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  }).then(checkResponse)
+  })
+  return checkResponse(res)
 }

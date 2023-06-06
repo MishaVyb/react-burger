@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
 import Modal from '../../../UI/modal/modal'
-import { selectConstructorIsComplete, selectConstructorTotal } from '../../../services/constructor/selectors'
+import { selectConstructorIsComplete, selectConstructorTotal } from '../../../services/constructor/reducer'
 import OrderDetail from '../order-detail/order-detail'
 import styles from './styles.module.css'
 
 const ElementsTotal: FC = () => {
-  const total: number = useSelector(selectConstructorTotal)
-  const isComplete: boolean = useSelector(selectConstructorIsComplete)
+  const total = useSelector(selectConstructorTotal)
+  const isComplete = useSelector(selectConstructorIsComplete)
 
   return (
     <div className={`mt-10 ${styles.container}`}>

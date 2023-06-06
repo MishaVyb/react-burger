@@ -2,7 +2,7 @@ import { MutableRefObject } from 'react'
 import { DropTargetMonitor } from 'react-dnd'
 import { AnyAction, Dispatch } from 'redux'
 
-import { moveConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
+import { moveConstructorItem, setMovingItemIndex } from '../../../services/constructor/reducer'
 import { IDragFullItem, IDragItem } from '../../../utils/types'
 
 export const sortableHoverHandler = (
@@ -49,7 +49,7 @@ export const sortableHoverHandler = (
   }
 
   // Time to actually perform the action
-  dispatch(moveConstructorItem(dragIndex, hoverIndex))
+  dispatch(moveConstructorItem({ dragIndex, hoverIndex }))
   dispatch(setMovingItemIndex(hoverIndex))
 
   // NOTE: we're mutating the monitor dragItem here!

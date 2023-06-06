@@ -10,6 +10,8 @@ interface IRouteDispatchProps {
 }
 
 const RouteDispatch: FC<IRouteDispatchProps> = ({ loginRequired, children }) => {
+  // return <>{children}</>
+
   const isAuth = useSelector(selectIsAuthenticated)
   const location = useLocation()
 

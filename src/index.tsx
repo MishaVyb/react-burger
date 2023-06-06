@@ -8,13 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import App from './components/app/app'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
-import { initStore } from './services/store'
-import { loadFromLocalStorage } from './utils/persistence'
-
-const preloadedState = {
-  auth: loadFromLocalStorage('auth'),
-}
-const store = initStore(preloadedState)
+import { store } from './services/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

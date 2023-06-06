@@ -2,11 +2,11 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FC, useEffect } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
-import { useDispatch } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
-import { setMovingItemIndex } from '../../../services/constructor/actions'
+import { useDispatch } from '../../../hooks/redux'
+import { setMovingItemIndex } from '../../../services/constructor/reducer'
 import { TBurgerIngredient, getDragGroup } from '../../../utils/types'
 import styles from './styles.module.css'
 

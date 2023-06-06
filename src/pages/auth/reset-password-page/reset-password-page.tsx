@@ -1,9 +1,9 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-import { loadResetPassword, resetRequestStatus } from '../../../services/auth/actions'
+import { useDispatch, useSelector } from '../../../hooks/redux'
+import { loadResetPassword, resetRequestStatusAction } from '../../../services/auth/actions'
 import { selectAuthRequestStatus } from '../../../services/auth/selectors'
 import styles from '../styles.module.css'
 
@@ -22,7 +22,7 @@ const ResetPasswordPage: FC = () => {
   })
   useEffect(
     () => () => {
-      dispatch(resetRequestStatus())
+      dispatch(resetRequestStatusAction())
     },
     [dispatch]
   )
@@ -39,9 +39,6 @@ const ResetPasswordPage: FC = () => {
   const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmit(true)
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(loadResetPassword(form))
   }
 

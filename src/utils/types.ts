@@ -33,7 +33,26 @@ export type TBurgerIngredient = {
   _key?: UUID
 }
 
-export const isFilling = (item: TBurgerIngredient | undefined) =>
+export type TBunIngredient = TBurgerIngredient & { type: IngredientTypes.bun }
+export type TFillingIngredient = TBurgerIngredient & { type: IngredientTypes.main | IngredientTypes.sauce }
+
+//////////////////////////////////// TEST //////////////////////////////////// XXX
+export const aaa: TBunIngredient = {
+  _id: '',
+  name: '',
+  type: IngredientTypes.bun,
+  proteins: 1,
+  fat: 1,
+  carbohydrates: 1,
+  calories: 1,
+  price: 1,
+  image: '',
+  image_mobile: '',
+  image_large: '',
+}
+////////////////////////////////////
+
+export const isFilling = (item: TBurgerIngredient | null | undefined) =>
   item?.type === IngredientTypes.sauce || item?.type === IngredientTypes.main
 
 export enum DragGroups {
