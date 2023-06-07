@@ -74,7 +74,16 @@ export const counterSlice = createSlice({
 })
 
 export const selectIngredientsItems = (store: RootState) => store.ingredients.items
+
+// XXX
+// export const selectIngredientsItem = (id: string | undefined | TBurgerIngredient) => (store: RootState) => {
+//   if (typeof id === 'string' || typeof id === 'undefined')
+//     return store.ingredients.items.find((v) => v._id === id) || null
+//   return id
+// }
 export const selectIngredientsItem = (id: string | undefined) => (store: RootState) =>
   store.ingredients.items.find((v) => v._id === id) || null
+export const selectIngredientsItemsByIds = (ids: string[]) => (store: RootState) =>
+  ids.map((id) => selectIngredientsItem(id)(store)).filter((v) => v) as TBurgerIngredient[]
 
 export default counterSlice.reducer

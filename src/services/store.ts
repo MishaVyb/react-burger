@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { loadFromLocalStorage } from '../utils/persistence'
 import authReducer, { IAuthState } from './auth/reducer'
 import constructorReducer from './constructor/reducer'
+import feedReducer from './feed/reducer'
 import ingredientDetailReducer from './ingredientDetail/reducer'
 import ingredientReducer from './ingredients/reducer'
 import orderReducer from './order/reducer'
@@ -17,6 +18,7 @@ export const store = configureStore({
     burgerConstructor: constructorReducer,
     ingredientDetail: ingredientDetailReducer,
     order: orderReducer,
+    feed: feedReducer,
     auth: authReducer,
   },
   preloadedState: preloadedState,

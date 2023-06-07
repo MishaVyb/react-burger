@@ -6,6 +6,7 @@ import LoginPage from '../../pages/auth/login-page/login-page'
 import RegisterPage from '../../pages/auth/register-page/register-page'
 import ResetPasswordPage from '../../pages/auth/reset-password-page/reset-password-page'
 import NotFoundPage from '../../pages/errors/not-found/not-found'
+import FeedPage from '../../pages/feed/feed-page'
 import HomePage from '../../pages/home-page/home-page'
 import IngredientDetailPage from '../../pages/ingredient-detail/ingredient-detail'
 import ProfileOrdersPage from '../../pages/profile/orders-page/orders-page'
@@ -28,6 +29,7 @@ const App: FC = () => {
       <Routes location={state?.backgroundLocation || location}>
         <Route path='*' element={<NotFoundPage />} />
         <Route path='/' element={<HomePage />} />
+        <Route path='/feed' element={<FeedPage />} />
         <Route
           path='/login'
           element={
