@@ -3,13 +3,12 @@
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  /* flex-direction: column; */
-
-  /* border: 1px solid red; */
 }
 
 .title {
   flex-basis: 100%;
+}
 
-  /* border: 1px solid red; */
+.orders {
+  flex-basis: 70%;
 }

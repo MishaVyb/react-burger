@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { useDispatch, useSelector } from '../../../hooks/redux'
 import { loadResetPassword, resetRequestStatusAction } from '../../../services/auth/actions'
-import { selectAuthRequestStatus } from '../../../services/auth/selectors'
+import { selectAuthRequestStatus } from '../../../services/auth/reducer'
 import styles from '../styles.module.css'
 
 const ResetPasswordPage: FC = () => {

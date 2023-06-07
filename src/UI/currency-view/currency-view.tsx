@@ -5,15 +5,15 @@ import { FC } from 'react'
 import styles from './styles.module.css'
 
 interface ICurrencyViewProps {
-  number: number
+  value: number | string
   className?: string
   size?: 'default' | 'medium' | 'large'
 }
 
-const CurrencyView: FC<ICurrencyViewProps> = ({ number, className = '', size = 'default' }) => {
+const CurrencyView: FC<ICurrencyViewProps> = ({ value, className = '', size = 'default' }) => {
   return (
     <div className={cn(styles.container, className)}>
-      <p className={`text text_type_digits-${size} mr-2`}>{number}</p>
+      <p className={`text text_type_digits-${size} mr-2`}>{value}</p>
       <CurrencyIcon type='primary' />
     </div>
   )

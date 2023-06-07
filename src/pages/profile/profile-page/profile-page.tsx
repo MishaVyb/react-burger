@@ -8,7 +8,7 @@ import styles from '../../styles.module.css'
 const ProfilePage: FC = () => {
   return (
     <div className={cn(styles.container, 'mt-20')}>
-      <Navbar />
+      <Navbar hintText='В этом разделе вы можете изменить свои персональные данные' />
       <UpdateProfile />
     </div>
   )

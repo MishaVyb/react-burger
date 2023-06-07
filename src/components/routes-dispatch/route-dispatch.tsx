@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
 
-import { selectIsAuthenticated } from '../../services/auth/selectors'
+import { selectIsAuthenticated } from '../../services/auth/reducer'
 
 interface IRouteDispatchProps {
   loginRequired?: boolean

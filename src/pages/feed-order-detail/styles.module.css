@@ -1,18 +1,8 @@
 .wrapper {
-  /* modal wrapper take place over whole space */
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-
   /* modal card placing */
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* modal is over all onther app content */
-  z-index: 1000;
 }
 
 .modal {

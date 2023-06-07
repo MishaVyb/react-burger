@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useDispatch, useSelector } from '../../../hooks/redux'
-import { selectIsAuthenticated } from '../../../services/auth/selectors'
+import { selectIsAuthenticated } from '../../../services/auth/reducer'
 import { selectConstructorBun, selectConstructorItems } from '../../../services/constructor/reducer'
 import { loadOrder } from '../../../services/order/actions'
 import { selectOrder } from '../../../services/order/reducer'

@@ -10,8 +10,7 @@ import {
   fetchUser,
 } from '../../utils/burger-api'
 import { RootState } from '../store'
-import { IAuthFull, IAuthSimplified, ITokens } from './reducer'
-import { selectAuth, selectRefreshToken } from './selectors'
+import { IAuthFull, IAuthSimplified, ITokens, selectAuth, selectRefreshToken } from './reducer'
 
 export interface ILoginPayload {
   email: string

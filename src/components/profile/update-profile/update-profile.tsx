@@ -3,7 +3,7 @@ import { ChangeEvent, FC, FormEvent, MouseEvent, RefObject, useEffect, useRef, u
 
 import { useDispatch, useSelector } from '../../../hooks/redux'
 import { IUserPayload, loadUser, resetRequestStatusAction, updateUser } from '../../../services/auth/actions'
-import { selectAuthRequestStatus, selectUser } from '../../../services/auth/selectors'
+import { selectAuthRequestStatus, selectUser } from '../../../services/auth/reducer'
 import styles from './styles.module.css'
 
 const UpdateProfile: FC = () => {

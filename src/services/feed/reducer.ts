@@ -9,6 +9,14 @@ export enum FeedOrderStatus {
   pending = 'pending',
 }
 
+export enum FeedOrderStatusVerbose {
+  done = 'Выполнен',
+  created = 'Создан',
+  pending = 'Готовится',
+}
+
+// export const aaa = FeedOrderStatusVerbose[FeedOrderStatus.done] // XXX
+
 export type TFeedOrder = {
   _id: string
   ingredients: string[]
@@ -60,6 +68,8 @@ export const selectOrders = (state: RootState) => {
 
   return state.feed.orders
 }
+export const selectOrder = (id: string | undefined) => (store: RootState) =>
+  store.feed.orders.find((v) => v._id === id) || null
 
 export const selectDoneOrders = (state: RootState) => state.feed.orders.filter((v) => v.status === FeedOrderStatus.done)
 export const selectPendingOrders = (state: RootState) =>

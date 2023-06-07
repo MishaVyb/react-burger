@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { useDispatch, useSelector } from '../../../hooks/redux'
 import { loadLogin, resetRequestStatusAction } from '../../../services/auth/actions'
-import { selectAuthRequestStatus } from '../../../services/auth/selectors'
+import { selectAuthRequestStatus } from '../../../services/auth/reducer'
 import styles from '../styles.module.css'
 
 const LoginPage: FC = () => {

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { TBurgerIngredient } from '../../utils/types'
+import { groupBy } from '../../utils/utils'
 import { addConstructorBun, addConstructorFilling, removeConstructorItem } from '../constructor/reducer'
 import { RootState } from '../store'
 import { loadIngredients } from './actions'
@@ -83,7 +84,15 @@ export const selectIngredientsItems = (store: RootState) => store.ingredients.it
 // }
 export const selectIngredientsItem = (id: string | undefined) => (store: RootState) =>
   store.ingredients.items.find((v) => v._id === id) || null
-export const selectIngredientsItemsByIds = (ids: string[]) => (store: RootState) =>
-  ids.map((id) => selectIngredientsItem(id)(store)).filter((v) => v) as TBurgerIngredient[]
+export const selectIngredientsItemsByIds = (ids: string[] | undefined) => (store: RootState) =>
+  ids ? (ids.map((id) => selectIngredientsItem(id)(store)).filter((v) => v) as TBurgerIngredient[]) : []
+
+export const selectIngredientsGroupsByIds = (ids: string[] | undefined) => (store: RootState) => {
+  const aaa = selectIngredientsItemsByIds(ids)(store)
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return groupBy(aaa, (v) => v._id)
+}
 
 export default counterSlice.reducer

@@ -25,7 +25,7 @@ const ElementsTotal: FC = () => {
         <OrderDetail />
       </Modal>
 
-      <CurrencyView number={total} size='medium' />
+      <CurrencyView value={total} size='medium' />
     </div>
   )
 }

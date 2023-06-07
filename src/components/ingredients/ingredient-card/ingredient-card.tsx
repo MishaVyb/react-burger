@@ -40,7 +40,7 @@ const IngredientCard: FC<{ item: TBurgerIngredient }> = ({ item }) => {
     >
       {item.counter ? <Counter count={item.counter} size='default' extraClass='m-1' /> : null}
       <img className='ml-2 mr-2' src={item.image} alt='' />
-      <CurrencyView number={item.price} />
+      <CurrencyView value={item.price} />
       <p className={`text text_type_main-small mt-1 mb-4 ${styles.align}`}>{item.name}</p>
     </Link>
   )
