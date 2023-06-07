@@ -54,7 +54,6 @@ const reducer = createReducer(initialState, (builder) => {
     (state, action) => {
       state.pendingRequest = false
 
-      // removeFromLocalStorage('auth') // ??? для всех кроме LOAD_USER_UPDATE_ERROR
       if (action.payload) state.error = action.payload
       else state.error = action.error.message
     }

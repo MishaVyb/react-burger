@@ -59,7 +59,7 @@ export const fetchUser = async (auth: ITokens, onTokenUpdates: TOnTokenUpdatesCa
   try {
     const res = await fetch(`${ROOT_ENDPOINT}/auth/user`, {
       method: 'GET',
-      headers: { Authorization: auth.accessToken + '_______' }, // XXX test error handling for debugging
+      headers: { Authorization: auth.accessToken },
     })
     return await checkResponse<IUserResponse>(res)
   } catch (e) {

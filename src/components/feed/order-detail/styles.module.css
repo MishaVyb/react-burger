@@ -2,15 +2,12 @@
   width: 600px;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+
   flex-direction: column;
 
-  /* width: 640px; */
   background: #1c1c21;
-  /* background: #aeaecf; */
-  border-radius: 40px;
 
-  /* border: 2px solid #a61946; */
+  border-radius: 40px;
 }
 
 .align_left {
@@ -21,18 +18,8 @@
   margin-left: auto;
 }
 
-/* UNUSED */
-/* .heading {
-  display: flex;
-  justify-content: space-between;
-} */
-
 .ingredients {
-  /* height: 410px; */
   max-height: 410px;
-  /* display: flex;
-  flex-direction: column; */
-  /* border: 1px solid rgb(65, 161, 89); */
 }
 
 .scroll {
@@ -42,16 +29,13 @@
 .ingredient {
   width: 600px;
   display: flex;
-  /* justify-content: space-between; */
-  align-items: center;
-  /* margin-right: auto; */
 
-  /* border: 2px solid greenyellow; */
+  align-items: center;
 }
 
 .ingredient_image {
   object-fit: none;
-  /* margin-left: -30px; */
+
   border-radius: 50%;
   border: 2px dashed royalblue;
   background: var(--background-alt);
@@ -60,18 +44,9 @@
 .ingredient_total {
   margin-left: auto;
   flex-shrink: 0;
-  /* margin-right: 0; */
-  /* flex-basis: 50%; */
-  /* border: 2px solid red; */
 }
 
 .bottom {
   display: flex;
   width: 600px;
 }
-
-/*
-.ingredient_counter {
-  transform: translate(30px, 30px);
-  margin-left: -20px;
-} */

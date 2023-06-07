@@ -1,16 +1,8 @@
 .container {
-  /* возможно понадобиться, чтобы поделить попалам */
-  /* width: 600px;  */
   flex-basis: 50%;
-
   height: 70vh;
-
   display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
   flex-direction: column;
-
-  /* border: 1px solid rgb(65, 161, 89); */
 }
 
 .scroll {

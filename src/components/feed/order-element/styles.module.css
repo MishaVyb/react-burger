@@ -1,24 +1,16 @@
 .container {
   display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
   flex-direction: column;
 
-  /* width: 640px; */
   background: #1c1c21;
-  /* background: #aeaecf; */
-  border-radius: 40px;
 
-  /* border: 2px solid #a61946; */
+  border-radius: 40px;
 }
 
 .heading {
   display: flex;
-  /* align-items: center; */
-  justify-content: space-between;
-  /* flex-direction: column; */
 
-  /* border: 2px solid #a61946; */
+  justify-content: space-between;
 }
 
 .ingredients {

@@ -76,12 +76,6 @@ export const counterSlice = createSlice({
 
 export const selectIngredientsItems = (store: RootState) => store.ingredients.items
 
-// XXX
-// export const selectIngredientsItem = (id: string | undefined | TBurgerIngredient) => (store: RootState) => {
-//   if (typeof id === 'string' || typeof id === 'undefined')
-//     return store.ingredients.items.find((v) => v._id === id) || null
-//   return id
-// }
 export const selectIngredientsItem = (id: string | undefined) => (store: RootState) =>
   store.ingredients.items.find((v) => v._id === id) || null
 export const selectIngredientsItemsByIds = (ids: string[] | undefined) => (store: RootState) =>
@@ -89,9 +83,6 @@ export const selectIngredientsItemsByIds = (ids: string[] | undefined) => (store
 
 export const selectIngredientsGroupsByIds = (ids: string[] | undefined) => (store: RootState) => {
   const aaa = selectIngredientsItemsByIds(ids)(store)
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   return groupBy(aaa, (v) => v._id)
 }
 

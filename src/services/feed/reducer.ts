@@ -21,8 +21,6 @@ export enum FeedOrderStatusVerbose {
   pending = 'Готовится',
 }
 
-// export const aaa = FeedOrderStatusVerbose[FeedOrderStatus.done] // XXX
-
 export type TFeedOrder = {
   _id: string
   ingredients: string[]
