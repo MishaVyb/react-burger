@@ -1,20 +1,21 @@
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames'
 import { FC, useEffect } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
+import Loader from '../../../UI/loader/loader'
 import { useDispatch, useSelector } from '../../../hooks/redux'
-import { selectOrder } from '../../../services/feed/reducer'
+import { selectOrder, selectWsState } from '../../../services/feed/reducer'
 import { loadIngredients } from '../../../services/ingredients/actions'
 import { selectIngredientsGroupsByIds, selectIngredientsItems } from '../../../services/ingredients/reducer'
 import OrderStatus from '../order-status/order-status'
 import styles from './styles.module.css'
 
-const OrderDetail: FC = () => {
+const OrderDetail: FC<{ extraClass?: string }> = ({ extraClass }) => {
   const { id } = useParams()
   const dispatch = useDispatch()
-
+  const { wsStatus, wsError } = useSelector(selectWsState)
   const order = useSelector(selectOrder(id))
   const ingredients = useSelector(selectIngredientsItems)
   const orderIngredients = useSelector(selectIngredientsGroupsByIds(order?.ingredients))
@@ -23,17 +24,15 @@ const OrderDetail: FC = () => {
     0
   )
 
+  // Upload ingredients in case they are not in the store
   useEffect(() => {
-    // NOTE: upload ingredients in case they are not in the store
     if (!ingredients.length) dispatch(loadIngredients())
   }, [dispatch, ingredients])
 
-  // TODO
-  // загружать заказы через сокет, если открыли как отдельную страницу по ссылке
-  if (!order) return <Navigate to='/order-not-found' />
+  if (!order) return <Loader />
 
   return (
-    <div className={cn(styles.container, 'm-2')}>
+    <div className={cn(styles.container, 'm-2', extraClass)}>
       <p className='text text_type_digits-default'>#{order.number}</p>
       <div className={cn(styles.heading, '')}></div>
       <p className={cn('text text_type_main-medium mt-10', styles.align_left)}>{order.name}</p>

@@ -36,5 +36,9 @@ const reducer = createReducer(initialState, (builder) => {
 })
 
 export const selectOrder = (state: RootState) => ({ name: state.order.name, number: state.order.number })
+export const selectOrderCallStatus = (state: RootState) => ({
+  error: state.order.error,
+  pendingRequest: state.order.pendingRequest,
+})
 
 export default reducer

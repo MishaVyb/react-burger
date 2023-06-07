@@ -7,8 +7,8 @@ import styles from './styles.module.css'
 
 const OrdersMeta: FC = () => {
   const { total, totalToday } = useSelector(selectFeedTotal)
-  const doneOrders = useSelector(selectDoneOrders)
-  const pendingOrders = useSelector(selectPendingOrders)
+  const doneOrders = useSelector(selectDoneOrders())
+  const pendingOrders = useSelector(selectPendingOrders())
 
   return (
     <div className={cn(styles.container, 'ml-15')}>

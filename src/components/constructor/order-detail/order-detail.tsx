@@ -2,17 +2,19 @@ import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-component
 import { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import Loader from '../../../UI/loader/loader'
 import { useDispatch, useSelector } from '../../../hooks/redux'
 import { selectIsAuthenticated } from '../../../services/auth/reducer'
 import { selectConstructorBun, selectConstructorItems } from '../../../services/constructor/reducer'
 import { loadOrder } from '../../../services/order/actions'
-import { selectOrder } from '../../../services/order/reducer'
+import { selectOrder, selectOrderCallStatus } from '../../../services/order/reducer'
 import styles from './styles.module.css'
 
 const OrderDetail: FC = () => {
   const items = useSelector(selectConstructorItems)
   const bun = useSelector(selectConstructorBun)
   const order = useSelector(selectOrder)
+  const { error, pendingRequest } = useSelector(selectOrderCallStatus)
   const isAuth: boolean = useSelector(selectIsAuthenticated)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -20,6 +22,8 @@ const OrderDetail: FC = () => {
   useEffect(() => {
     isAuth ? dispatch(loadOrder({ items, bun })) : navigate('/login')
   }, [dispatch, items, bun, navigate, isAuth])
+
+  if (pendingRequest) return <Loader />
 
   return (
     <section className={styles.container}>

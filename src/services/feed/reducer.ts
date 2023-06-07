@@ -1,7 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit'
 
-import { FEED_ALL_DATA } from '../../utils/data'
 import { RootState } from '../store'
+import { wsClose, wsConnecting, wsError, wsMessage, wsOpen } from './actions'
+
+export enum WebsocketStatus {
+  CONNECTING = 'CONNECTING.',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE',
+}
 
 export enum FeedOrderStatus {
   done = 'done',
@@ -27,52 +33,61 @@ export type TFeedOrder = {
   number: number
 }
 
-interface IFeedState {
+export type TFeed = {
   orders: TFeedOrder[]
-  total: number
-  totalToday: number
+  total: number | null
+  totalToday: number | null
 }
 
-// TODO
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const initialState: IFeedState = FEED_ALL_DATA
+export type TwsState = {
+  wsStatus: WebsocketStatus
+  wsError: string
+}
+
+interface IFeedState extends TFeed, TwsState {}
+
+const initialState: IFeedState = {
+  orders: [],
+  total: null,
+  totalToday: null,
+  wsStatus: WebsocketStatus.OFFLINE,
+  wsError: '',
+}
 
 const reducer = createReducer(initialState, (builder) => {
-  // builder
-  //   .addCase(loadOrder.pending, (state) => {
-  //     state.pendingRequest = true
-  //   })
-  //   .addCase(loadOrder.fulfilled, (state, action) => {
-  //     state.pendingRequest = false
-  //     state.error = null
-  //     state.name = action.payload.name
-  //     state.number = action.payload.number
-  //   })
-  //   .addCase(loadOrder.rejected, (state, action) => {
-  //     state.pendingRequest = false
-  //     if (action.payload) state.error = action.payload
-  //     else state.error = action.error.message
-  //   })
+  builder
+    .addCase(wsConnecting, (state) => {
+      state.wsStatus = WebsocketStatus.CONNECTING
+    })
+    .addCase(wsOpen, (state) => {
+      state.wsStatus = WebsocketStatus.ONLINE
+      state.wsError = ''
+    })
+    .addCase(wsClose, (state) => {
+      // return initialState
+      state.wsStatus = WebsocketStatus.OFFLINE
+    })
+    .addCase(wsError, (state, action) => {
+      state.wsError = action.payload
+    })
+    .addCase(wsMessage, (state, action) => {
+      return { ...state, ...action.payload }
+    })
 })
 
+export const selectWsState = (state: RootState) => ({ wsStatus: state.feed.wsStatus, wsError: state.feed.wsError })
 export const selectFeedTotal = (state: RootState) => ({ total: state.feed.total, totalToday: state.feed.totalToday })
-export const selectOrders = (state: RootState) => {
-  // UNUSED
-  // TODO перенести в редусер, чтобы не мутировать в селекторе
-  // state.feed.orders.map((order) => {
-  //   return order.ingredients.map((ingredientId) => {
-  //     return selectIngredientsItem(ingredientId)
-  //   })
-  // })
-
-  return state.feed.orders
-}
+export const selectOrders = (state: RootState) => state.feed.orders
 export const selectOrder = (id: string | undefined) => (store: RootState) =>
   store.feed.orders.find((v) => v._id === id) || null
 
-export const selectDoneOrders = (state: RootState) => state.feed.orders.filter((v) => v.status === FeedOrderStatus.done)
-export const selectPendingOrders = (state: RootState) =>
-  state.feed.orders.filter((v) => v.status === FeedOrderStatus.pending)
+export const selectDoneOrders =
+  (limit = 7) =>
+  (state: RootState) =>
+    state.feed.orders.filter((v) => v.status === FeedOrderStatus.done).slice(0, limit)
+export const selectPendingOrders =
+  (limit = 7) =>
+  (state: RootState) =>
+    state.feed.orders.filter((v) => v.status === FeedOrderStatus.pending).slice(0, limit)
 
 export default reducer

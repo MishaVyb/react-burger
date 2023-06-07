@@ -11,11 +11,9 @@ const OrderDetailModal: FC = () => {
   const navigate = useNavigate()
 
   return (
-    <div style={{ zIndex: 10 }}>
-      <Modal initialShow onClose={() => (backgroundPath ? navigate(backgroundPath) : null)}>
-        <OrderDetail />
-      </Modal>
-    </div>
+    <Modal initialShow onClose={() => (backgroundPath ? navigate(backgroundPath) : null)}>
+      <OrderDetail />
+    </Modal>
   )
 }
 

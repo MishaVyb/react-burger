@@ -85,7 +85,7 @@ const App: FC = () => {
           path='/profile/orders/:id'
           element={
             <RouteDispatch loginRequired>
-              <ProfileOrdersPage />
+              <FeedOrderDetailPage />
             </RouteDispatch>
           }
         />

@@ -93,6 +93,7 @@ export const selectAuth = (state: RootState) => state.auth
 export const selectUser = (state: RootState) => state.auth.user
 export const selectIsAuthenticated = (state: RootState) => !!state.auth.accessToken
 export const selectAccessToken = (state: RootState) => state.auth.accessToken
+export const selectAccessTokenSimplified = (state: RootState) => state.auth.accessToken.replace('Bearer ', '')
 export const selectRefreshToken = (state: RootState) => state.auth.refreshToken
 
 export default reducer

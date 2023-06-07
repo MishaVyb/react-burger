@@ -3,6 +3,8 @@ import { ITokens, IUser } from '../services/auth/reducer'
 import { TBurgerIngredient } from './types'
 
 const ROOT_ENDPOINT = 'https://norma.nomoreparties.space/api'
+export const WS_ORDERS_URL = 'wss://norma.nomoreparties.space/orders'
+export const WS_FEED_URL = 'wss://norma.nomoreparties.space/orders/all'
 
 type TOnTokenUpdatesCallback = (newTokens: ITokens) => void
 
@@ -123,14 +125,43 @@ export const fetchIngredients = async () => {
   return payload.data
 }
 
-export const fetchOrder = async (body: { ingredients: string[] }) => {
-  const res = await fetch(`${ROOT_ENDPOINT}/orders`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  })
-  const data = await checkResponse<IOrderResponse>(res)
-  return { name: data.name, number: data.order.number }
+export const fetchOrder = async (
+  body: { ingredients: string[] },
+  auth: ITokens,
+  onTokenUpdates: TOnTokenUpdatesCallback
+) => {
+  try {
+    const res = await fetch(`${ROOT_ENDPOINT}/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: auth.accessToken },
+      body: JSON.stringify(body),
+    })
+    const data = await checkResponse<IOrderResponse>(res)
+    return { name: data.name, number: data.order.number }
+  } catch (e) {
+    //
+    // RETRY
+    console.log('Retry. Handling error. ', e)
+    try {
+      const newTokens = await fetchTokenUpdate(auth)
+      //
+      // RETRY OK
+      console.log('Retry. Handle error successfully. ', { newTokens })
+      onTokenUpdates(newTokens)
+      const res = await fetch(`${ROOT_ENDPOINT}/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: auth.accessToken },
+        body: JSON.stringify(body),
+      })
+      const data = await checkResponse<IOrderResponse>(res)
+      return { name: data.name, number: data.order.number }
+    } catch (e) {
+      //
+      // RETRY NOT OK
+      console.log('Retry. Handling error failed. ', e)
+      throw e
+    }
+  }
 }
 
 export const fetchLogin = async (body: IMakeLoginPayload) => {
