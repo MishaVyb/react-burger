@@ -61,9 +61,8 @@ const reducer = createReducer(initialState, (builder) => {
       state.wsStatus = WebsocketStatus.ONLINE
       state.wsError = ''
     })
-    .addCase(wsClose, (state) => {
-      // return initialState
-      state.wsStatus = WebsocketStatus.OFFLINE
+    .addCase(wsClose, () => {
+      return initialState // Release socket data from store on close
     })
     .addCase(wsError, (state, action) => {
       state.wsError = action.payload
@@ -80,12 +79,27 @@ export const selectOrder = (id: string | undefined) => (store: RootState) =>
   store.feed.orders.find((v) => v._id === id) || null
 
 export const selectDoneOrders =
-  (limit = 7) =>
-  (state: RootState) =>
-    state.feed.orders.filter((v) => v.status === FeedOrderStatus.done).slice(0, limit)
+  (chunkSize = 10) =>
+  (state: RootState) => {
+    const chunks = []
+    const orders = state.feed.orders.filter((v) => v.status === FeedOrderStatus.done)
+    for (let i = 0; i < orders.length; i += chunkSize) {
+      const chunk = orders.slice(i, i + chunkSize)
+      chunks.push(chunk)
+    }
+    return chunks
+  }
+
 export const selectPendingOrders =
-  (limit = 7) =>
-  (state: RootState) =>
-    state.feed.orders.filter((v) => v.status === FeedOrderStatus.pending).slice(0, limit)
+  (chunkSize = 10) =>
+  (state: RootState) => {
+    const chunks = []
+    const orders = state.feed.orders.filter((v) => v.status === FeedOrderStatus.pending)
+    for (let i = 0; i < orders.length; i += chunkSize) {
+      const chunk = orders.slice(i, i + chunkSize)
+      chunks.push(chunk)
+    }
+    return chunks
+  }
 
 export default reducer

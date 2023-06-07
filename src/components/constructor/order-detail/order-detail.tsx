@@ -2,6 +2,7 @@ import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-component
 import { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import ErrorElement from '../../../UI/errorElement/loader'
 import Loader from '../../../UI/loader/loader'
 import { useDispatch, useSelector } from '../../../hooks/redux'
 import { selectIsAuthenticated } from '../../../services/auth/reducer'
@@ -24,6 +25,7 @@ const OrderDetail: FC = () => {
   }, [dispatch, items, bun, navigate, isAuth])
 
   if (pendingRequest) return <Loader />
+  if (error) return <ErrorElement e={error} />
 
   return (
     <section className={styles.container}>
