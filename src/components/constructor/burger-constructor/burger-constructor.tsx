@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { useSelector } from 'react-redux'
 
+import { useSelector } from '../../../hooks/redux'
 import { selectConstructorBun, selectConstructorItems } from '../../../services/constructor/reducer'
 import BurgerElement from '../burger-element/burger-element'
 import ElementsList from '../elements-list/elements-list'

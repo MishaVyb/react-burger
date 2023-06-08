@@ -2,6 +2,8 @@ import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from '@reduxjs/
 import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore'
 import { Middleware } from 'redux'
 
+import { fetchTokensAction } from '../auth/actions'
+
 export type TwsActionTypes<TwsMessageSend, TwsMessageReceve> = {
   wsConnect: ActionCreatorWithPayload<string>
   wsDisconnect: ActionCreatorWithoutPayload
@@ -48,8 +50,22 @@ export const socketMiddleware = <TwsMessageSend, TwsMessageReceve>(
         socket.onmessage = (event) => {
           const { data } = event
           const parsedData = JSON.parse(data)
-          console.log('WebSocket. Receve message. ', parsedData)
-          dispatch(onMessage(parsedData))
+          if (!parsedData.success) {
+            // NOT OK
+            //
+            if (parsedData.message === 'Invalid or missing token') {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              dispatch(fetchTokensAction())
+            }
+            console.log('WebSocket. Receve message with error. ', parsedData)
+            dispatch(onError(JSON.stringify(parsedData.message || parsedData)))
+          } else {
+            // OK
+            //
+            console.log('WebSocket. Receve message. ', parsedData)
+            dispatch(onMessage(parsedData))
+          }
         }
 
         socket.onclose = (event) => {

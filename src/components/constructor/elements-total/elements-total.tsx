@@ -1,9 +1,9 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FC } from 'react'
-import { useSelector } from 'react-redux'
 
 import CurrencyView from '../../../UI/currency-view/currency-view'
 import Modal from '../../../UI/modal/modal'
+import { useSelector } from '../../../hooks/redux'
 import { selectConstructorIsComplete, selectConstructorTotal } from '../../../services/constructor/reducer'
 import OrderDetail from '../order-detail/order-detail'
 import styles from './styles.module.css'

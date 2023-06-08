@@ -6,6 +6,7 @@ import {
   fetchLogout,
   fetchRegister,
   fetchResetPassword,
+  fetchTokenUpdate,
   fetchUpdateUser,
   fetchUser,
 } from '../../utils/burger-api'
@@ -86,6 +87,16 @@ export const updateUser = createAsyncThunk<IAuthSimplified, IUserPayload, ThunkA
     }
   }
 )
+
+export const fetchTokensAction = createAsyncThunk<void, void, ThunkApiConfig>('auth/loadUser', async (_, thunkApi) => {
+  try {
+    const res = await fetchTokenUpdate(selectAuth(thunkApi.getState()))
+    thunkApi.dispatch(updateTokensAction(res))
+  } catch (e) {
+    const message = e instanceof Error ? e.message : JSON.stringify(e)
+    return thunkApi.rejectWithValue(message)
+  }
+})
 
 export const loadRegister = createAsyncThunk<IAuthSimplified, IUserPayload, ThunkApiConfig>(
   'auth/loadRegister',

@@ -42,7 +42,7 @@ const checkResponse = async <T = ISuccessResponse>(res: Response): Promise<T> =>
   return Promise.reject(requestFailsReason)
 }
 
-const fetchTokenUpdate = async (auth: ITokens) => {
+export const fetchTokenUpdate = async (auth: ITokens) => {
   if (!auth.refreshToken) throw Error('No refresh token. Please, login again. ')
 
   const res = await fetch(`${ROOT_ENDPOINT}/auth/token`, {
