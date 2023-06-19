@@ -1,4 +1,4 @@
-import { Dispatch } from 'redux'
+import { AsyncThunk, createAction, createAsyncThunk } from '@reduxjs/toolkit'
 
 import {
   fetchForgotPassword,
@@ -6,205 +6,141 @@ import {
   fetchLogout,
   fetchRegister,
   fetchResetPassword,
+  fetchTokenUpdate,
   fetchUpdateUser,
   fetchUser,
 } from '../../utils/burger-api'
-import { selectAuth, selectRefreshToken } from './selectors'
-
-export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST'
-export const LOAD_USER_ERROR = 'LOAD_USER_ERROR'
-export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS'
-
-export const LOAD_USER_UPDATE_REQUEST = 'LOAD_USER_UPDATE_REQUEST'
-export const LOAD_USER_UPDATE_ERROR = 'LOAD_USER_UPDATE_ERROR'
-export const LOAD_USER_UPDATE_SUCCESS = 'LOAD_USER_UPDATE_SUCCESS'
-
-export const LOAD_LOGIN_REQUEST = 'LOAD_LOGIN_REQUEST'
-export const LOAD_LOGIN_ERROR = 'LOAD_LOGIN_ERROR'
-export const LOAD_LOGIN_SUCCESS = 'LOAD_LOGIN_SUCCESS'
-
-export const LOAD_REGISTER_REQUEST = 'LOAD_REGISTER_REQUEST'
-export const LOAD_REGISTER_ERROR = 'LOAD_REGISTER_ERROR'
-export const LOAD_REGISTER_SUCCESS = 'LOAD_REGISTER_SUCCESS'
-
-export const LOAD_FORGOT_PASSWORD_REQUEST = 'LOAD_FORGOT_PASSWORD_REQUEST'
-export const LOAD_FORGOT_PASSWORD_ERROR = 'LOAD_FORGOT_PASSWORD_ERROR'
-export const LOAD_FORGOT_PASSWORD_SUCCESS = 'LOAD_FORGOT_PASSWORD_SUCCESS'
-
-export const LOAD_RESET_PASSWORD_REQUEST = 'LOAD_RESET_PASSWORD_REQUEST'
-export const LOAD_RESET_PASSWORD_ERROR = 'LOAD_RESET_PASSWORD_ERROR'
-export const LOAD_RESET_PASSWORD_SUCCESS = 'LOAD_RESET_PASSWORD_SUCCESS'
-
-export const LOAD_LOGOUT_REQUEST = 'LOAD_LOGOUT_REQUEST'
-export const LOAD_LOGOUT_ERROR = 'LOAD_LOGOUT_ERROR'
-export const LOAD_LOGOUT_SUCCESS = 'LOAD_LOGOUT_SUCCESS'
-
-export const UPDATE_TOKENS = 'UPDATE_TOKENS'
-
-export const RESET_REQUEST_STATUS = 'RESET_REQUEST_STATUS'
-export const resetRequestStatus = () => ({ type: RESET_REQUEST_STATUS })
-
-export interface ITokens {
-  accessToken: string
-  refreshToken: string
-}
+import { RootState } from '../store'
+import { IAuthFull, IAuthSimplified, ITokens, selectAuth, selectRefreshToken } from './reducer'
 
 export interface ILoginPayload {
   email: string
 }
-
 export interface IMakeLoginPayload extends ILoginPayload {
   password: string
 }
-
 export interface IUserPayload extends IMakeLoginPayload {
   name: string
 }
-
 export interface IResetPasswordPayload {
   password: string
   token: string
 }
-
-export const loadUser = () => (dispatch: Dispatch, getState: () => object) => {
-  dispatch({
-    type: LOAD_USER_REQUEST,
-  })
-
-  fetchUser(selectAuth(getState()), (newTokens: ITokens) => dispatch({ type: UPDATE_TOKENS, payload: newTokens }))
-    .then((json) => {
-      dispatch({
-        type: LOAD_USER_SUCCESS,
-        payload: json,
-      })
-    })
-    .catch((err) => {
-      dispatch({
-        type: LOAD_USER_ERROR,
-        payload: err,
-      })
-    })
+interface ThunkApiConfig {
+  rejectValue: string
+  state: RootState
 }
 
-export const updateUser = (data: IUserPayload) => (dispatch: Dispatch, getState: () => object) => {
-  dispatch({
-    type: LOAD_USER_UPDATE_REQUEST,
-  })
+export type TAuthAsyncThunk = AsyncThunk<
+  IAuthSimplified | IAuthFull | void,
+  ILoginPayload | IMakeLoginPayload | IUserPayload | IResetPasswordPayload,
+  ThunkApiConfig
+>
 
-  fetchUpdateUser(data, selectAuth(getState()), (newTokens: ITokens) =>
-    dispatch({ type: UPDATE_TOKENS, payload: newTokens })
-  )
-    .then((json) => {
-      dispatch({
-        type: LOAD_USER_UPDATE_SUCCESS,
-        payload: json,
-      })
-    })
-    .catch((err) => {
-      dispatch({
-        type: LOAD_USER_UPDATE_ERROR,
-        payload: err,
-      })
-    })
-}
+export type TPendingAction = ReturnType<TAuthAsyncThunk['pending']>
+export type TRejectedAction = ReturnType<TAuthAsyncThunk['rejected']>
+export type TFulfilledAction = ReturnType<TAuthAsyncThunk['fulfilled']>
 
-export const loadLogin = (data: IMakeLoginPayload) => (dispatch: Dispatch) => {
-  dispatch({
-    type: LOAD_LOGIN_REQUEST,
-  })
+export const updateTokensAction = createAction<ITokens>('auth/updateTokensAction')
+export type TUpdateTokensAction = ReturnType<typeof updateTokensAction>
+export const resetRequestStatusAction = createAction('auth/resetRequestStatusAction')
+export type TResetRequestStatusAction = ReturnType<typeof resetRequestStatusAction>
 
-  fetchLogin(data)
-    .then((json) => {
-      dispatch({
-        type: LOAD_LOGIN_SUCCESS,
-        payload: json,
-      })
-    })
-    .catch((err) =>
-      dispatch({
-        type: LOAD_LOGIN_ERROR,
-        payload: err,
-      })
-    )
-}
+export const loadLogin = createAsyncThunk<IAuthFull, IMakeLoginPayload, ThunkApiConfig>(
+  'auth/loadLogin',
+  async (payload, thunkApi) => {
+    try {
+      return await fetchLogin(payload)
+    } catch (e) {
+      const message = e instanceof Error ? e.message : JSON.stringify(e)
+      return thunkApi.rejectWithValue(message)
+    }
+  }
+)
 
-export const loadRegister = (data: IUserPayload) => (dispatch: Dispatch) => {
-  dispatch({
-    type: LOAD_REGISTER_REQUEST,
-  })
+export const loadUser = createAsyncThunk<IAuthSimplified, void, ThunkApiConfig>(
+  'auth/loadUser',
+  async (_, thunkApi) => {
+    try {
+      const res = await fetchUser(selectAuth(thunkApi.getState()), (newTokens: ITokens) =>
+        thunkApi.dispatch(updateTokensAction(newTokens))
+      )
+      return res
+    } catch (e) {
+      const message = e instanceof Error ? e.message : JSON.stringify(e)
+      return thunkApi.rejectWithValue(message)
+    }
+  }
+)
 
-  fetchRegister(data)
-    .then((json) =>
-      dispatch({
-        type: LOAD_REGISTER_SUCCESS,
-        payload: json,
-      })
-    )
-    .catch((err) =>
-      dispatch({
-        type: LOAD_REGISTER_ERROR,
-        payload: err,
-      })
-    )
-}
+export const updateUser = createAsyncThunk<IAuthSimplified, IUserPayload, ThunkApiConfig>(
+  'auth/updateUser',
+  async (payload, thunkApi) => {
+    try {
+      const res = await fetchUpdateUser(payload, selectAuth(thunkApi.getState()), (newTokens: ITokens) =>
+        thunkApi.dispatch(updateTokensAction(newTokens))
+      )
+      return res
+    } catch (e) {
+      const message = e instanceof Error ? e.message : JSON.stringify(e)
+      return thunkApi.rejectWithValue(message)
+    }
+  }
+)
 
-export const loadForgotPassword = (data: ILoginPayload) => (dispatch: Dispatch) => {
-  dispatch({
-    type: LOAD_FORGOT_PASSWORD_REQUEST,
-  })
+export const fetchTokensAction = createAsyncThunk<void, void, ThunkApiConfig>('auth/loadUser', async (_, thunkApi) => {
+  try {
+    const res = await fetchTokenUpdate(selectAuth(thunkApi.getState()))
+    thunkApi.dispatch(updateTokensAction(res))
+  } catch (e) {
+    const message = e instanceof Error ? e.message : JSON.stringify(e)
+    return thunkApi.rejectWithValue(message)
+  }
+})
 
-  fetchForgotPassword(data)
-    .then((json) =>
-      dispatch({
-        type: LOAD_FORGOT_PASSWORD_SUCCESS,
-        payload: json,
-      })
-    )
-    .catch((err) =>
-      dispatch({
-        type: LOAD_FORGOT_PASSWORD_ERROR,
-        payload: err,
-      })
-    )
-}
+export const loadRegister = createAsyncThunk<IAuthSimplified, IUserPayload, ThunkApiConfig>(
+  'auth/loadRegister',
+  async (payload, thunkApi) => {
+    try {
+      const res = await fetchRegister(payload)
+      return res
+    } catch (e) {
+      const message = e instanceof Error ? e.message : JSON.stringify(e)
+      return thunkApi.rejectWithValue(message)
+    }
+  }
+)
 
-export const loadResetPassword = (data: IResetPasswordPayload) => (dispatch: Dispatch) => {
-  dispatch({
-    type: LOAD_RESET_PASSWORD_REQUEST,
-  })
+export const loadForgotPassword = createAsyncThunk<void, ILoginPayload, ThunkApiConfig>(
+  'auth/loadForgotPassword',
+  async (payload, thunkApi) => {
+    try {
+      await fetchForgotPassword(payload)
+    } catch (e) {
+      const message = e instanceof Error ? e.message : JSON.stringify(e)
+      return thunkApi.rejectWithValue(message)
+    }
+  }
+)
 
-  fetchResetPassword(data)
-    .then((json) =>
-      dispatch({
-        type: LOAD_RESET_PASSWORD_SUCCESS,
-        payload: json,
-      })
-    )
-    .catch((err) =>
-      dispatch({
-        type: LOAD_RESET_PASSWORD_ERROR,
-        payload: err,
-      })
-    )
-}
+export const loadResetPassword = createAsyncThunk<void, IResetPasswordPayload, ThunkApiConfig>(
+  'auth/loadResetPassword',
+  async (payload, thunkApi) => {
+    try {
+      await fetchResetPassword(payload)
+    } catch (e) {
+      const message = e instanceof Error ? e.message : JSON.stringify(e)
+      return thunkApi.rejectWithValue(message)
+    }
+  }
+)
 
-export const loadLogout = () => (dispatch: Dispatch, getState: () => object) => {
-  dispatch({
-    type: LOAD_LOGOUT_REQUEST,
-  })
-
-  const token = selectRefreshToken(getState())
-  fetchLogout({ token })
-    .then((json) =>
-      dispatch({
-        type: LOAD_LOGOUT_SUCCESS,
-        payload: json,
-      })
-    )
-    .catch((err) =>
-      dispatch({
-        type: LOAD_LOGOUT_ERROR,
-        payload: err,
-      })
-    )
-}
+export const loadLogout = createAsyncThunk<void, void, ThunkApiConfig>('auth/loadLogout', async (_, thunkApi) => {
+  try {
+    const token = selectRefreshToken(thunkApi.getState())
+    await fetchLogout({ token })
+  } catch (e) {
+    const message = e instanceof Error ? e.message : JSON.stringify(e)
+    return thunkApi.rejectWithValue(message)
+  }
+})

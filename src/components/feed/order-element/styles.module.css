@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  background: #1c1c21;
+
+  border-radius: 40px;
+}
+
+.heading {
+  display: flex;
+
+  justify-content: space-between;
+}
+
+.ingredients {
+  display: flex;
+}
+
+.ingredient_image {
+  object-fit: none;
+  margin-left: -30px;
+  border-radius: 50%;
+  border: 2px dashed royalblue;
+  background: var(--background-alt);
+}
+
+.ingredient_counter {
+  transform: translate(30px, 30px);
+  margin-left: -20px;
+}
+
+.total {
+  margin-left: auto;
+}

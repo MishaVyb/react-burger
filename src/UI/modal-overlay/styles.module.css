@@ -8,4 +8,7 @@
 
   background-color: black;
   opacity: 60%;
+
+  /* modal is over all onther app content */
+  z-index: 1000;
 }

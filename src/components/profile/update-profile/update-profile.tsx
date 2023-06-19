@@ -1,9 +1,9 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ChangeEvent, FC, FormEvent, MouseEvent, RefObject, useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
-import { IUserPayload, loadUser, resetRequestStatus, updateUser } from '../../../services/auth/actions'
-import { selectAuthRequestStatus, selectUser } from '../../../services/auth/selectors'
+import { useDispatch, useSelector } from '../../../hooks/redux'
+import { IUserPayload, loadUser, resetRequestStatusAction, updateUser } from '../../../services/auth/actions'
+import { selectAuthRequestStatus, selectUser } from '../../../services/auth/reducer'
 import styles from './styles.module.css'
 
 const UpdateProfile: FC = () => {
@@ -23,25 +23,25 @@ const UpdateProfile: FC = () => {
     password: useRef<HTMLInputElement>(null),
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  useEffect(() => dispatch(loadUser()), [dispatch])
+  useEffect(() => {
+    dispatch(loadUser())
+  }, [dispatch])
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  useEffect(() => () => dispatch(resetRequestStatus()), [dispatch])
+  useEffect(
+    () => () => {
+      dispatch(resetRequestStatusAction())
+    },
+    [dispatch]
+  )
 
   const onFormChange = (e: ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value })
   const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(updateUser(form))
-    dispatch(resetRequestStatus())
+    dispatch(resetRequestStatusAction())
     setFormUpdates(initialUpdatesState)
 
-    // NOTE: we do not hold password value after form submit: reset from value
+    // NOTE: we do not hold password value after form submit: reset form value
     setForm((state) => ({ ...state, password: '' }))
   }
 
@@ -54,7 +54,7 @@ const UpdateProfile: FC = () => {
     e.preventDefault()
     setForm(initialFormState)
     setFormUpdates(initialUpdatesState)
-    dispatch(resetRequestStatus())
+    dispatch(resetRequestStatusAction())
   }
 
   let wasChanged = false

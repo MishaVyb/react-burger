@@ -1,0 +1,14 @@
+.container {
+  flex-basis: 50%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll {
+  overflow-y: scroll;
+}
+
+.order_link {
+  color: inherit;
+}

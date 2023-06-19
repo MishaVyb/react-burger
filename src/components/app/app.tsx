@@ -6,10 +6,13 @@ import LoginPage from '../../pages/auth/login-page/login-page'
 import RegisterPage from '../../pages/auth/register-page/register-page'
 import ResetPasswordPage from '../../pages/auth/reset-password-page/reset-password-page'
 import NotFoundPage from '../../pages/errors/not-found/not-found'
-import HomePage from '../../pages/home-page/home-page'
-import IngredientDetailPage from '../../pages/ingredient-detail/ingredient-detail'
+import FeedOrderDetailPage from '../../pages/feed-order-detail/feed-order-detail-page'
+import FeedPage from '../../pages/feed/feed-page'
+import HomePage from '../../pages/home/home-page'
+import IngredientDetailPage from '../../pages/ingredient-detail/ingredient-detail-page'
 import ProfileOrdersPage from '../../pages/profile/orders-page/orders-page'
 import ProfilePage from '../../pages/profile/profile-page/profile-page'
+import OrderDetailModal from '../feed/order-detail-modal/order-detail-modal'
 import AppHeader from '../header/app-header/app-header'
 import IngredientDetailModal from '../ingredients/ingredient-detail-modal/ingredient-detail-modal'
 import RouteDispatch from '../routes-dispatch/route-dispatch'
@@ -28,6 +31,8 @@ const App: FC = () => {
       <Routes location={state?.backgroundLocation || location}>
         <Route path='*' element={<NotFoundPage />} />
         <Route path='/' element={<HomePage />} />
+        <Route path='/feed' element={<FeedPage />} />
+        <Route path='/feed/:id' element={<FeedOrderDetailPage />} />
         <Route
           path='/login'
           element={
@@ -76,6 +81,14 @@ const App: FC = () => {
             </RouteDispatch>
           }
         />
+        <Route
+          path='/profile/orders/:id'
+          element={
+            <RouteDispatch loginRequired>
+              <FeedOrderDetailPage />
+            </RouteDispatch>
+          }
+        />
         <Route path='/ingredients/:id' element={<IngredientDetailPage />} />
       </Routes>
 
@@ -83,6 +96,8 @@ const App: FC = () => {
       {state?.backgroundLocation && (
         <Routes>
           <Route path='/ingredients/:id' element={<IngredientDetailModal />} />
+          <Route path='/feed/:id' element={<OrderDetailModal />} />
+          <Route path='/profile/orders/:id' element={<OrderDetailModal />} />
         </Routes>
       )}
     </div>

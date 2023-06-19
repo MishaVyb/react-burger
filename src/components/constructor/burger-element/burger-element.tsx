@@ -1,17 +1,27 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { UUID } from 'crypto'
 import type { Identifier } from 'dnd-core'
 import { FC, useEffect, useRef, useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { useDispatch, useSelector } from 'react-redux'
 
-import { addConstructorItem, removeConstructorItem, setMovingItemIndex } from '../../../services/constructor/actions'
-import { selectConstructorItems, selectConstructorMovingItemIndex } from '../../../services/constructor/selectors'
+import { useDispatch, useSelector } from '../../../hooks/redux'
+import {
+  addConstructorBun,
+  addConstructorFilling,
+  removeConstructorItem,
+  selectConstructorItems,
+  selectConstructorMovingItemIndex,
+  setMovingItemIndex,
+} from '../../../services/constructor/reducer'
 import {
   DragGroups,
   IDragFullItem,
   IDragItem,
+  IngredientTypes,
   TArrangement,
+  TBunIngredient,
   TBurgerIngredient,
+  TFillingIngredient,
   getDragGroup,
   isFilling,
 } from '../../../utils/types'
@@ -20,17 +30,20 @@ import { sortableHoverHandler } from './sortable-hover-handler'
 import styles from './styles.module.css'
 
 interface IBurgerElementProps {
-  item?: TBurgerIngredient
+  item?: TBurgerIngredient | null
   index?: number
   arrangement?: TArrangement
   setContainerHighlight?: (isHighlight: boolean) => void
 }
 
-const BurgerElement: FC<IBurgerElementProps> = ({ item, index, arrangement, setContainerHighlight }) => {
+// NOTE:
+// `index = 0` is necessary default for the first dragged Filling. For Bun it has no effect.
+//
+const BurgerElement: FC<IBurgerElementProps> = ({ item, index = 0, arrangement, setContainerHighlight }) => {
   const ref = useRef<HTMLInputElement>(null)
   const dispatch = useDispatch()
-  const movingIndex: number | null = useSelector(selectConstructorMovingItemIndex)
-  const items: TBurgerIngredient[] = useSelector(selectConstructorItems)
+  const movingIndex = useSelector(selectConstructorMovingItemIndex)
+  const items = useSelector(selectConstructorItems)
   const [isItemHighlight, setItemHighlight] = useState(false)
 
   const isBlank = !item
@@ -43,10 +56,10 @@ const BurgerElement: FC<IBurgerElementProps> = ({ item, index, arrangement, setC
       // [1.1]
       // Buns do not have index and movingItemIndex accordingly. And Buns are not sortable.
       // So here is an extra case handling:
-      if (dragItem.type === 'bun') {
+      if (dragItem.type === IngredientTypes.bun) {
         if (!dragItem.isBunApplied) {
           dragItem.isBunApplied = true
-          dispatch(addConstructorItem(dragItem, undefined))
+          dispatch(addConstructorBun(dragItem as TBunIngredient))
         }
         return
       }
@@ -55,8 +68,13 @@ const BurgerElement: FC<IBurgerElementProps> = ({ item, index, arrangement, setC
       // For the first hover call item is not in a target array and index is undefined.
       // So add Burger Constructor Item at this moment.
       if (dragItem.index === undefined) {
-        dispatch(addConstructorItem(dragItem, index))
-
+        dispatch(
+          addConstructorFilling({
+            item: dragItem as TFillingIngredient,
+            index: index,
+            key: crypto.randomUUID() as UUID,
+          })
+        )
         // Also item may be dragged inside container (it's sortable).
         // For better performance, we want to show Empty Blank Item (dashed border container) under current drag layer.
         // So setMovingItemIndex is called here:
@@ -131,15 +149,13 @@ const BurgerElement: FC<IBurgerElementProps> = ({ item, index, arrangement, setC
           price={item.price}
           thumbnail={item.image_mobile}
           extraClass={extraClass}
-          handleClose={() => dispatch(removeConstructorItem(item, index))}
+          handleClose={() =>
+            dispatch(removeConstructorItem({ index, item } as { index: number; item: TFillingIngredient }))
+          }
         />
       )}
     </div>
   )
-}
-
-BurgerElement.defaultProps = {
-  index: 0, // NOTE: necessary default for the first dragged item
 }
 
 export default BurgerElement

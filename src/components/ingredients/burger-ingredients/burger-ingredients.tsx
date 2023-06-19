@@ -1,10 +1,10 @@
 import { FC, useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
+import { useDispatch, useSelector } from '../../../hooks/redux'
 import useRefScroll from '../../../hooks/use-ref-scroll'
 import { loadIngredients } from '../../../services/ingredients/actions'
-import { selectIngredientsItems } from '../../../services/ingredients/selectors'
-import { TBurgerIngredient, IngredientTypes as Tabs } from '../../../utils/types'
+import { selectIngredientsItems } from '../../../services/ingredients/reducer'
+import { IngredientTypes as Tabs } from '../../../utils/types'
 import IngredientsList from '../ingredients-list/ingredients-list'
 import { NavBar } from '../navbar/navbar'
 import styles from './styles.module.css'
@@ -17,13 +17,11 @@ interface IActiveTabs {
 
 const BurgerIngredients: FC = () => {
   const dispatch = useDispatch()
-  const ingredients: TBurgerIngredient[] = useSelector(selectIngredientsItems)
+  const ingredients = useSelector(selectIngredientsItems)
   const [activeTabs, setActviveTabs] = useState<IActiveTabs>({ [Tabs.bun]: true })
   const currentActiveTab = [Tabs.bun, Tabs.sauce, Tabs.main].find((type) => activeTabs[type]) || Tabs.bun
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     if (!ingredients.length) dispatch(loadIngredients())
   }, [dispatch, ingredients])
 

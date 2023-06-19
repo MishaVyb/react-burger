@@ -1,0 +1,13 @@
+.container {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.container_statuses {
+  display: flex;
+}
+
+.shrink {
+  flex-shrink: 0;
+}

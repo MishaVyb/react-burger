@@ -1,0 +1,52 @@
+.container {
+  width: 600px;
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+
+  background: #1c1c21;
+
+  border-radius: 40px;
+}
+
+.align_left {
+  margin-right: auto;
+}
+
+.align_right {
+  margin-left: auto;
+}
+
+.ingredients {
+  max-height: 410px;
+}
+
+.scroll {
+  overflow-y: scroll;
+}
+
+.ingredient {
+  width: 600px;
+  display: flex;
+
+  align-items: center;
+}
+
+.ingredient_image {
+  object-fit: none;
+
+  border-radius: 50%;
+  border: 2px dashed royalblue;
+  background: var(--background-alt);
+}
+
+.ingredient_total {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.bottom {
+  display: flex;
+  width: 600px;
+}

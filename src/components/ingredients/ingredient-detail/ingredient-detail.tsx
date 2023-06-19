@@ -1,10 +1,10 @@
 import { FC, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import { setCurrentIngredientDetail, unsetCurrentIngredientDetail } from '../../../services/ingredientDetail/actions'
+import { useDispatch, useSelector } from '../../../hooks/redux'
+import { setCurrentIngredientDetail, unsetCurrentIngredientDetail } from '../../../services/ingredientDetail/reducer'
 import { loadIngredients } from '../../../services/ingredients/actions'
-import { selectIngredientsItem } from '../../../services/ingredients/selectors'
+import { selectIngredientsItem } from '../../../services/ingredients/reducer'
 import { TBurgerIngredient } from '../../../utils/types'
 import styles from './styles.module.css'
 
@@ -21,14 +21,12 @@ const INGREDIENT_UNITS_MAPPING: TUnitsMapping = {
 
 const IngredientDetail: FC = () => {
   const { id } = useParams()
-  const ingredient: TBurgerIngredient | null = useSelector(selectIngredientsItem(id))
+  const ingredient = useSelector(selectIngredientsItem(id))
   const dispatch = useDispatch()
 
   // Set current ingredient as modal content and load ingredient if it are opened by external link
   useEffect(() => {
     if (ingredient) dispatch(setCurrentIngredientDetail(ingredient))
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     else dispatch(loadIngredients())
     return () => {
       dispatch(unsetCurrentIngredientDetail())

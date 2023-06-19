@@ -1,28 +1,25 @@
 import cn from 'classnames'
 import { FC, MouseEvent, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-import { loadLogout, resetRequestStatus } from '../../../services/auth/actions'
-import { selectAuthRequestStatus } from '../../../services/auth/selectors'
+import { useDispatch, useSelector } from '../../../hooks/redux'
+import { loadLogout, resetRequestStatusAction } from '../../../services/auth/actions'
+import { selectAuthRequestStatus } from '../../../services/auth/reducer'
 import styles from './styles.module.css'
 
-const Navbar: FC = () => {
+const Navbar: FC<{ hintText?: string }> = ({ hintText }) => {
   const dispatch = useDispatch()
-  const [loading]: boolean[] = useSelector(selectAuthRequestStatus)
+  const [loading] = useSelector(selectAuthRequestStatus)
 
   useEffect(
     () => () => {
-      dispatch(resetRequestStatus())
+      dispatch(resetRequestStatusAction())
     },
     [dispatch]
   )
 
   const onLogout = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(loadLogout())
   }
 
@@ -38,9 +35,7 @@ const Navbar: FC = () => {
       <a href='.' className={navLinkClassName} onClick={onLogout}>
         {loading ? 'Загрузка...' : 'Выход'}
       </a>
-      <p className='mt-20 text text_type_main-default text_color_inactive'>
-        В этом разделе вы можете изменить свои персональные данные
-      </p>
+      <p className='mt-20 text text_type_main-default text_color_inactive mr-10'>{hintText}</p>
     </nav>
   )
 }
