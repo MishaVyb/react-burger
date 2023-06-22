@@ -133,7 +133,13 @@ const BurgerElement: FC<IBurgerElementProps> = ({ item, index = 0, arrangement, 
   }, [canDrop, isOver, setContainerHighlight])
 
   return (
-    <div className={`pt-2 pb-2 ${styles.container}`} ref={ref} style={{}} data-handler-id={handlerId}>
+    <div
+      className={`pt-2 pb-2 ${styles.container}`}
+      ref={ref}
+      style={{}}
+      data-handler-id={handlerId}
+      data-testid={`constructor-element-${arrangement || index}`}
+    >
       {arrangement ? null : (
         <div className={styles.drag_cursor}>
           <DragIcon type='primary' />

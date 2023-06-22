@@ -27,7 +27,7 @@ interface IOrderResponse {
   order: { number: number }
 }
 
-const checkResponse = async <T = ISuccessResponse>(res: Response): Promise<T> => {
+export const checkResponse = async <T = ISuccessResponse>(res: Response): Promise<T> => {
   if (res.ok) return await res.json()
 
   let requestFailsReason: string | object = ''

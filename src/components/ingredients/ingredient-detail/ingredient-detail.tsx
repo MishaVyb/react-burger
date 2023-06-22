@@ -38,7 +38,9 @@ const IngredientDetail: FC = () => {
 
   return (
     <div className={styles.container}>
-      <p className={`text text_type_main-large ${styles.title}`}>Детали ингредиента</p>
+      <p className={`text text_type_main-large ${styles.title}`} data-testid='ingredient-detail-title'>
+        Детали ингредиента
+      </p>
       <img src={item.image_large} alt='' />
       <p className='text text_type_main-medium m-4'>{item.name}</p>
       <section className={styles.ingredient_composition}>
