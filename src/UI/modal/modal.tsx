@@ -48,7 +48,7 @@ const Modal: FC<IModalProps> = ({ initialShow, triggerElement, onOpen, onClose, 
       <ModalOverlay />
       <div className={styles.wrapper} onClick={close}>
         <section className={`p-10 pb-15 ${styles.modal}`} onClick={(e) => e.stopPropagation()}>
-          <div className={`m-10 ${styles.close}`}>
+          <div className={`m-10 ${styles.close}`} data-testid='modal-close-button'>
             <CloseIcon type='primary' onClick={close} />
           </div>
           {children}

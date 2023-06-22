@@ -13,7 +13,9 @@ interface ICurrencyViewProps {
 const CurrencyView: FC<ICurrencyViewProps> = ({ value, className = '', size = 'default' }) => {
   return (
     <div className={cn(styles.container, className)}>
-      <p className={`text text_type_digits-${size} mr-2`}>{value}</p>
+      <p className={`text text_type_digits-${size} mr-2`} data-testid='value'>
+        {value}
+      </p>
       <CurrencyIcon type='primary' />
     </div>
   )

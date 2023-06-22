@@ -13,7 +13,7 @@ interface IIngredientsListProps {
 
 const IngredientsList = forwardRef<HTMLInputElement, IIngredientsListProps>(({ onView, items, title }, ref) => {
   return (
-    <div className='mt-5 mb-5'>
+    <div className='mt-5 mb-5' data-testid={`ingredient-list-${title}`}>
       <InView as='div' onChange={(inView) => onView(inView)}>
         <p className='text text_type_main-medium' ref={ref}>
           {title}
@@ -21,7 +21,7 @@ const IngredientsList = forwardRef<HTMLInputElement, IIngredientsListProps>(({ o
       </InView>
       <div className={`mt-2 mb-2 ${styles.container}`}>
         {items.map((v, i) => (
-          <div key={v._id} className={styles.item}>
+          <div key={v._id} className={styles.item} data-testid='ingredient-card'>
             <IngredientCard item={v} />
           </div>
         ))}

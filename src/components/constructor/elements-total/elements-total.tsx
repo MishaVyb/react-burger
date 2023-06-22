@@ -17,7 +17,7 @@ const ElementsTotal: FC = () => {
       <Modal
         disable={!isComplete}
         triggerElement={
-          <Button extraClass='ml-5' htmlType='button'>
+          <Button extraClass='ml-5' htmlType='button' data-testid='make-order-button'>
             Оформить заказ
           </Button>
         }

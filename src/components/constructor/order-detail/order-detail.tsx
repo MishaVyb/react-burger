@@ -29,8 +29,12 @@ const OrderDetail: FC = () => {
 
   return (
     <section className={styles.container}>
-      <p className={`mt-20 text text_type_main-medium ${styles.subtitle}`}>{order.name}</p>
-      <p className={`mt-8 text text_type_digits-large ${styles.title}`}>{order.number}</p>
+      <p className={`mt-20 text text_type_main-medium ${styles.subtitle}`} data-testid='order-detail-title'>
+        {order.name}
+      </p>
+      <p className={`mt-8 text text_type_digits-large ${styles.title}`} data-testid='order-detail-number'>
+        {order.number}
+      </p>
       <p className={`mt-8 text text_type_main-default ${styles.subtitle}`}>идентификатор заказа</p>
       <div className={`m-15 ${styles.icon}`}>
         <CheckMarkIcon type='primary' />

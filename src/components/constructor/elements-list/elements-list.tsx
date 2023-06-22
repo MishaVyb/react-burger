@@ -8,7 +8,10 @@ const ElementsList: FC<{ items: TBurgerIngredient[] }> = ({ items }) => {
   const [isHighlight, setContainerHighlight] = useState(false)
 
   return (
-    <div className={`custom-scroll ${styles.container} ${isHighlight ? styles.highlight : ''}`}>
+    <div
+      className={`custom-scroll ${styles.container} ${isHighlight ? styles.highlight : ''}`}
+      data-testid='constructor-elements-list'
+    >
       {items.length ? (
         items.map((v, i) => (
           <BurgerElement key={v._key} item={v} index={i} setContainerHighlight={setContainerHighlight} />
